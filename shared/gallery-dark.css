@@ -1,0 +1,72 @@
+/* Theme controls and the dark viewing room around the three design studies. */
+.gallery-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  min-height: 36px;
+  max-width: 100%;
+  padding: 7px 11px;
+  border: 1px solid #dce3ed;
+  border-radius: 7px;
+  background: #f8fafc;
+  color: #40516b;
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.gallery-theme-toggle:hover { background: #edf2ff; border-color: #b5c7ec; color: #2457d6; }
+.gallery-theme-toggle .icon { width: 20px; height: 20px; flex: 0 0 20px; }
+.preview-toolbar { flex-wrap: wrap; }
+
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="dark"] body { background: #101722; color: #e1e9f3; }
+html[data-theme="dark"] :is(button, a, input):focus-visible { outline-color: #a3c3ff; }
+html[data-theme="dark"] .gallery-header { background: #17212f; border-color: #304157; }
+html[data-theme="dark"] .gallery-brand > span { background: #8bb4ff; color: #10213c; }
+html[data-theme="dark"] .gallery-brand > i { color: #8194ad; }
+html[data-theme="dark"] :is(.gallery-brand > b, .gallery-meta, .kicker) { color: #a9bad0; }
+html[data-theme="dark"] .gallery-intro p:not(.kicker) { color: #aebed2; }
+html[data-theme="dark"] .guide-link { color: #abc9ff; border-color: #526c94; }
+html[data-theme="dark"] .concept { background: #17212f; border-color: #304157; color: #e1e9f3; }
+html[data-theme="dark"] .concept:hover { border-color: #6682a8; background: #1b293b; }
+html[data-theme="dark"] .concept.active { border-color: #91b5ff; box-shadow: 0 0 0 2px #91b5ff1c; }
+html[data-theme="dark"] .concept-number { background: #243247; color: #b1c1d6; }
+html[data-theme="dark"] .concept.active .concept-number { background: #263b5e; color: #c4d7ff; }
+html[data-theme="dark"] .concept p { color: #acbdd1; }
+html[data-theme="dark"] .palette i { border-color: #17212f; }
+html[data-theme="dark"] .studio { background: #17212f; border-color: #304157; }
+html[data-theme="dark"] .screen-browser { background: #17212f; border-color: #304157; scrollbar-color: #53677f #17212f; }
+html[data-theme="dark"] .screen-search { color: #c0cddd; }
+html[data-theme="dark"] .screen-search input { background: #111b28; color: #e5edf7; border-color: #40536d; }
+html[data-theme="dark"] .screen-search input::placeholder { color: #9caec5; opacity: 1; }
+html[data-theme="dark"] :is(.screen-count, .screen-group h2) { color: #a3b5cd; }
+html[data-theme="dark"] .screen-group a { color: #d4dfed; }
+html[data-theme="dark"] .screen-group a:hover { background: #223148; }
+html[data-theme="dark"] .screen-group a.active { background: #263b5e; color: #c4d7ff; }
+html[data-theme="dark"] .screen-group a > small { color: #a8bad0; }
+html[data-theme="dark"] .screen-browser::-webkit-scrollbar-thumb { background: #53677f; }
+html[data-theme="dark"] .preview-area { background: #0c131e; }
+html[data-theme="dark"] .preview-toolbar { background: #17212f; border-color: #304157; }
+html[data-theme="dark"] .device-buttons button { color: #b4c5dc; }
+html[data-theme="dark"] .device-buttons button:hover { background: #223148; }
+html[data-theme="dark"] .device-buttons button.active { background: #263b5e; color: #c4d7ff; }
+html[data-theme="dark"] .preview-toolbar > a { color: #abc9ff; }
+html[data-theme="dark"] .gallery-theme-toggle { background: #223148; border-color: #40536d; color: #d4e2f5; }
+html[data-theme="dark"] .gallery-theme-toggle:hover { background: #2b4163; border-color: #86a8dc; color: #fff; }
+html[data-theme="dark"] .preview-caption { color: #a8bad0; }
+html[data-theme="dark"] .frame-holder { background: #17212f; box-shadow: 0 12px 35px #0005; }
+html[data-theme="dark"] .frame-holder iframe { background: #101722; }
+html[data-theme="dark"] :is(.preview-note, .gallery-footer) { color: #a3b5cd; }
+
+@media (max-width: 767px) {
+  .preview-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .preview-toolbar .device-buttons { grid-column: 1 / -1; min-width: 0; }
+  .gallery-theme-toggle { min-width: 0; min-height: 44px; padding: 7px 8px; font-size: 10px; }
+  .preview-toolbar > a { justify-self: end; min-width: 0; max-width: 100%; margin-left: 0; text-align: right; white-space: normal; line-height: 1.5; }
+}
+@media (max-width: 359px) {
+  .gallery-theme-toggle { gap: 5px; padding-inline: 6px; }
+  .gallery-theme-toggle .icon { width: 18px; height: 18px; flex-basis: 18px; }
+}

@@ -1,0 +1,1591 @@
+{
+  "updated": "2026-11-03",
+  "variants": [
+    "v1",
+    "v2",
+    "v3"
+  ],
+  "breakpoints": {
+    "xs": 0,
+    "sm": 600,
+    "md": 900,
+    "lg": 1200,
+    "xl": 1536
+  },
+  "previewWidths": [
+    390,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "screens": [
+    {
+      "id": "dashboard",
+      "title": "Обзор работ",
+      "group": "Обзор",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#dashboard",
+        "v2": "v2/index.html#dashboard",
+        "v3": "v3/index.html#dashboard"
+      }
+    },
+    {
+      "id": "dashboard-period",
+      "title": "Период отчёта",
+      "group": "Обзор",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#dashboard-period",
+        "v2": "v2/index.html#dashboard-period",
+        "v3": "v3/index.html#dashboard-period"
+      }
+    },
+    {
+      "id": "dashboard-status",
+      "title": "Статус заявок",
+      "group": "Обзор",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#dashboard-status",
+        "v2": "v2/index.html#dashboard-status",
+        "v3": "v3/index.html#dashboard-status"
+      }
+    },
+    {
+      "id": "dashboard-map",
+      "title": "Заявки на карте",
+      "group": "Обзор",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#dashboard-map",
+        "v2": "v2/index.html#dashboard-map",
+        "v3": "v3/index.html#dashboard-map"
+      }
+    },
+    {
+      "id": "dashboard-contracts",
+      "title": "Контракты на карте",
+      "group": "Обзор",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#dashboard-contracts",
+        "v2": "v2/index.html#dashboard-contracts",
+        "v3": "v3/index.html#dashboard-contracts"
+      }
+    },
+    {
+      "id": "requests",
+      "title": "Заявки",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#requests",
+        "v2": "v2/index.html#requests",
+        "v3": "v3/index.html#requests"
+      }
+    },
+    {
+      "id": "requests-archive",
+      "title": "Архив заявок",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#requests-archive",
+        "v2": "v2/index.html#requests-archive",
+        "v3": "v3/index.html#requests-archive"
+      }
+    },
+    {
+      "id": "request-filter",
+      "title": "Новый фильтр заявок",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-filter",
+        "v2": "v2/index.html#request-filter",
+        "v3": "v3/index.html#request-filter"
+      }
+    },
+    {
+      "id": "request-filter-save",
+      "title": "Сохранить набор фильтров",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-filter-save",
+        "v2": "v2/index.html#request-filter-save",
+        "v3": "v3/index.html#request-filter-save"
+      }
+    },
+    {
+      "id": "request-filter-edit",
+      "title": "Наборы фильтров",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-filter-edit",
+        "v2": "v2/index.html#request-filter-edit",
+        "v3": "v3/index.html#request-filter-edit"
+      }
+    },
+    {
+      "id": "request-filter-delete",
+      "title": "Удалить набор фильтров?",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-filter-delete",
+        "v2": "v2/index.html#request-filter-delete",
+        "v3": "v3/index.html#request-filter-delete"
+      }
+    },
+    {
+      "id": "request-create",
+      "title": "Новая заявка",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-create",
+        "v2": "v2/index.html#request-create",
+        "v3": "v3/index.html#request-create"
+      }
+    },
+    {
+      "id": "request-assign",
+      "title": "Назначение исполнителей",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-assign",
+        "v2": "v2/index.html#request-assign",
+        "v3": "v3/index.html#request-assign"
+      }
+    },
+    {
+      "id": "request-assign-confirm",
+      "title": "Подтвердите назначение",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-assign-confirm",
+        "v2": "v2/index.html#request-assign-confirm",
+        "v3": "v3/index.html#request-assign-confirm"
+      }
+    },
+    {
+      "id": "request",
+      "title": "Заявка № 10428",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request",
+        "v2": "v2/index.html#request",
+        "v3": "v3/index.html#request"
+      }
+    },
+    {
+      "id": "request-edit-customer",
+      "title": "Данные абонента",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-edit-customer",
+        "v2": "v2/index.html#request-edit-customer",
+        "v3": "v3/index.html#request-edit-customer"
+      }
+    },
+    {
+      "id": "request-edit-address",
+      "title": "Адрес заявки",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-edit-address",
+        "v2": "v2/index.html#request-edit-address",
+        "v3": "v3/index.html#request-edit-address"
+      }
+    },
+    {
+      "id": "request-edit-workers",
+      "title": "Исполнители заявки",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-edit-workers",
+        "v2": "v2/index.html#request-edit-workers",
+        "v3": "v3/index.html#request-edit-workers"
+      }
+    },
+    {
+      "id": "request-edit-start",
+      "title": "Дата ввода заявки",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-edit-start",
+        "v2": "v2/index.html#request-edit-start",
+        "v3": "v3/index.html#request-edit-start"
+      }
+    },
+    {
+      "id": "request-edit-planned",
+      "title": "Дата окончания заявки",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-edit-planned",
+        "v2": "v2/index.html#request-edit-planned",
+        "v3": "v3/index.html#request-edit-planned"
+      }
+    },
+    {
+      "id": "request-edit-manager",
+      "title": "Менеджер заявки",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-edit-manager",
+        "v2": "v2/index.html#request-edit-manager",
+        "v3": "v3/index.html#request-edit-manager"
+      }
+    },
+    {
+      "id": "request-object",
+      "title": "Информация об объекте",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-object",
+        "v2": "v2/index.html#request-object",
+        "v3": "v3/index.html#request-object"
+      }
+    },
+    {
+      "id": "request-object-edit",
+      "title": "Рабочие данные",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-object-edit",
+        "v2": "v2/index.html#request-object-edit",
+        "v3": "v3/index.html#request-object-edit"
+      }
+    },
+    {
+      "id": "request-files",
+      "title": "Вложения заявки",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-files",
+        "v2": "v2/index.html#request-files",
+        "v3": "v3/index.html#request-files"
+      }
+    },
+    {
+      "id": "request-file",
+      "title": "Фотография прибора",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-file",
+        "v2": "v2/index.html#request-file",
+        "v3": "v3/index.html#request-file"
+      }
+    },
+    {
+      "id": "request-video",
+      "title": "Проверка работы прибора",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-video",
+        "v2": "v2/index.html#request-video",
+        "v3": "v3/index.html#request-video"
+      }
+    },
+    {
+      "id": "request-file-edit",
+      "title": "Заменить вложение",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-file-edit",
+        "v2": "v2/index.html#request-file-edit",
+        "v3": "v3/index.html#request-file-edit"
+      }
+    },
+    {
+      "id": "request-file-comment",
+      "title": "Комментарий к вложению",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-file-comment",
+        "v2": "v2/index.html#request-file-comment",
+        "v3": "v3/index.html#request-file-comment"
+      }
+    },
+    {
+      "id": "request-file-delete",
+      "title": "Удалить вложение?",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-file-delete",
+        "v2": "v2/index.html#request-file-delete",
+        "v3": "v3/index.html#request-file-delete"
+      }
+    },
+    {
+      "id": "request-history",
+      "title": "История изменений",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-history",
+        "v2": "v2/index.html#request-history",
+        "v3": "v3/index.html#request-history"
+      }
+    },
+    {
+      "id": "request-denials",
+      "title": "Недопуски",
+      "group": "Заявки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#request-denials",
+        "v2": "v2/index.html#request-denials",
+        "v3": "v3/index.html#request-denials"
+      }
+    },
+    {
+      "id": "denial-create",
+      "title": "Добавить недопуск",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#denial-create",
+        "v2": "v2/index.html#denial-create",
+        "v3": "v3/index.html#denial-create"
+      }
+    },
+    {
+      "id": "denial-edit",
+      "title": "Недопуск № 128",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#denial-edit",
+        "v2": "v2/index.html#denial-edit",
+        "v3": "v3/index.html#denial-edit"
+      }
+    },
+    {
+      "id": "request-status",
+      "title": "Действия со статусом заявки",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-status",
+        "v2": "v2/index.html#request-status",
+        "v3": "v3/index.html#request-status"
+      }
+    },
+    {
+      "id": "request-cancel",
+      "title": "Отменить заявку",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-cancel",
+        "v2": "v2/index.html#request-cancel",
+        "v3": "v3/index.html#request-cancel"
+      }
+    },
+    {
+      "id": "request-revision",
+      "title": "Вернуть заявку на доработку?",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-revision",
+        "v2": "v2/index.html#request-revision",
+        "v3": "v3/index.html#request-revision"
+      }
+    },
+    {
+      "id": "request-finish",
+      "title": "Завершить заявку?",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-finish",
+        "v2": "v2/index.html#request-finish",
+        "v3": "v3/index.html#request-finish"
+      }
+    },
+    {
+      "id": "request-reopen",
+      "title": "Открыть завершённую заявку",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-reopen",
+        "v2": "v2/index.html#request-reopen",
+        "v3": "v3/index.html#request-reopen"
+      }
+    },
+    {
+      "id": "request-save",
+      "title": "Сохранить рабочие данные?",
+      "group": "Заявки",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#request-save",
+        "v2": "v2/index.html#request-save",
+        "v3": "v3/index.html#request-save"
+      }
+    },
+    {
+      "id": "contracts",
+      "title": "Контракты",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contracts",
+        "v2": "v2/index.html#contracts",
+        "v3": "v3/index.html#contracts"
+      }
+    },
+    {
+      "id": "contracts-archive",
+      "title": "Архив контрактов",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contracts-archive",
+        "v2": "v2/index.html#contracts-archive",
+        "v3": "v3/index.html#contracts-archive"
+      }
+    },
+    {
+      "id": "contract-create",
+      "title": "Новый контракт",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract-create",
+        "v2": "v2/index.html#contract-create",
+        "v3": "v3/index.html#contract-create"
+      }
+    },
+    {
+      "id": "contract",
+      "title": "Контракт ЭС-2026/048",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract",
+        "v2": "v2/index.html#contract",
+        "v3": "v3/index.html#contract"
+      }
+    },
+    {
+      "id": "contract-edit",
+      "title": "Редактирование контракта",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract-edit",
+        "v2": "v2/index.html#contract-edit",
+        "v3": "v3/index.html#contract-edit"
+      }
+    },
+    {
+      "id": "contract-company",
+      "title": "Заказчик контракта",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-company",
+        "v2": "v2/index.html#contract-company",
+        "v3": "v3/index.html#contract-company"
+      }
+    },
+    {
+      "id": "contract-archive",
+      "title": "Переместить контракт в архив?",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-archive",
+        "v2": "v2/index.html#contract-archive",
+        "v3": "v3/index.html#contract-archive"
+      }
+    },
+    {
+      "id": "contract-restore",
+      "title": "Восстановить контракт?",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-restore",
+        "v2": "v2/index.html#contract-restore",
+        "v3": "v3/index.html#contract-restore"
+      }
+    },
+    {
+      "id": "contract-documents",
+      "title": "Документы контракта",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract-documents",
+        "v2": "v2/index.html#contract-documents",
+        "v3": "v3/index.html#contract-documents"
+      }
+    },
+    {
+      "id": "contract-document-add",
+      "title": "Добавить документ",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-document-add",
+        "v2": "v2/index.html#contract-document-add",
+        "v3": "v3/index.html#contract-document-add"
+      }
+    },
+    {
+      "id": "contract-document-edit",
+      "title": "Редактировать документ",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-document-edit",
+        "v2": "v2/index.html#contract-document-edit",
+        "v3": "v3/index.html#contract-document-edit"
+      }
+    },
+    {
+      "id": "contract-document-delete",
+      "title": "Удалить документ?",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-document-delete",
+        "v2": "v2/index.html#contract-document-delete",
+        "v3": "v3/index.html#contract-document-delete"
+      }
+    },
+    {
+      "id": "contract-import",
+      "title": "Импорт данных",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract-import",
+        "v2": "v2/index.html#contract-import",
+        "v3": "v3/index.html#contract-import"
+      }
+    },
+    {
+      "id": "contract-import-add",
+      "title": "Импорт данных в контракт",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-import-add",
+        "v2": "v2/index.html#contract-import-add",
+        "v3": "v3/index.html#contract-import-add"
+      }
+    },
+    {
+      "id": "contract-import-result",
+      "title": "Результат импорта",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract-import-result",
+        "v2": "v2/index.html#contract-import-result",
+        "v3": "v3/index.html#contract-import-result"
+      }
+    },
+    {
+      "id": "contract-requests",
+      "title": "Заявки контракта",
+      "group": "Контракты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#contract-requests",
+        "v2": "v2/index.html#contract-requests",
+        "v3": "v3/index.html#contract-requests"
+      }
+    },
+    {
+      "id": "contract-filters",
+      "title": "Новый фильтр контрактов",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-filters",
+        "v2": "v2/index.html#contract-filters",
+        "v3": "v3/index.html#contract-filters"
+      }
+    },
+    {
+      "id": "contract-filter-save",
+      "title": "Сохранить набор контрактов",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-filter-save",
+        "v2": "v2/index.html#contract-filter-save",
+        "v3": "v3/index.html#contract-filter-save"
+      }
+    },
+    {
+      "id": "contract-filter-edit",
+      "title": "Наборы фильтров контрактов",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-filter-edit",
+        "v2": "v2/index.html#contract-filter-edit",
+        "v3": "v3/index.html#contract-filter-edit"
+      }
+    },
+    {
+      "id": "contract-filter-delete",
+      "title": "Удалить набор контрактов?",
+      "group": "Контракты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contract-filter-delete",
+        "v2": "v2/index.html#contract-filter-delete",
+        "v3": "v3/index.html#contract-filter-delete"
+      }
+    },
+    {
+      "id": "reports",
+      "title": "Отчёты",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#reports",
+        "v2": "v2/index.html#reports",
+        "v3": "v3/index.html#reports"
+      }
+    },
+    {
+      "id": "report-executed",
+      "title": "Отчёт по заявкам",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-executed",
+        "v2": "v2/index.html#report-executed",
+        "v3": "v3/index.html#report-executed"
+      }
+    },
+    {
+      "id": "report-filter",
+      "title": "Добавить фильтр отчёта",
+      "group": "Отчёты",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#report-filter",
+        "v2": "v2/index.html#report-filter",
+        "v3": "v3/index.html#report-filter"
+      }
+    },
+    {
+      "id": "report-universal",
+      "title": "Универсальный отчёт",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-universal",
+        "v2": "v2/index.html#report-universal",
+        "v3": "v3/index.html#report-universal"
+      }
+    },
+    {
+      "id": "report-forma",
+      "title": "Форма выработки перечней",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-forma",
+        "v2": "v2/index.html#report-forma",
+        "v3": "v3/index.html#report-forma"
+      }
+    },
+    {
+      "id": "report-delay",
+      "title": "Реестр актов недопуска",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-delay",
+        "v2": "v2/index.html#report-delay",
+        "v3": "v3/index.html#report-delay"
+      }
+    },
+    {
+      "id": "report-counter",
+      "title": "Отчёт по мастер-счётчикам",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-counter",
+        "v2": "v2/index.html#report-counter",
+        "v3": "v3/index.html#report-counter"
+      }
+    },
+    {
+      "id": "report-dynamic",
+      "title": "Сводный отчёт",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-dynamic",
+        "v2": "v2/index.html#report-dynamic",
+        "v3": "v3/index.html#report-dynamic"
+      }
+    },
+    {
+      "id": "report-preview",
+      "title": "Предпросмотр отчёта",
+      "group": "Отчёты",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#report-preview",
+        "v2": "v2/index.html#report-preview",
+        "v3": "v3/index.html#report-preview"
+      }
+    },
+    {
+      "id": "notifications",
+      "title": "Уведомления",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#notifications",
+        "v2": "v2/index.html#notifications",
+        "v3": "v3/index.html#notifications"
+      }
+    },
+    {
+      "id": "notification",
+      "title": "Заявка выполнена",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#notification",
+        "v2": "v2/index.html#notification",
+        "v3": "v3/index.html#notification"
+      }
+    },
+    {
+      "id": "notification-delete-all",
+      "title": "Удалить все уведомления?",
+      "group": "Аккаунт",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#notification-delete-all",
+        "v2": "v2/index.html#notification-delete-all",
+        "v3": "v3/index.html#notification-delete-all"
+      }
+    },
+    {
+      "id": "users",
+      "title": "Пользователи",
+      "group": "Пользователи",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#users",
+        "v2": "v2/index.html#users",
+        "v3": "v3/index.html#users"
+      }
+    },
+    {
+      "id": "user-create",
+      "title": "Добавление пользователя",
+      "group": "Пользователи",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#user-create",
+        "v2": "v2/index.html#user-create",
+        "v3": "v3/index.html#user-create"
+      }
+    },
+    {
+      "id": "user-edit",
+      "title": "Александр Смирнов",
+      "group": "Пользователи",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#user-edit",
+        "v2": "v2/index.html#user-edit",
+        "v3": "v3/index.html#user-edit"
+      }
+    },
+    {
+      "id": "user-delete",
+      "title": "Удалить пользователя?",
+      "group": "Пользователи",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#user-delete",
+        "v2": "v2/index.html#user-delete",
+        "v3": "v3/index.html#user-delete"
+      }
+    },
+    {
+      "id": "user-block",
+      "title": "Заблокировать пользователя?",
+      "group": "Пользователи",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#user-block",
+        "v2": "v2/index.html#user-block",
+        "v3": "v3/index.html#user-block"
+      }
+    },
+    {
+      "id": "user-unblock",
+      "title": "Восстановить доступ?",
+      "group": "Пользователи",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#user-unblock",
+        "v2": "v2/index.html#user-unblock",
+        "v3": "v3/index.html#user-unblock"
+      }
+    },
+    {
+      "id": "password",
+      "title": "Изменение пароля",
+      "group": "Аккаунт",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#password",
+        "v2": "v2/index.html#password",
+        "v3": "v3/index.html#password"
+      }
+    },
+    {
+      "id": "user-address",
+      "title": "Домашний адрес",
+      "group": "Пользователи",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#user-address",
+        "v2": "v2/index.html#user-address",
+        "v3": "v3/index.html#user-address"
+      }
+    },
+    {
+      "id": "companies",
+      "title": "Заказчики",
+      "group": "Компании",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#companies",
+        "v2": "v2/index.html#companies",
+        "v3": "v3/index.html#companies"
+      }
+    },
+    {
+      "id": "company",
+      "title": "АО «Городские сети»",
+      "group": "Компании",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#company",
+        "v2": "v2/index.html#company",
+        "v3": "v3/index.html#company"
+      }
+    },
+    {
+      "id": "company-create",
+      "title": "Добавление заказчика",
+      "group": "Компании",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#company-create",
+        "v2": "v2/index.html#company-create",
+        "v3": "v3/index.html#company-create"
+      }
+    },
+    {
+      "id": "company-delete",
+      "title": "Удалить компанию?",
+      "group": "Компании",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#company-delete",
+        "v2": "v2/index.html#company-delete",
+        "v3": "v3/index.html#company-delete"
+      }
+    },
+    {
+      "id": "company-bulk-delete",
+      "title": "Удалить выбранные компании?",
+      "group": "Компании",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#company-bulk-delete",
+        "v2": "v2/index.html#company-bulk-delete",
+        "v3": "v3/index.html#company-bulk-delete"
+      }
+    },
+    {
+      "id": "contact-create",
+      "title": "Добавление контактного лица",
+      "group": "Компании",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contact-create",
+        "v2": "v2/index.html#contact-create",
+        "v3": "v3/index.html#contact-create"
+      }
+    },
+    {
+      "id": "contact-edit",
+      "title": "Елена Морозова",
+      "group": "Компании",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contact-edit",
+        "v2": "v2/index.html#contact-edit",
+        "v3": "v3/index.html#contact-edit"
+      }
+    },
+    {
+      "id": "contact-delete",
+      "title": "Удалить контактное лицо?",
+      "group": "Компании",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#contact-delete",
+        "v2": "v2/index.html#contact-delete",
+        "v3": "v3/index.html#contact-delete"
+      }
+    },
+    {
+      "id": "dictionaries",
+      "title": "Справочники",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#dictionaries",
+        "v2": "v2/index.html#dictionaries",
+        "v3": "v3/index.html#dictionaries"
+      }
+    },
+    {
+      "id": "work-types",
+      "title": "Виды работ",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#work-types",
+        "v2": "v2/index.html#work-types",
+        "v3": "v3/index.html#work-types"
+      }
+    },
+    {
+      "id": "work-type",
+      "title": "Замена прибора учёта",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#work-type",
+        "v2": "v2/index.html#work-type",
+        "v3": "v3/index.html#work-type"
+      }
+    },
+    {
+      "id": "work-type-create",
+      "title": "Новый вид работ",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#work-type-create",
+        "v2": "v2/index.html#work-type-create",
+        "v3": "v3/index.html#work-type-create"
+      }
+    },
+    {
+      "id": "work-subtype",
+      "title": "Подтип работ",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#work-subtype",
+        "v2": "v2/index.html#work-subtype",
+        "v3": "v3/index.html#work-subtype"
+      }
+    },
+    {
+      "id": "work-builder",
+      "title": "Конструктор рабочих форм",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#work-builder",
+        "v2": "v2/index.html#work-builder",
+        "v3": "v3/index.html#work-builder"
+      }
+    },
+    {
+      "id": "work-field",
+      "title": "Настройка поля",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#work-field",
+        "v2": "v2/index.html#work-field",
+        "v3": "v3/index.html#work-field"
+      }
+    },
+    {
+      "id": "locations",
+      "title": "Места установки",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#locations",
+        "v2": "v2/index.html#locations",
+        "v3": "v3/index.html#locations"
+      }
+    },
+    {
+      "id": "cancel-reasons",
+      "title": "Причины отмены",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#cancel-reasons",
+        "v2": "v2/index.html#cancel-reasons",
+        "v3": "v3/index.html#cancel-reasons"
+      }
+    },
+    {
+      "id": "location-edit",
+      "title": "Этажный щит",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#location-edit",
+        "v2": "v2/index.html#location-edit",
+        "v3": "v3/index.html#location-edit"
+      }
+    },
+    {
+      "id": "location-create",
+      "title": "Новое место установки",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#location-create",
+        "v2": "v2/index.html#location-create",
+        "v3": "v3/index.html#location-create"
+      }
+    },
+    {
+      "id": "cancel-reason-edit",
+      "title": "Нет доступа к объекту",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#cancel-reason-edit",
+        "v2": "v2/index.html#cancel-reason-edit",
+        "v3": "v3/index.html#cancel-reason-edit"
+      }
+    },
+    {
+      "id": "cancel-reason-create",
+      "title": "Новая причина отмены",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#cancel-reason-create",
+        "v2": "v2/index.html#cancel-reason-create",
+        "v3": "v3/index.html#cancel-reason-create"
+      }
+    },
+    {
+      "id": "dictionary-edit",
+      "title": "Редактирование справочника",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#dictionary-edit",
+        "v2": "v2/index.html#dictionary-edit",
+        "v3": "v3/index.html#dictionary-edit"
+      }
+    },
+    {
+      "id": "dictionary-delete",
+      "title": "Удалить запись справочника?",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#dictionary-delete",
+        "v2": "v2/index.html#dictionary-delete",
+        "v3": "v3/index.html#dictionary-delete"
+      }
+    },
+    {
+      "id": "device-models",
+      "title": "Модели устройств",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#device-models",
+        "v2": "v2/index.html#device-models",
+        "v3": "v3/index.html#device-models"
+      }
+    },
+    {
+      "id": "device-model-create",
+      "title": "Новая модель устройства",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#device-model-create",
+        "v2": "v2/index.html#device-model-create",
+        "v3": "v3/index.html#device-model-create"
+      }
+    },
+    {
+      "id": "device-model-edit",
+      "title": "Меркурий 230 ART",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#device-model-edit",
+        "v2": "v2/index.html#device-model-edit",
+        "v3": "v3/index.html#device-model-edit"
+      }
+    },
+    {
+      "id": "devices",
+      "title": "Устройства",
+      "group": "Справочники",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#devices",
+        "v2": "v2/index.html#devices",
+        "v3": "v3/index.html#devices"
+      }
+    },
+    {
+      "id": "device-edit",
+      "title": "Устройство №10284756",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#device-edit",
+        "v2": "v2/index.html#device-edit",
+        "v3": "v3/index.html#device-edit"
+      }
+    },
+    {
+      "id": "device-lock",
+      "title": "Завершить редактирование?",
+      "group": "Справочники",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#device-lock",
+        "v2": "v2/index.html#device-lock",
+        "v3": "v3/index.html#device-lock"
+      }
+    },
+    {
+      "id": "settings",
+      "title": "Настройки",
+      "group": "Настройки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#settings",
+        "v2": "v2/index.html#settings",
+        "v3": "v3/index.html#settings"
+      }
+    },
+    {
+      "id": "import-devices",
+      "title": "Импорт устройств",
+      "group": "Настройки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#import-devices",
+        "v2": "v2/index.html#import-devices",
+        "v3": "v3/index.html#import-devices"
+      }
+    },
+    {
+      "id": "import-result",
+      "title": "Результаты импорта",
+      "group": "Настройки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#import-result",
+        "v2": "v2/index.html#import-result",
+        "v3": "v3/index.html#import-result"
+      }
+    },
+    {
+      "id": "import-template-error",
+      "title": "Шаблон импорта не найден",
+      "group": "Настройки",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#import-template-error",
+        "v2": "v2/index.html#import-template-error",
+        "v3": "v3/index.html#import-template-error"
+      }
+    },
+    {
+      "id": "profile",
+      "title": "Профиль компании",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#profile",
+        "v2": "v2/index.html#profile",
+        "v3": "v3/index.html#profile"
+      }
+    },
+    {
+      "id": "tariffs",
+      "title": "Тарифные планы",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#tariffs",
+        "v2": "v2/index.html#tariffs",
+        "v3": "v3/index.html#tariffs"
+      }
+    },
+    {
+      "id": "tariff-connect",
+      "title": "Подключение тарифа",
+      "group": "Аккаунт",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#tariff-connect",
+        "v2": "v2/index.html#tariff-connect",
+        "v3": "v3/index.html#tariff-connect"
+      }
+    },
+    {
+      "id": "tariff-success",
+      "title": "Тариф подключён",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#tariff-success",
+        "v2": "v2/index.html#tariff-success",
+        "v3": "v3/index.html#tariff-success"
+      }
+    },
+    {
+      "id": "tariff-invoice",
+      "title": "Счёт на подключение тарифа",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#tariff-invoice",
+        "v2": "v2/index.html#tariff-invoice",
+        "v3": "v3/index.html#tariff-invoice"
+      }
+    },
+    {
+      "id": "balance",
+      "title": "Баланс и оплата",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#balance",
+        "v2": "v2/index.html#balance",
+        "v3": "v3/index.html#balance"
+      }
+    },
+    {
+      "id": "payment-create",
+      "title": "Создание счёта",
+      "group": "Аккаунт",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#payment-create",
+        "v2": "v2/index.html#payment-create",
+        "v3": "v3/index.html#payment-create"
+      }
+    },
+    {
+      "id": "payment-history",
+      "title": "История платежей",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#payment-history",
+        "v2": "v2/index.html#payment-history",
+        "v3": "v3/index.html#payment-history"
+      }
+    },
+    {
+      "id": "payment-invoice",
+      "title": "Счёт №118",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#payment-invoice",
+        "v2": "v2/index.html#payment-invoice",
+        "v3": "v3/index.html#payment-invoice"
+      }
+    },
+    {
+      "id": "payment-documents",
+      "title": "Платёжные документы",
+      "group": "Аккаунт",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#payment-documents",
+        "v2": "v2/index.html#payment-documents",
+        "v3": "v3/index.html#payment-documents"
+      }
+    },
+    {
+      "id": "login",
+      "title": "Вход в Сервис Трек",
+      "group": "Система",
+      "kind": "auth",
+      "links": {
+        "v1": "v1/index.html#login",
+        "v2": "v2/index.html#login",
+        "v3": "v3/index.html#login"
+      }
+    },
+    {
+      "id": "login-redirect",
+      "title": "Переход к авторизации",
+      "group": "Система",
+      "kind": "auth",
+      "links": {
+        "v1": "v1/index.html#login-redirect",
+        "v2": "v2/index.html#login-redirect",
+        "v3": "v3/index.html#login-redirect"
+      }
+    },
+    {
+      "id": "registration",
+      "title": "Демонстрационный доступ",
+      "group": "Система",
+      "kind": "auth",
+      "links": {
+        "v1": "v1/index.html#registration",
+        "v2": "v2/index.html#registration",
+        "v3": "v3/index.html#registration"
+      }
+    },
+    {
+      "id": "captcha",
+      "title": "Подтвердите регистрацию",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#captcha",
+        "v2": "v2/index.html#captcha",
+        "v3": "v3/index.html#captcha"
+      }
+    },
+    {
+      "id": "registration-success",
+      "title": "Доступ запрошен",
+      "group": "Система",
+      "kind": "auth",
+      "links": {
+        "v1": "v1/index.html#registration-success",
+        "v2": "v2/index.html#registration-success",
+        "v3": "v3/index.html#registration-success"
+      }
+    },
+    {
+      "id": "registration-exists",
+      "title": "Компания уже зарегистрирована",
+      "group": "Система",
+      "kind": "auth",
+      "links": {
+        "v1": "v1/index.html#registration-exists",
+        "v2": "v2/index.html#registration-exists",
+        "v3": "v3/index.html#registration-exists"
+      }
+    },
+    {
+      "id": "mobile-app",
+      "title": "Мобильное приложение",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#mobile-app",
+        "v2": "v2/index.html#mobile-app",
+        "v3": "v3/index.html#mobile-app"
+      }
+    },
+    {
+      "id": "state-loading",
+      "title": "Загрузка заявок",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#state-loading",
+        "v2": "v2/index.html#state-loading",
+        "v3": "v3/index.html#state-loading"
+      }
+    },
+    {
+      "id": "state-empty",
+      "title": "Заявки не найдены",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#state-empty",
+        "v2": "v2/index.html#state-empty",
+        "v3": "v3/index.html#state-empty"
+      }
+    },
+    {
+      "id": "state-error",
+      "title": "Не удалось загрузить данные",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#state-error",
+        "v2": "v2/index.html#state-error",
+        "v3": "v3/index.html#state-error"
+      }
+    },
+    {
+      "id": "state-offline",
+      "title": "Нет соединения",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#state-offline",
+        "v2": "v2/index.html#state-offline",
+        "v3": "v3/index.html#state-offline"
+      }
+    },
+    {
+      "id": "state-forbidden",
+      "title": "Доступ ограничен",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#state-forbidden",
+        "v2": "v2/index.html#state-forbidden",
+        "v3": "v3/index.html#state-forbidden"
+      }
+    },
+    {
+      "id": "state-not-found",
+      "title": "Страница не найдена",
+      "group": "Система",
+      "kind": "page",
+      "links": {
+        "v1": "v1/index.html#state-not-found",
+        "v2": "v2/index.html#state-not-found",
+        "v3": "v3/index.html#state-not-found"
+      }
+    },
+    {
+      "id": "state-tariff",
+      "title": "Тариф закрыт",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#state-tariff",
+        "v2": "v2/index.html#state-tariff",
+        "v3": "v3/index.html#state-tariff"
+      }
+    },
+    {
+      "id": "state-storage",
+      "title": "Место в хранилище закончилось",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#state-storage",
+        "v2": "v2/index.html#state-storage",
+        "v3": "v3/index.html#state-storage"
+      }
+    },
+    {
+      "id": "state-tariff-loading",
+      "title": "Проверяем тариф",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#state-tariff-loading",
+        "v2": "v2/index.html#state-tariff-loading",
+        "v3": "v3/index.html#state-tariff-loading"
+      }
+    },
+    {
+      "id": "state-tariff-error",
+      "title": "Не удалось проверить тариф",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#state-tariff-error",
+        "v2": "v2/index.html#state-tariff-error",
+        "v3": "v3/index.html#state-tariff-error"
+      }
+    },
+    {
+      "id": "state-unsaved",
+      "title": "Есть несохранённые изменения",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#state-unsaved",
+        "v2": "v2/index.html#state-unsaved",
+        "v3": "v3/index.html#state-unsaved"
+      }
+    },
+    {
+      "id": "state-delete",
+      "title": "Удалить запись?",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#state-delete",
+        "v2": "v2/index.html#state-delete",
+        "v3": "v3/index.html#state-delete"
+      }
+    },
+    {
+      "id": "logout",
+      "title": "Выйти из аккаунта?",
+      "group": "Система",
+      "kind": "dialog",
+      "links": {
+        "v1": "v1/index.html#logout",
+        "v2": "v2/index.html#logout",
+        "v3": "v3/index.html#logout"
+      }
+    }
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "themeParameter": "theme"
+}

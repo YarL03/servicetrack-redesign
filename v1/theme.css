@@ -1,0 +1,6 @@
+/* Контур: a calm, bright operating workspace with a persistent context rail. */
+body[data-variant="v1"]{--bg:#f4f6fa;--surface:#fff;--surface-alt:#f8f9fc;--ink:#17243d;--muted:#627086;--border:#e3e8ef;--accent:#2457d6;--accent-soft:#eaf0ff;--accent-ink:#fff;--sidebar-bg:#fff;--sidebar-ink:#627086;--radius:12px;--shadow:0 3px 16px #17243d03;--display-font:'Trebuchet MS','Segoe UI',sans-serif;--body-font:'Segoe UI',Arial,sans-serif;--mono-font:Consolas,monospace}
+body[data-variant="v1"] .nav-link.active{position:relative}body[data-variant="v1"] .nav-link.active:before{content:'';position:absolute;left:-18px;top:10px;bottom:10px;width:3px;background:var(--accent);border-radius:0 4px 4px 0}body[data-variant="v1"] .request-summary{border-top:3px solid var(--accent);border-radius:var(--radius)}body[data-variant="v1"] .builder-tree{border-left:3px solid var(--accent)}body[data-variant="v1"] .page-heading h1{letter-spacing:-.9px}body[data-variant="v1"] .stat:first-child strong{color:var(--accent)}
+@media(min-width:1536px){body[data-variant="v1"] .nav-link.active:before{left:-24px}body[data-variant="v1"] .request-layout{grid-template-columns:minmax(0,1fr) 350px}}
+@media(min-width:900px) and (max-width:1199px){body[data-variant="v1"] .nav-link.active:before{left:-10px}}
+@media(max-width:899px){body[data-variant="v1"] .nav-link.active:before{left:-20px}}

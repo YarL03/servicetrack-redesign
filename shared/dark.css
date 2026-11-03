@@ -1,0 +1,294 @@
+/* Dark palettes for the three local redesign studies. Layout stays in each theme. */
+@media screen {
+  html[data-theme="dark"] { color-scheme: dark; background: #101722; }
+
+  html[data-theme="dark"] body[data-variant="v1"] {
+    --bg: #101722;
+    --surface: #192435;
+    --surface-alt: #202e42;
+    --ink: #e8eef8;
+    --muted: #a8b8ce;
+    --border: #33435b;
+    --accent: #8bb0ff;
+    --accent-soft: #243b60;
+    --accent-ink: #10213d;
+    --sidebar-bg: #141e2d;
+    --sidebar-ink: #b0c0d6;
+    --chart-secondary: #55779d;
+    --shadow: 0 3px 16px rgb(0 0 0 / 12%);
+  }
+  html[data-theme="dark"] body[data-variant="v2"] {
+    --bg: #101c1e;
+    --surface: #192a2d;
+    --surface-alt: #21373a;
+    --ink: #e4f2ee;
+    --muted: #a4c0bb;
+    --border: #355253;
+    --accent: #72d5c5;
+    --accent-soft: #244b46;
+    --accent-ink: #102d28;
+    --sidebar-bg: #10272a;
+    --sidebar-ink: #b4d0ca;
+    --chart-secondary: #4f8d83;
+    --shadow: 0 3px 12px rgb(0 0 0 / 10%);
+  }
+  html[data-theme="dark"] body[data-variant="v3"] {
+    --bg: #1a1723;
+    --surface: #252132;
+    --surface-alt: #2e293e;
+    --ink: #efeaf7;
+    --muted: #b9aecb;
+    --border: #473d5b;
+    --accent: #c5a4fa;
+    --accent-soft: #413058;
+    --accent-ink: #2a193e;
+    --sidebar-bg: #211d2e;
+    --sidebar-ink: #c0b3d4;
+    --chart-secondary: #846d9f;
+    --shadow: 0 5px 20px rgb(0 0 0 / 12%);
+  }
+
+  html[data-theme="dark"] body[data-variant] {
+    color-scheme: dark;
+    --tone-info-bg: #233b59;
+    --tone-info-ink: #b5d4ff;
+    --tone-success-bg: #1c3f33;
+    --tone-success-ink: #9adbbe;
+    --tone-warning-bg: #46371e;
+    --tone-warning-ink: #f1cd8e;
+    --tone-danger-bg: #482a35;
+    --tone-danger-ink: #ffb4c0;
+  }
+
+  /* Shell: persistent navigation, compact drawer and mobile dock share tokens. */
+  html[data-theme="dark"] body[data-variant] .sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-ink);
+    border-color: var(--border);
+    box-shadow: none;
+  }
+  html[data-theme="dark"] body[data-variant] .brand,
+  html[data-theme="dark"] body[data-variant] .sidebar .profile-link,
+  html[data-theme="dark"] body[data-variant] .sidebar .workspace { color: var(--ink); }
+  html[data-theme="dark"] body[data-variant] .brand small,
+  html[data-theme="dark"] body[data-variant] .sidebar small,
+  html[data-theme="dark"] body[data-variant] .sidebar .storage-label,
+  html[data-theme="dark"] body[data-variant] .sidebar .muted,
+  html[data-theme="dark"] body[data-variant] .topbar .today,
+  html[data-theme="dark"] body[data-variant] .topbar .breadcrumb { color: var(--muted); }
+  html[data-theme="dark"] body[data-variant] .brand-mark,
+  html[data-theme="dark"] body[data-variant] .admin-auth-symbol {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  html[data-theme="dark"] body[data-variant] .workspace {
+    background: var(--surface-alt);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .sidebar .profile-link { border-color: var(--border); }
+  html[data-theme="dark"] body[data-variant] .sidebar .plan-link { color: var(--accent); }
+  html[data-theme="dark"] body[data-variant] .main-nav { border-color: var(--border); }
+  html[data-theme="dark"] body[data-variant] .main-nav a { color: var(--sidebar-ink); }
+  html[data-theme="dark"] body[data-variant] .main-nav a:hover,
+  html[data-theme="dark"] body[data-variant] .sidebar .main-nav a:hover {
+    background: var(--surface-alt);
+    color: var(--ink);
+  }
+  html[data-theme="dark"] body[data-variant] .main-nav a.active,
+  html[data-theme="dark"] body[data-variant] .main-nav a[aria-current="page"] {
+    color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: none;
+  }
+  html[data-theme="dark"] body[data-variant] .main-nav a.active { border-bottom-color: var(--accent); }
+  html[data-theme="dark"] body[data-variant] .sidebar .main-nav a em {
+    color: var(--ink);
+    background: var(--surface);
+  }
+  html[data-theme="dark"] body[data-variant] .avatar,
+  html[data-theme="dark"] body[data-variant] .sidebar .avatar,
+  html[data-theme="dark"] body[data-variant] .topbar .avatar,
+  html[data-theme="dark"] body[data-variant] .sidebar .workspace-avatar {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .topbar {
+    background: var(--sidebar-bg);
+    color: var(--ink);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .topbar .breadcrumb b { color: var(--ink); }
+  html[data-theme="dark"] body[data-variant] .breadcrumb > span { color: var(--muted); }
+  html[data-theme="dark"] body[data-variant] .topbar .icon-button {
+    color: var(--muted);
+    background: var(--surface);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .topbar .icon-button:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+  html[data-theme="dark"] body[data-variant] .mobile-nav {
+    background: var(--sidebar-bg);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .mobile-nav a.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  html[data-theme="dark"] body[data-variant] .demo-bar {
+    background: var(--sidebar-bg);
+    color: var(--ink);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .demo-bar .variant-label { color: var(--muted); }
+  html[data-theme="dark"] body[data-variant] .demo-bar select {
+    background: var(--surface-alt);
+    color: var(--ink);
+    border-color: var(--border);
+  }
+
+  /* Surfaces, tables and forms, including native date/file/select controls. */
+  html[data-theme="dark"] body[data-variant] :is(.panel, .stat, .dialog-preview, dialog) {
+    background: var(--surface);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .panel-head { background: transparent; }
+  html[data-theme="dark"] body[data-variant] .stats,
+  html[data-theme="dark"] body[data-variant] .stats > * { border-color: var(--border); }
+  html[data-theme="dark"] body[data-variant] .stats > :first-child { border-top-color: var(--accent); }
+  html[data-theme="dark"] body[data-variant="v3"] .stats > :first-child {
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+  }
+  html[data-theme="dark"] body[data-variant] th {
+    background: var(--surface-alt);
+    color: var(--muted);
+  }
+  html[data-theme="dark"] body[data-variant] td { border-color: var(--border); }
+  html[data-theme="dark"] body[data-variant] tbody tr { background: var(--surface); }
+  html[data-theme="dark"] body[data-variant="v2"] tbody tr:nth-child(even) { background: var(--surface-alt); }
+  html[data-theme="dark"] body[data-variant] tbody tr:hover,
+  html[data-theme="dark"] body[data-variant] tbody tr:hover td { background: var(--surface-alt); }
+  html[data-theme="dark"] body[data-variant] :is(input, select, textarea) {
+    color-scheme: dark;
+    color: var(--ink);
+    background-color: var(--surface);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] :is(input, textarea)::placeholder { color: var(--muted); opacity: .85; }
+  html[data-theme="dark"] body[data-variant] input[readonly] { background: var(--surface-alt); color: var(--muted); }
+  html[data-theme="dark"] body[data-variant] :is(input, select, textarea):focus { box-shadow: 0 0 0 3px var(--accent-soft); }
+  html[data-theme="dark"] body[data-variant] .field input[type="file"]::file-selector-button,
+  html[data-theme="dark"] body[data-variant] .upload-zone input::file-selector-button {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .required { color: var(--tone-danger-ink); }
+  html[data-theme="dark"] body[data-variant] .btn.primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: var(--accent);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 15%);
+  }
+  html[data-theme="dark"] body[data-variant] .btn.danger {
+    background: var(--tone-danger-bg);
+    color: var(--tone-danger-ink);
+    border-color: #7c4656;
+  }
+  html[data-theme="dark"] body[data-variant] .tabs a,
+  html[data-theme="dark"] body[data-variant] .tabs button { background: transparent; }
+  html[data-theme="dark"] body[data-variant="v2"] .tabs { background: var(--surface-alt); }
+  html[data-theme="dark"] body[data-variant="v2"] .tabs :is(.active, [aria-current="page"], [aria-selected="true"]) {
+    background: var(--accent-soft);
+    color: var(--accent);
+    box-shadow: none;
+  }
+  html[data-theme="dark"] body[data-variant="v3"] .tabs :is(.active, [aria-current="page"], [aria-selected="true"]) {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  /* Status meaning stays consistent between palettes and does not rely on color alone. */
+  html[data-theme="dark"] body[data-variant] .badge { background: var(--surface-alt); color: var(--ink); }
+  html[data-theme="dark"] body[data-variant] :is(.badge.info, .note.info) { background: var(--tone-info-bg); color: var(--tone-info-ink); }
+  html[data-theme="dark"] body[data-variant] :is(.badge.success, .note.success) { background: var(--tone-success-bg); color: var(--tone-success-ink); }
+  html[data-theme="dark"] body[data-variant] :is(.badge.warning, .note.warning) { background: var(--tone-warning-bg); color: var(--tone-warning-ink); }
+  html[data-theme="dark"] body[data-variant] :is(.badge.danger, .note.danger) { background: var(--tone-danger-bg); color: var(--tone-danger-ink); }
+  html[data-theme="dark"] body[data-variant] .note .icon { color: inherit; }
+
+  /* Working stages, builder panels and attachments. */
+  html[data-theme="dark"] body[data-variant] :is(.work-stage-rail, .file-tile, .upload-zone, .builder-tree, .builder-properties) {
+    background: var(--surface-alt);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .upload-zone { border-color: var(--muted); }
+  html[data-theme="dark"] body[data-variant] .request-summary .panel {
+    background: var(--surface-alt);
+    border-color: var(--border);
+  }
+  html[data-theme="dark"] body[data-variant="v3"] .request-main > .panel:first-child { border-top-color: var(--accent); }
+  html[data-theme="dark"] body[data-variant] .progress,
+  html[data-theme="dark"] body[data-variant] .sidebar .progress { background: var(--border); }
+  html[data-theme="dark"] body[data-variant] .progress > span,
+  html[data-theme="dark"] body[data-variant] .sidebar .progress > span { background: var(--accent); }
+  html[data-theme="dark"] body[data-variant] .timeline { border-color: var(--border); }
+  html[data-theme="dark"] body[data-variant] .work-video {
+    background: #0c121b;
+    color: #dce8f5;
+    border: 1px solid var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .work-video .btn { border-color: #6f839d; }
+  html[data-theme="dark"] body[data-variant] .meter-preview { outline: 1px solid var(--border); outline-offset: -1px; }
+  html[data-theme="dark"] body[data-variant] .admin-phone { border-color: #0c111b; }
+  html[data-theme="dark"] body[data-variant] .admin-phone-notch { background: #0c111b; }
+
+  /* The schematic map is UI; the meter illustration remains an unmodified object. */
+  html[data-theme="dark"] body[data-variant] .work-map { background: #243537; }
+  html[data-theme="dark"] body[data-variant] .work-map [fill="#e9efec"] { fill: #243537; }
+  html[data-theme="dark"] body[data-variant] .work-map [stroke="#b6d7e1"] { stroke: #254e62; }
+  html[data-theme="dark"] body[data-variant] .work-map [stroke="#fff"] { stroke: #53666a; }
+  html[data-theme="dark"] body[data-variant] .work-map [fill="#d8e4d7"] { fill: #344c40; }
+  html[data-theme="dark"] body[data-variant] .work-map [stroke="white"] { stroke: #14242b; }
+  html[data-theme="dark"] body[data-variant] .work-map [fill="white"] { fill: var(--accent-ink); }
+  html[data-theme="dark"] body[data-variant] .work-map [fill="#5c7477"] { fill: #d2e2df; }
+  html[data-theme="dark"] body[data-variant] .map-caption {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+  html[data-theme="dark"] body[data-variant] .admin-map {
+    background: linear-gradient(24deg, transparent 39%, #53666a 40% 44%, transparent 45%),
+      linear-gradient(90deg, transparent 44%, #53666a 45% 50%, transparent 51%),
+      repeating-linear-gradient(0deg, #243537 0 36px, #344c40 37px 39px, #243537 40px 72px);
+  }
+  html[data-theme="dark"] body[data-variant] .admin-map-marker { color: var(--accent-ink); }
+  html[data-theme="dark"] body[data-variant] .admin-map-street { color: #d2e2df; }
+
+  html[data-theme="dark"] body[data-variant] dialog { box-shadow: 0 20px 100px rgb(0 0 0 / 55%); }
+  html[data-theme="dark"] body[data-variant] dialog::backdrop,
+  html[data-theme="dark"] body[data-variant] .menu-overlay { background: rgb(3 8 15 / 72%); }
+  html[data-theme="dark"] body[data-variant] #toast {
+    background: var(--surface-alt);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 30px rgb(0 0 0 / 30%);
+  }
+  html[data-theme="dark"] body[data-variant] .skip-link { color: var(--accent-ink); }
+
+  @media (min-width: 900px) {
+    html[data-theme="dark"] body[data-variant="v2"] .workspace { background: transparent; }
+    html[data-theme="dark"] body[data-variant="v3"] .topbar { background: transparent; }
+  }
+  @media (max-width: 899px) {
+    html[data-theme="dark"] body[data-variant="v2"] tbody tr { border-left-color: var(--accent); }
+  }
+}
+
+/* Printed reports keep the light paper palette regardless of the current UI theme. */
+@media print {
+  html[data-theme="dark"], html[data-theme="dark"] body { color-scheme: light !important; }
+}
