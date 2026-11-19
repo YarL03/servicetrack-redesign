@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Сервис Трек · мобильные макеты v1</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="notifications.css" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <script defer src="icons.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="notifications.data.js"></script>
+    <script defer src="components.js"></script>
+    <script defer src="screens.js"></script>
+    <script defer src="notifications.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <aside class="catalog">
+      <a class="brand" href="index.html"
+        ><img class="brand-logo" src="assets/logo.png" width="39" height="39" alt="" /><span
+          >Сервис Трек<small>МОБИЛЬНАЯ КОМАНДА</small></span
+        ></a
+      >
+      <div class="edition"><span>Дизайн-концепция</span><b>v1.0</b></div>
+      <nav id="catalog-nav" aria-label="Каталог макетов"></nav>
+      <div class="catalog-bottom">
+        <a href="compare.html">Сравнить навигацию ↗</a><a href="notifications.html">Сценарии уведомлений ↗</a
+        ><a href="README.md">Описание решений ↗</a>
+        <p>19 ноября 2026<br />Локальный интерактивный прототип</p>
+      </div>
+    </aside>
+    <div class="studio">
+      <header class="studio-header">
+        <span>Сервис Трек <span class="separator">/</span> Mobile redesign</span>
+        <div>
+          <button id="theme-toggle" aria-label="Переключить цветовую тему">Тёмная тема</button
+          ><a href="compare.html">Три варианта навигации ↗</a>
+        </div>
+      </header>
+      <div class="mobile-picker">
+        <label for="screen-picker">Макет</label
+        ><select id="screen-picker"></select
+        ><button id="mobile-theme" aria-label="Переключить цветовую тему">◐</button>
+      </div>
+      <main class="presentation">
+        <div class="device-area">
+          <div class="device-caption"><span id="screen-number"></span><span>390 × 844 · touch prototype</span></div>
+          <div class="device" id="device">
+            <div class="statusbar" aria-hidden="true">
+              <b>9:41</b>
+              <div>
+                <span class="signal">▂▄▆</span
+                ><svg viewBox="0 0 24 24">
+                  <path d="M3 9a14 14 0 0 1 18 0M6 13a9 9 0 0 1 12 0M10 17a3 3 0 0 1 4 0" /></svg
+                ><span class="battery"></span>
+              </div>
+            </div>
+            <div id="app"></div>
+            <div class="home-indicator" aria-hidden="true"></div>
+            <div id="toast" role="status" aria-live="polite"></div>
+          </div>
+          <p class="prototype-note">Нажимайте на элементы — сценарии связаны между собой</p>
+        </div>
+        <aside class="design-notes" id="design-notes" aria-label="Пояснения к макету"></aside>
+      </main>
+    </div>
+    <dialog id="sheet" aria-labelledby="sheet-title"></dialog>
+    <input type="file" id="file-picker" hidden multiple />
+  </body>
+</html>

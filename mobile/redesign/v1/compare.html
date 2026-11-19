@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Три варианта навигации · Сервис Трек</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="assets/logo.png" />
+  </head>
+  <body>
+    <main class="comparison">
+      <header class="compare-header">
+        <div>
+          <div class="brand">
+            <img class="brand-logo" src="assets/logo.png" width="39" height="39" alt="" /><span>Сервис Трек</span>
+          </div>
+          <h1>Три способа найти следующую работу</h1>
+          <p>Одинаковые заявки и палитра. Разная логика навигации для работы на объекте.</p>
+        </div>
+        <a href="index.html">Открыть все 24 экрана ↗</a>
+      </header>
+      <div class="compare-grid">
+        <section class="compare-column">
+          <div class="compare-title">
+            <h2>A · Рабочая очередь</h2>
+            <span class="chip info">Основной</span>
+          </div>
+          <p>Продолжить текущую работу, затем разобрать то, что требует внимания.</p>
+          <iframe src="index.html?embed=1&theme=light#queue" title="Вариант A: рабочая очередь"></iframe
+          ><a href="index.html#queue">Исследовать вариант A ↗</a>
+        </section>
+        <section class="compare-column">
+          <div class="compare-title"><h2>B · По адресам</h2></div>
+          <p>Выбрать группировку по улице или по улице и дому. Дом и квартира каждой заявки остаются видны.</p>
+          <iframe src="index.html?embed=1&theme=light#locations" title="Вариант B: группировка по адресам"></iframe
+          ><a href="index.html#locations">Исследовать вариант B ↗</a>
+        </section>
+        <section class="compare-column">
+          <div class="compare-title"><h2>C · По статусам</h2></div>
+          <p>Сосредоточиться на одном типе задач. Доработки и недопуски видны отдельно.</p>
+          <iframe src="index.html?embed=1&theme=light#statuses" title="Вариант C: группировка по статусам"></iframe
+          ><a href="index.html#statuses">Исследовать вариант C ↗</a>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

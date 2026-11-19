@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PNG-макеты · Сервис Трек</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .gallery {
+        padding: 32px;
+        max-width: 1600px;
+        margin: auto;
+      }
+      .gallery header {
+        margin-bottom: 32px;
+      }
+      .gallery header a {
+        display: inline-block;
+        color: var(--accent);
+        padding: 12px 0;
+      }
+      .gallery header p {
+        margin-top: 12px;
+        color: var(--muted);
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 36px 24px;
+      }
+      .gallery article {
+        min-width: 0;
+        max-width: 390px;
+      }
+      .gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+      }
+      .gallery h2 {
+        font-size: 17px;
+        margin: 14px 0 5px;
+      }
+      .gallery .open {
+        display: block;
+        color: var(--accent);
+        font-size: 13px;
+        padding: 9px 0;
+      }
+      @media (max-width: 600px) {
+        .gallery {
+          padding: 20px;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr;
+        }
+        .gallery article {
+          margin: auto;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="gallery">
+      <header>
+        <a href="../index.html">← Интерактивный каталог</a>
+        <h1>Сервис Трек · мобильные макеты</h1>
+        <p>24 экрана и дополнительные состояния. Нажмите на изображение, чтобы открыть PNG в полном размере.</p>
+        <a href="navigation-comparison-1440.png">Сравнение трёх вариантов навигации ↗</a
+        ><a href="notifications-overview-1440.png">Шесть экранов уведомлений ↗</a
+        ><a href="catalog-1440.png">Каталог на большом экране ↗</a>
+      </header>
+      <div class="gallery-grid">
+        <article>
+          <a href="queue-390.png"><img src="queue-390.png" alt="A · Рабочая очередь" loading="lazy" /></a>
+          <h2>A · Рабочая очередь</h2>
+          <a class="open" href="../index.html#queue">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="locations-390.png"><img src="locations-390.png" alt="B · По адресам" loading="lazy" /></a>
+          <h2>B · По адресам</h2>
+          <a class="open" href="../index.html#locations">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="locations-street-390.png"
+            ><img src="locations-street-390.png" alt="По адресам · только улица" loading="lazy"
+          /></a>
+          <h2>По адресам · только улица</h2>
+          <a class="open" href="../index.html?grouping=street#locations">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="locations-street-dark-390.png"
+            ><img src="locations-street-dark-390.png" alt="По улице · тёмная тема" loading="lazy"
+          /></a>
+          <h2>По улице · тёмная тема</h2>
+          <a class="open" href="../index.html?grouping=street&amp;theme=dark#locations"
+            >Открыть интерактивный макет ↗</a
+          >
+        </article>
+        <article>
+          <a href="statuses-390.png"><img src="statuses-390.png" alt="C · По статусам" loading="lazy" /></a>
+          <h2>C · По статусам</h2>
+          <a class="open" href="../index.html#statuses">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="search-390.png"><img src="search-390.png" alt="Поиск заявок" loading="lazy" /></a>
+          <h2>Поиск заявок</h2>
+          <a class="open" href="../index.html#search">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="filters-390.png"><img src="filters-390.png" alt="Фильтры" loading="lazy" /></a>
+          <h2>Фильтры</h2>
+          <a class="open" href="../index.html#filters">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="all-390.png"><img src="all-390.png" alt="Все заявки" loading="lazy" /></a>
+          <h2>Все заявки</h2>
+          <a class="open" href="../index.html#all">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="detail-390.png"><img src="detail-390.png" alt="Карточка заявки" loading="lazy" /></a>
+          <h2>Карточка заявки</h2>
+          <a class="open" href="../index.html#detail">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="stages-390.png"><img src="stages-390.png" alt="Обзор этапов" loading="lazy" /></a>
+          <h2>Обзор этапов</h2>
+          <a class="open" href="../index.html#stages">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="work-390.png"><img src="work-390.png" alt="Рабочая форма" loading="lazy" /></a>
+          <h2>Рабочая форма</h2>
+          <a class="open" href="../index.html#work">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="review-390.png"><img src="review-390.png" alt="Проверка результата" loading="lazy" /></a>
+          <h2>Проверка результата</h2>
+          <a class="open" href="../index.html#review">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="complete-390.png"><img src="complete-390.png" alt="Результат отправки" loading="lazy" /></a>
+          <h2>Результат отправки</h2>
+          <a class="open" href="../index.html#complete">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="delay-390.png"><img src="delay-390.png" alt="Недопуск" loading="lazy" /></a>
+          <h2>Недопуск</h2>
+          <a class="open" href="../index.html#delay">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="sync-390.png"><img src="sync-390.png" alt="Без сети и отправка" loading="lazy" /></a>
+          <h2>Без сети и отправка</h2>
+          <a class="open" href="../index.html#sync">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="chats-390.png"><img src="chats-390.png" alt="Чаты по заявкам" loading="lazy" /></a>
+          <h2>Чаты по заявкам</h2>
+          <a class="open" href="../index.html#chats">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="chat-390.png"><img src="chat-390.png" alt="Диалог заявки" loading="lazy" /></a>
+          <h2>Диалог заявки</h2>
+          <a class="open" href="../index.html#chat">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="attachments-390.png"><img src="attachments-390.png" alt="Выбор вложения" loading="lazy" /></a>
+          <h2>Выбор вложения</h2>
+          <a class="open" href="../index.html#attachments">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-390.png"><img src="notifications-390.png" alt="Центр уведомлений" loading="lazy" /></a>
+          <h2>Центр уведомлений</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-detail-390.png"
+            ><img src="notification-detail-390.png" alt="Подробности события" loading="lazy"
+          /></a>
+          <h2>Подробности события</h2>
+          <a class="open" href="../index.html#notification-detail">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-settings-390.png"
+            ><img src="notification-settings-390.png" alt="Настройки уведомлений" loading="lazy"
+          /></a>
+          <h2>Настройки уведомлений</h2>
+          <a class="open" href="../index.html#notification-settings">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-permission-390.png"
+            ><img src="notification-permission-390.png" alt="Разрешение push" loading="lazy"
+          /></a>
+          <h2>Разрешение push</h2>
+          <a class="open" href="../index.html#notification-permission">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-in-work-390.png"
+            ><img src="notification-in-work-390.png" alt="Событие во время работы" loading="lazy"
+          /></a>
+          <h2>Событие во время работы</h2>
+          <a class="open" href="../index.html#notification-in-work">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-unavailable-390.png"
+            ><img src="notification-unavailable-390.png" alt="Недоступная заявка" loading="lazy"
+          /></a>
+          <h2>Недоступная заявка</h2>
+          <a class="open" href="../index.html#notification-unavailable">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="profile-390.png"><img src="profile-390.png" alt="Профиль и история" loading="lazy" /></a>
+          <h2>Профиль и история</h2>
+          <a class="open" href="../index.html#profile">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="history-390.png"><img src="history-390.png" alt="История заявок" loading="lazy" /></a>
+          <h2>История заявок</h2>
+          <a class="open" href="../index.html#history">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="search-results-390.png"
+            ><img src="search-results-390.png" alt="Поиск: результаты" loading="lazy"
+          /></a>
+          <h2>Поиск: результаты</h2>
+          <a class="open" href="../index.html#search">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="search-empty-390.png"
+            ><img src="search-empty-390.png" alt="Поиск: пустой результат" loading="lazy"
+          /></a>
+          <h2>Поиск: пустой результат</h2>
+          <a class="open" href="../index.html#search">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="work-filled-390.png"><img src="work-filled-390.png" alt="Заполненная форма" loading="lazy" /></a>
+          <h2>Заполненная форма</h2>
+          <a class="open" href="../index.html#work">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="review-filled-390.png"
+            ><img src="review-filled-390.png" alt="Проверка перед отправкой" loading="lazy"
+          /></a>
+          <h2>Проверка перед отправкой</h2>
+          <a class="open" href="../index.html#review">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="complete-offline-390.png"
+            ><img src="complete-offline-390.png" alt="Завершение без сети" loading="lazy"
+          /></a>
+          <h2>Завершение без сети</h2>
+          <a class="open" href="../index.html?offline=1#complete">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="delay-filled-390.png"><img src="delay-filled-390.png" alt="Недопуск с фото" loading="lazy" /></a>
+          <h2>Недопуск с фото</h2>
+          <a class="open" href="../index.html#delay">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="attachments-selected-390.png"
+            ><img src="attachments-selected-390.png" alt="Вложение перед отправкой" loading="lazy"
+          /></a>
+          <h2>Вложение перед отправкой</h2>
+          <a class="open" href="../index.html#attachments">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="chat-offline-390.png"><img src="chat-offline-390.png" alt="Чат без сети" loading="lazy" /></a>
+          <h2>Чат без сети</h2>
+          <a class="open" href="../index.html?offline=1#chat">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="work-short-390.png"><img src="work-short-390.png" alt="Форма: короткий экран" loading="lazy" /></a>
+          <h2>Форма: короткий экран</h2>
+          <a class="open" href="../index.html#work">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="queue-dark-390.png"><img src="queue-dark-390.png" alt="Очередь · тёмная тема" loading="lazy" /></a>
+          <h2>Очередь · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#queue">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="work-dark-390.png"><img src="work-dark-390.png" alt="Форма · тёмная тема" loading="lazy" /></a>
+          <h2>Форма · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#work">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="chat-dark-390.png"><img src="chat-dark-390.png" alt="Чат · тёмная тема" loading="lazy" /></a>
+          <h2>Чат · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#chat">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="sync-dark-390.png"><img src="sync-dark-390.png" alt="Отправка · тёмная тема" loading="lazy" /></a>
+          <h2>Отправка · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#sync">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-filtered-390.png"
+            ><img src="notifications-filtered-390.png" alt="Категория: непрочитанные сообщения" loading="lazy"
+          /></a>
+          <h2>Категория: непрочитанные сообщения</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-unread-empty-390.png"
+            ><img src="notifications-unread-empty-390.png" alt="В подборке нет непрочитанных" loading="lazy"
+          /></a>
+          <h2>В подборке нет непрочитанных</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-message-390.png"
+            ><img src="notification-message-390.png" alt="Событие: сообщение менеджера" loading="lazy"
+          /></a>
+          <h2>Событие: сообщение менеджера</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-deleted-390.png"
+            ><img src="notifications-deleted-390.png" alt="Удаление с отменой" loading="lazy"
+          /></a>
+          <h2>Удаление с отменой</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-offline-390.png"
+            ><img src="notifications-offline-390.png" alt="Сохранённая лента без сети" loading="lazy"
+          /></a>
+          <h2>Сохранённая лента без сети</h2>
+          <a class="open" href="../index.html?offline=1#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-uncached-390.png"
+            ><img src="notification-uncached-390.png" alt="Нет локальной копии заявки" loading="lazy"
+          /></a>
+          <h2>Нет локальной копии заявки</h2>
+          <a class="open" href="../index.html?offline=1#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-read-error-390.png"
+            ><img src="notification-read-error-390.png" alt="Ошибка отметки прочтения" loading="lazy"
+          /></a>
+          <h2>Ошибка отметки прочтения</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-error-390.png"
+            ><img src="notifications-error-390.png" alt="Ошибка обновления ленты" loading="lazy"
+          /></a>
+          <h2>Ошибка обновления ленты</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-loading-390.png"
+            ><img src="notifications-loading-390.png" alt="Загрузка событий" loading="lazy"
+          /></a>
+          <h2>Загрузка событий</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-empty-390.png"
+            ><img src="notifications-empty-390.png" alt="Пустая лента" loading="lazy"
+          /></a>
+          <h2>Пустая лента</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-system-dialog-390.png"
+            ><img src="notification-system-dialog-390.png" alt="Пример системного разрешения" loading="lazy"
+          /></a>
+          <h2>Пример системного разрешения</h2>
+          <a class="open" href="../index.html#notification-permission">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-denied-390.png"
+            ><img src="notification-denied-390.png" alt="Push запрещены на телефоне" loading="lazy"
+          /></a>
+          <h2>Push запрещены на телефоне</h2>
+          <a class="open" href="../index.html#notification-settings">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-settings-details-390.png"
+            ><img src="notification-settings-details-390.png" alt="Тихие часы и приватность" loading="lazy"
+          /></a>
+          <h2>Тихие часы и приватность</h2>
+          <a class="open" href="../index.html#notification-settings">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-push-390.png"
+            ><img src="notification-push-390.png" alt="Push и переход в приложение" loading="lazy"
+          /></a>
+          <h2>Push и переход в приложение</h2>
+          <a class="open" href="../index.html#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notifications-dark-390.png"
+            ><img src="notifications-dark-390.png" alt="Лента · тёмная тема" loading="lazy"
+          /></a>
+          <h2>Лента · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#notifications">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-detail-dark-390.png"
+            ><img src="notification-detail-dark-390.png" alt="Событие · тёмная тема" loading="lazy"
+          /></a>
+          <h2>Событие · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#notification-detail">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-settings-dark-390.png"
+            ><img src="notification-settings-dark-390.png" alt="Настройки · тёмная тема" loading="lazy"
+          /></a>
+          <h2>Настройки · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#notification-settings">Открыть интерактивный макет ↗</a>
+        </article>
+        <article>
+          <a href="notification-in-work-dark-390.png"
+            ><img src="notification-in-work-dark-390.png" alt="Событие в форме · тёмная тема" loading="lazy"
+          /></a>
+          <h2>Событие в форме · тёмная тема</h2>
+          <a class="open" href="../index.html?theme=dark#notification-in-work">Открыть интерактивный макет ↗</a>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

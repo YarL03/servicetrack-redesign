@@ -1,0 +1,1043 @@
+{
+  "date": "2026-11-19",
+  "screens": 24,
+  "layoutChecks": 100,
+  "layouts": [
+    {
+      "width": 320,
+      "screen": "queue",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "locations",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "statuses",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "search",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "filters",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "all",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "stages",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "review",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "complete",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "delay",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "sync",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chats",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chat",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "attachments",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notifications",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notification-detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notification-settings",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notification-permission",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notification-in-work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notification-unavailable",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "profile",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "history",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "locations",
+      "variant": "street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "queue",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "locations",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "statuses",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "search",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "filters",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "all",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "stages",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "review",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "complete",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "delay",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "sync",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chats",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chat",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "attachments",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notifications",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notification-detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notification-settings",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notification-permission",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notification-in-work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notification-unavailable",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "profile",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "history",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "locations",
+      "variant": "street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "queue",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "locations",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "statuses",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "search",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "filters",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "all",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "stages",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "review",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "complete",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "delay",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "sync",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chats",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chat",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "attachments",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notifications",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notification-detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notification-settings",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notification-permission",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notification-in-work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notification-unavailable",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "profile",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "history",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "locations",
+      "variant": "street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "queue",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "locations",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "statuses",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "search",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "filters",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "all",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "stages",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "review",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "complete",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "delay",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "sync",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chats",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chat",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "attachments",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notifications",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notification-detail",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notification-settings",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notification-permission",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notification-in-work",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notification-unavailable",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "profile",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "history",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "locations",
+      "variant": "street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "Address groups default to separate houses with all active requests",
+      "ok": true
+    },
+    {
+      "name": "Street grouping combines different houses and keeps exact addresses",
+      "ok": true
+    },
+    {
+      "name": "Address row opens the request in the chosen house",
+      "ok": true
+    },
+    {
+      "name": "Returning preserves grouping, expanded streets and scroll",
+      "ok": true
+    },
+    {
+      "name": "House grouping splits the same requests without loss or duplication",
+      "ok": true
+    },
+    {
+      "name": "Grouping preference survives reload",
+      "ok": true
+    },
+    {
+      "name": "Groups and counts follow remaining active requests",
+      "ok": true
+    },
+    {
+      "name": "Search by street finds two assigned requests",
+      "ok": true
+    },
+    {
+      "name": "Search by customer",
+      "ok": true
+    },
+    {
+      "name": "Search by external number",
+      "ok": true
+    },
+    {
+      "name": "Empty search has recovery",
+      "ok": true
+    },
+    {
+      "name": "Filter and query combine",
+      "ok": true
+    },
+    {
+      "name": "Status navigation filters requests",
+      "ok": true
+    },
+    {
+      "name": "Photo and input survive screen render",
+      "ok": true
+    },
+    {
+      "name": "Draft survives reload",
+      "ok": true
+    },
+    {
+      "name": "Review shows actual values",
+      "ok": true
+    },
+    {
+      "name": "Offline completion does not become executed",
+      "ok": true
+    },
+    {
+      "name": "Pending completion locks editing",
+      "ok": true
+    },
+    {
+      "name": "Online completion reaches confirmed outcome",
+      "ok": true
+    },
+    {
+      "name": "Completed request leaves active queue",
+      "ok": true
+    },
+    {
+      "name": "Completed request appears in history",
+      "ok": true
+    },
+    {
+      "name": "Delay requires notification photo",
+      "ok": true
+    },
+    {
+      "name": "Delay saves and returns to request",
+      "ok": true
+    },
+    {
+      "name": "Chat sends typed text",
+      "ok": true
+    },
+    {
+      "name": "Chat sends attachment",
+      "ok": true
+    },
+    {
+      "name": "Attachments do not leak into another request",
+      "ok": true
+    },
+    {
+      "name": "Attachment draft returns with its request",
+      "ok": true
+    },
+    {
+      "name": "Local file picker keeps filename and blob on device",
+      "ok": true
+    },
+    {
+      "name": "Preview uses actual selected filename",
+      "ok": true
+    },
+    {
+      "name": "Attachment can be removed before sending",
+      "ok": true
+    },
+    {
+      "name": "Offline chat remains queued",
+      "ok": true
+    },
+    {
+      "name": "Offline retry does not fake success",
+      "ok": true
+    },
+    {
+      "name": "Bottom nav opens profile",
+      "ok": true
+    },
+    {
+      "name": "Browser back restores screen",
+      "ok": true
+    },
+    {
+      "name": "Dialog opens with focus inside",
+      "ok": true
+    },
+    {
+      "name": "Escape closes dialog",
+      "ok": true
+    },
+    {
+      "name": "Returning from chat restores form scroll and data",
+      "ok": true
+    },
+    {
+      "name": "Failed message offers retry",
+      "ok": true
+    },
+    {
+      "name": "Retry changes only failed message",
+      "ok": true
+    },
+    {
+      "name": "Short viewport keeps primary action accessible",
+      "ok": true
+    },
+    {
+      "name": "Profile uses Ivan Ivanov and matching initials",
+      "ok": true
+    },
+    {
+      "name": "Profile opens dedicated feed without marking everything read",
+      "ok": true
+    },
+    {
+      "name": "Feed back returns to its entry point",
+      "ok": true
+    },
+    {
+      "name": "Manager sees Ivan Ivanov as chat participant",
+      "ok": true
+    },
+    {
+      "name": "Main bell displays notification count",
+      "ok": true
+    },
+    {
+      "name": "Unread and category filters combine",
+      "ok": true
+    },
+    {
+      "name": "Opening an event marks only that event read",
+      "ok": true
+    },
+    {
+      "name": "Message event opens its request and highlights target message",
+      "ok": true
+    },
+    {
+      "name": "Returning to feed preserves filters and shows empty unread group",
+      "ok": true
+    },
+    {
+      "name": "Revision opens the correct request",
+      "ok": true
+    },
+    {
+      "name": "Event can be marked unread again",
+      "ok": true
+    },
+    {
+      "name": "Cancel deletion preserves event and badge",
+      "ok": true
+    },
+    {
+      "name": "Delete removes only event, preserving request",
+      "ok": true
+    },
+    {
+      "name": "Undo restores event and unread count",
+      "ok": true
+    },
+    {
+      "name": "Read all updates notifications without reading chat messages",
+      "ok": true
+    },
+    {
+      "name": "Read all has a useful empty state",
+      "ok": true
+    },
+    {
+      "name": "Offline read is explicitly pending, not falsely synced",
+      "ok": true
+    },
+    {
+      "name": "Deletion without network leaves event intact",
+      "ok": true
+    },
+    {
+      "name": "Uncached offline request has recovery screen",
+      "ok": true
+    },
+    {
+      "name": "Reconnect syncs marks and retries correct target",
+      "ok": true
+    },
+    {
+      "name": "Revoked access remains unavailable and does not expose request details",
+      "ok": true
+    },
+    {
+      "name": "Failed read keeps unread count and exposes error",
+      "ok": true
+    },
+    {
+      "name": "Read can be retried after failure",
+      "ok": true
+    },
+    {
+      "name": "Refresh recovers cached feed after error",
+      "ok": true
+    },
+    {
+      "name": "Loading has an accessible status and no stale rows",
+      "ok": true
+    },
+    {
+      "name": "Empty feed gives a path back to work",
+      "ok": true
+    },
+    {
+      "name": "Declining pre-permission leaves app usable without OS prompt",
+      "ok": true
+    },
+    {
+      "name": "OS permission demo is explicitly labelled",
+      "ok": true
+    },
+    {
+      "name": "Denied permission leads to system settings, not a repeat OS prompt",
+      "ok": true
+    },
+    {
+      "name": "Permission can be enabled from system settings demo",
+      "ok": true
+    },
+    {
+      "name": "Delivery preferences do not remove notification history",
+      "ok": true
+    },
+    {
+      "name": "Equal quiet hours show actionable validation",
+      "ok": true
+    },
+    {
+      "name": "Overnight quiet hours are accepted",
+      "ok": true
+    },
+    {
+      "name": "Lock screen hides message text by default",
+      "ok": true
+    },
+    {
+      "name": "Lock screen preview can be enabled explicitly",
+      "ok": true
+    },
+    {
+      "name": "Incoming event preserves form value, focus, caret and position",
+      "ok": true
+    },
+    {
+      "name": "Dismissing banner does not mark event read",
+      "ok": true
+    },
+    {
+      "name": "In-work banner opens the matching conversation",
+      "ok": true
+    },
+    {
+      "name": "Back from notification chat restores working form",
+      "ok": true
+    },
+    {
+      "name": "Incoming in active chat does not duplicate banner or lose reply",
+      "ok": true
+    },
+    {
+      "name": "Push demo deep-links to request message and updates unread",
+      "ok": true
+    },
+    {
+      "name": "Push destination returns to notification feed",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

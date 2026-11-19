@@ -1,0 +1,194 @@
+[
+  {
+    "id": "queue",
+    "order": 1,
+    "group": "Навигация",
+    "title": "A · Рабочая очередь",
+    "url": "index.html#queue",
+    "preview": "previews/queue-390.png"
+  },
+  {
+    "id": "locations",
+    "order": 2,
+    "group": "Навигация",
+    "title": "B · По адресам",
+    "url": "index.html#locations",
+    "preview": "previews/locations-390.png"
+  },
+  {
+    "id": "statuses",
+    "order": 3,
+    "group": "Навигация",
+    "title": "C · По статусам",
+    "url": "index.html#statuses",
+    "preview": "previews/statuses-390.png"
+  },
+  {
+    "id": "search",
+    "order": 4,
+    "group": "Поиск",
+    "title": "Поиск заявок",
+    "url": "index.html#search",
+    "preview": "previews/search-390.png"
+  },
+  {
+    "id": "filters",
+    "order": 5,
+    "group": "Поиск",
+    "title": "Фильтры",
+    "url": "index.html#filters",
+    "preview": "previews/filters-390.png"
+  },
+  {
+    "id": "all",
+    "order": 6,
+    "group": "Поиск",
+    "title": "Все заявки",
+    "url": "index.html#all",
+    "preview": "previews/all-390.png"
+  },
+  {
+    "id": "detail",
+    "order": 7,
+    "group": "Исполнение",
+    "title": "Карточка заявки",
+    "url": "index.html#detail",
+    "preview": "previews/detail-390.png"
+  },
+  {
+    "id": "stages",
+    "order": 8,
+    "group": "Исполнение",
+    "title": "Обзор этапов",
+    "url": "index.html#stages",
+    "preview": "previews/stages-390.png"
+  },
+  {
+    "id": "work",
+    "order": 9,
+    "group": "Исполнение",
+    "title": "Рабочая форма",
+    "url": "index.html#work",
+    "preview": "previews/work-390.png"
+  },
+  {
+    "id": "review",
+    "order": 10,
+    "group": "Исполнение",
+    "title": "Проверка результата",
+    "url": "index.html#review",
+    "preview": "previews/review-390.png"
+  },
+  {
+    "id": "complete",
+    "order": 11,
+    "group": "Исполнение",
+    "title": "Результат отправки",
+    "url": "index.html#complete",
+    "preview": "previews/complete-390.png"
+  },
+  {
+    "id": "delay",
+    "order": 12,
+    "group": "Исполнение",
+    "title": "Недопуск",
+    "url": "index.html#delay",
+    "preview": "previews/delay-390.png"
+  },
+  {
+    "id": "sync",
+    "order": 13,
+    "group": "Состояния",
+    "title": "Без сети и отправка",
+    "url": "index.html#sync",
+    "preview": "previews/sync-390.png"
+  },
+  {
+    "id": "chats",
+    "order": 14,
+    "group": "Коммуникация",
+    "title": "Чаты по заявкам",
+    "url": "index.html#chats",
+    "preview": "previews/chats-390.png"
+  },
+  {
+    "id": "chat",
+    "order": 15,
+    "group": "Коммуникация",
+    "title": "Диалог заявки",
+    "url": "index.html#chat",
+    "preview": "previews/chat-390.png"
+  },
+  {
+    "id": "attachments",
+    "order": 16,
+    "group": "Коммуникация",
+    "title": "Выбор вложения",
+    "url": "index.html#attachments",
+    "preview": "previews/attachments-390.png"
+  },
+  {
+    "id": "notifications",
+    "order": 17,
+    "group": "Уведомления",
+    "title": "Центр уведомлений",
+    "url": "index.html#notifications",
+    "preview": "previews/notifications-390.png"
+  },
+  {
+    "id": "notification-detail",
+    "order": 18,
+    "group": "Уведомления",
+    "title": "Подробности события",
+    "url": "index.html#notification-detail",
+    "preview": "previews/notification-detail-390.png"
+  },
+  {
+    "id": "notification-settings",
+    "order": 19,
+    "group": "Уведомления",
+    "title": "Настройки уведомлений",
+    "url": "index.html#notification-settings",
+    "preview": "previews/notification-settings-390.png"
+  },
+  {
+    "id": "notification-permission",
+    "order": 20,
+    "group": "Уведомления",
+    "title": "Разрешение push",
+    "url": "index.html#notification-permission",
+    "preview": "previews/notification-permission-390.png"
+  },
+  {
+    "id": "notification-in-work",
+    "order": 21,
+    "group": "Уведомления",
+    "title": "Событие во время работы",
+    "url": "index.html#notification-in-work",
+    "preview": "previews/notification-in-work-390.png"
+  },
+  {
+    "id": "notification-unavailable",
+    "order": 22,
+    "group": "Уведомления",
+    "title": "Недоступная заявка",
+    "url": "index.html#notification-unavailable",
+    "preview": "previews/notification-unavailable-390.png"
+  },
+  {
+    "id": "profile",
+    "order": 23,
+    "group": "Остальное",
+    "title": "Профиль и история",
+    "url": "index.html#profile",
+    "preview": "previews/profile-390.png"
+  },
+  {
+    "id": "history",
+    "order": 24,
+    "group": "Остальное",
+    "title": "История заявок",
+    "url": "index.html#history",
+    "preview": "previews/history-390.png"
+  }
+]
