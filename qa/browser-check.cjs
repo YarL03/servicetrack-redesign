@@ -8,11 +8,15 @@ const browserPath = process.env.REDESIGN_BROWSER || '/home/yaroslav/.cache/ms-pl
 const full = process.argv.includes('--full');
 const pictures = process.argv.includes('--screenshots');
 const captureOnly = process.argv.includes('--capture-only');
+const variantArg = process.argv.find(arg => arg.startsWith('--variant='))?.slice('--variant='.length);
+if (variantArg && !['v1', 'v2', 'v3'].includes(variantArg)) throw new Error('Use --variant=v1, v2 or v3');
+const variants = variantArg ? [variantArg] : ['v1', 'v2', 'v3'];
+const captureScreens = ['dashboard', 'requests', 'request-object', 'work-builder'];
 const themeArg = process.argv.find(arg => arg.startsWith('--theme='));
 const theme = themeArg ? themeArg.slice('--theme='.length) : 'light';
 if (!['light', 'dark'].includes(theme)) throw new Error('Use --theme=light or --theme=dark');
 const otherTheme = theme === 'dark' ? 'light' : 'dark';
-const reportPrefix = theme === 'dark' ? 'dark-' : '';
+const reportPrefix = (variantArg ? variantArg + '-' : '') + (theme === 'dark' ? 'dark-' : '');
 const screenshotDirectory = theme === 'dark' ? 'previews/dark' : 'previews';
 const chrome = spawn(browserPath, ['--headless', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage', '--no-first-run', '--no-default-browser-check', '--disable-background-networking', '--remote-debugging-pipe', `--user-data-dir=/tmp/service-track-redesign-qa-${process.pid}`], {stdio: ['ignore', 'ignore', 'pipe', 'pipe', 'pipe']});
 let sequence = 0, buffer = '', stderr = '';
@@ -148,16 +152,17 @@ const darkColorCheck = `(() => {
   await c('Page.enable');
   await c('Runtime.enable');
   await c('Emulation.setEmulatedMedia', {features: [{name: 'prefers-reduced-motion', value: 'reduce'}]});
-  const report = {theme, modalChecks: 0, modalFailures: [], colorChecks: 0, colorFailures: [], date: '2026-11-03', browser: await call('Browser.getVersion'), mode: captureOnly ? 'capture' : full ? 'full' : 'quick', checks: 0, widths: full ? [320, 390, 599, 600, 768, 899, 900, 1024, 1199, 1200, 1440, 1535, 1536, 1920] : [390, 1440], screens: [], failures: [], interactions: [], screenshots: []};
+  const report = {theme, variants, modalChecks: 0, modalFailures: [], colorChecks: 0, colorFailures: [], date: new Intl.DateTimeFormat('en-CA', {timeZone: 'Asia/Irkutsk'}).format(new Date()), browser: await call('Browser.getVersion'), mode: captureOnly ? 'capture' : full ? 'full' : 'quick', checks: 0, widths: captureOnly ? [390, 768, 1024, 1440, 1920] : full ? [320, 390, 599, 600, 768, 899, 900, 1024, 1199, 1200, 1440, 1535, 1536, 1920] : [390, 1440], screens: [], failures: [], interactions: [], screenshots: []};
   const allSizes = captureOnly ? [390, 768, 1024, 1440, 1920] : report.widths;
   const interaction = async (variant, check, expression) => report.interactions.push({...(variant ? {variant} : {}), check, pass: Boolean(await evaluate(expression))});
-  for (const variant of ['v1', 'v2', 'v3']) {
+  for (const variant of variants) {
     await size(1440);
     await navigate(localUrl(`${variant}/index.html`));
     await interaction(variant, 'explicit theme query applies on load', `document.documentElement.dataset.theme===${JSON.stringify(theme)}&&RDTheme.get()===${JSON.stringify(theme)}`);
     const all = await evaluate('RD.screens.map(({id,title,group,kind})=>({id,title,group,kind}))');
     if (!report.screens.length) report.screens = all;
-    const ids = captureOnly ? ['dashboard', 'requests', 'request-object', 'work-builder'] : full ? all.map(item => item.id) : ['dashboard', 'requests', 'request-object', 'work-builder', 'users', 'profile', 'tariffs', 'registration'];
+    const variantCaptures = variant === 'v1' ? [...captureScreens, 'request'] : captureScreens;
+    const ids = captureOnly ? variantCaptures : full ? all.map(item => item.id) : [...variantCaptures, 'users', 'profile', 'tariffs', 'registration'];
     for (const width of allSizes) {
       await size(width);
       for (const id of ids) {
@@ -172,22 +177,105 @@ const darkColorCheck = `(() => {
             const r = el.getBoundingClientRect();
             return r.width && r.right > innerWidth + 2 && !el.closest('.table-wrap,.tabs');
           }).map(el => el.outerHTML.slice(0, 180));
-          return {theme:document.documentElement.dataset.theme,overflow:document.documentElement.scrollWidth>innerWidth+2,documentWidth:document.documentElement.scrollWidth,missing:[...new Set(missing)],bad,heading:document.querySelector('h1')?.textContent,body:document.querySelector('.page-content')?.innerText.length};
+          const breadcrumb = [];
+          if (document.body.dataset.variant === 'v1') {
+            const nav = document.querySelector('nav.breadcrumb[aria-label]');
+            const items = nav?.querySelectorAll('ol > li') || [];
+            const current = nav?.querySelectorAll('[aria-current="page"]') || [];
+            if (!items.length || current.length !== 1 || !current[0]?.matches('span') || !items[items.length - 1]?.contains(current[0])) breadcrumb.push('current page must be the last, non-interactive item');
+            if (nav?.querySelectorAll('a[href]').length !== items.length - 1) breadcrumb.push('every ancestor must be a link');
+            const links = [...(nav?.querySelectorAll('a') || [])].map(a => a.hash.slice(1));
+            if (links.includes(document.body.dataset.screen) || new Set(links).size !== links.length) breadcrumb.push('duplicate or self link');
+            for (const node of nav?.querySelectorAll('a, [aria-current]') || []) {
+              const rect = node.getBoundingClientRect();
+              const header = nav.closest('.topbar').getBoundingClientRect();
+              if (!rect.width || !rect.height || rect.left < -1 || rect.right > innerWidth + 1 || rect.top < header.top || rect.bottom > header.bottom + 1 || node.scrollWidth > node.clientWidth + 1) breadcrumb.push('hidden or clipped label: ' + node.textContent);
+            }
+          }
+          return {theme:document.documentElement.dataset.theme,overflow:document.documentElement.scrollWidth>innerWidth+2,documentWidth:document.documentElement.scrollWidth,missing:[...new Set(missing)],bad,breadcrumb,heading:document.querySelector('h1')?.textContent,body:document.querySelector('.page-content')?.innerText.length};
         })()`);
         report.checks++;
-        if (state.theme !== theme || state.overflow || state.missing.length || state.bad.length || !state.heading || !state.body || exceptions.length > errorsBefore) report.failures.push({variant, width, id, ...state, exceptions: exceptions.slice(errorsBefore)});
+        if (state.theme !== theme || state.overflow || state.missing.length || state.bad.length || state.breadcrumb.length || !state.heading || !state.body || exceptions.length > errorsBefore) report.failures.push({variant, width, id, ...state, exceptions: exceptions.slice(errorsBefore)});
         if (theme === 'dark') {
           const colors = await evaluate(darkColorCheck);
           report.colorChecks++;
           if (colors.length) report.colorFailures.push({variant, width, id, colors});
         }
-        if (pictures && [390, 768, 1024, 1440, 1920].includes(width) && ['dashboard', 'requests', 'request-object', 'work-builder'].includes(id)) {
+        if (pictures && [390, 768, 1024, 1440, 1920].includes(width) && variantCaptures.includes(id)) {
           const file = `${variant}/${screenshotDirectory}/${id}-${width}.png`;
           await capture(path.join(root, file));
           report.screenshots.push(file);
         }
       }
       console.log(`${variant} · ${theme} · ${width}px · ${ids.length} screens checked`);
+    }
+    if (variant === 'v1') {
+      const breadcrumbCases = [
+        ['settings', ['Рабочее пространство', 'Настройки']],
+        ['user-edit', ['Рабочее пространство', 'Пользователи', 'Смирнов Александр Андреевич']],
+        ['user-create', ['Рабочее пространство', 'Пользователи', 'Добавление пользователя']],
+        ['user-address', ['Рабочее пространство', 'Пользователи', 'Смирнов Александр Андреевич', 'Домашний адрес']],
+        ['request', ['Рабочее пространство', 'Заявки', 'Заявка № 10428']],
+        ['request-object-edit', ['Рабочее пространство', 'Заявки', 'Заявка № 10428', 'Информация об объекте', 'Рабочие данные']],
+        ['company', ['Рабочее пространство', 'Заказчики', 'АО «Городские сети»']],
+        ['contact-edit', ['Рабочее пространство', 'Заказчики', 'АО «Городские сети»', 'Морозова Елена Сергеевна']],
+        ['contract-documents', ['Рабочее пространство', 'Контракты', 'Контракт ЭС-2026/048', 'Документы контракта']],
+        ['work-builder', ['Рабочее пространство', 'Справочники', 'Виды работ', 'Замена прибора учёта', 'Конструктор рабочих форм']],
+        ['import-result', ['Рабочее пространство', 'Настройки', 'Импорт устройств', 'Результаты: devices_november.xlsx']]
+      ];
+      for (const [id, labels] of breadcrumbCases) {
+        await screen(id);
+        await interaction(variant, 'breadcrumb identifies ' + id, `JSON.stringify([...document.querySelectorAll('.breadcrumb li > a, .breadcrumb li > [aria-current]')].map(node=>node.textContent))===${JSON.stringify(JSON.stringify(labels))}`);
+      }
+      await size(390);
+      await navigate(localUrl('v1/index.html', theme, 'user-edit'));
+      await interaction(variant, 'direct user URL includes full name', `document.querySelector('.breadcrumb [aria-current]').textContent==='Смирнов Александр Андреевич'`);
+      await evaluate(`document.querySelector('.breadcrumb a[href="#users"]').focus()`);
+      await c('Input.dispatchKeyEvent', {type: 'keyDown', key: 'Enter', code: 'Enter', text: '\r', windowsVirtualKeyCode: 13});
+      await c('Input.dispatchKeyEvent', {type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13});
+      await waitForCondition(`document.body.dataset.screen==='users'`);
+      await interaction(variant, 'breadcrumb keyboard link returns to users', `location.hash==='#users'&&document.body.dataset.screen==='users'&&document.querySelector('.breadcrumb [aria-current]').textContent==='Пользователи'`);
+      await evaluate('history.back()');
+      await waitForCondition(`document.body.dataset.screen==='user-edit'`);
+      await interaction(variant, 'browser back restores user breadcrumb', `document.body.dataset.screen==='user-edit'&&document.querySelector('.breadcrumb [aria-current]').textContent==='Смирнов Александр Андреевич'`);
+      await navigate(localUrl('v1/index.html', theme, 'request-object-edit'));
+      const requestLink = await evaluate(`(() => {const r=document.querySelector('.breadcrumb a[href="#request"]').getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}})()`);
+      await c('Input.dispatchMouseEvent', {type: 'mousePressed', button: 'left', clickCount: 1, ...requestLink});
+      await c('Input.dispatchMouseEvent', {type: 'mouseReleased', button: 'left', clickCount: 1, ...requestLink});
+      await waitForCondition(`document.body.dataset.screen==='request'`);
+      await interaction(variant, 'breadcrumb click returns to request and retains theme', `location.hash==='#request'&&document.body.dataset.screen==='request'&&document.querySelector('.breadcrumb [aria-current]').textContent==='Заявка № 10428'&&RDTheme.get()===${JSON.stringify(theme)}`);
+      await evaluate(`document.querySelector('.breadcrumb a[href="#dashboard"]').click()`);
+      await waitForCondition(`document.body.dataset.screen==='dashboard'`);
+      await interaction(variant, 'workspace breadcrumb opens overview without a self link', `location.hash==='#dashboard'&&document.body.dataset.screen==='dashboard'&&document.querySelector('.breadcrumb [aria-current]').textContent==='Рабочее пространство'&&!document.querySelector('.breadcrumb a')`);
+      await size(390);
+      await screen('request-object-edit');
+      await interaction(variant, 'compact context follows reading order above working data', `!document.querySelector('.request-context').open&&document.querySelector('.request-layout').firstElementChild.matches('.request-context')&&document.querySelector('.request-context').getBoundingClientRect().top<document.querySelector('.request-main').getBoundingClientRect().top`);
+      await evaluate(`document.querySelector('.request-context-toggle').focus();window.__qaDraft=document.querySelector('.request-main input:not([readonly])');window.__qaDraft.value='0123456789'`);
+      await settle();
+      await interaction(variant, 'context summary receives keyboard focus', `document.activeElement.matches('.request-context-toggle')`);
+      await c('Input.dispatchKeyEvent', {type:'keyDown',key:'Enter',code:'Enter',text:'\r',windowsVirtualKeyCode:13});
+      await c('Input.dispatchKeyEvent', {type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});
+      await settle();
+      await interaction(variant, 'context opens from keyboard', `document.querySelector('.request-context').open`);
+      await evaluate(`const action=document.querySelector('.request-context [data-action="modal:request-status"]');action.focus();action.click()`);
+      await interaction(variant, 'context action opens status dialog', `document.getElementById('modal').open&&document.getElementById('modal').contains(document.activeElement)`);
+      await evaluate('RD.closeModal()');
+      await interaction(variant, 'context dialog returns keyboard focus', `document.activeElement.dataset.action==='modal:request-status'`);
+      await size(1440);
+      await interaction(variant, 'desktop exposes context and retains draft', `document.querySelector('.request-context').open&&window.__qaDraft.isConnected&&window.__qaDraft.value==='0123456789'`);
+      await size(390);
+      await interaction(variant, 'compact resize returns focus to visible summary', `!document.querySelector('.request-context').open&&document.activeElement.matches('.request-context-toggle')&&window.__qaDraft.value==='0123456789'`);
+      await evaluate(`window.dispatchEvent(new Event('beforeprint'))`);
+      await interaction(variant, 'print includes collapsed context', `document.querySelector('.request-context').open`);
+      await evaluate(`window.dispatchEvent(new Event('afterprint'))`);
+      await interaction(variant, 'print restores disclosure state', `!document.querySelector('.request-context').open`);
+      await screen('request');
+      await interaction(variant, 'timeline preserves five steps and current state', `document.querySelectorAll('.work-stage-rail li').length===5&&document.querySelector('.work-stage-rail [aria-current="step"]').textContent.includes('Выполняется')`);
+      await screen('requests');
+      await interaction(variant, 'registry preserves records and filter controls', `document.querySelectorAll('.kontur-register tbody tr').length===6&&document.querySelector('.kontur-register-count').textContent==='6'&&document.querySelectorAll('.kontur-register [data-action="modal:request-filter"]').length===2`);
+      await evaluate(`document.querySelector('.work-search-mobile [data-action="modal:request-filter"]').click()`);
+      await interaction(variant, 'registry filter opens from its new location', `document.getElementById('modal').open`);
+      await evaluate('RD.closeModal()');
     }
     await size(390);
     await screen('requests');
