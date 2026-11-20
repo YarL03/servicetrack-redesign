@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Сервис Трек · Заявки и чаты · v2</title>
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="notifications.css" />
+    <link rel="stylesheet" href="workspace.css" />
+    <script defer src="icons.js"></script>
+    <script defer src="data.js"></script>
+    <script defer src="notifications.data.js"></script>
+    <script defer src="components.js"></script>
+    <script defer src="screens.js"></script>
+    <script defer src="notifications.js"></script>
+    <script defer src="chat-groups.js"></script>
+    <script defer src="conversations.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <header class="mast">
+      <a class="wordmark" href="index.html"><img src="assets/logo.png" alt="" />Сервис Трек</a>
+      <span class="mast-sub">Мобильное приложение</span>
+      <nav><a href="../v1/index.html">Макет v1 ↗</a><button id="theme-toggle">Тёмная тема</button></nav>
+    </header>
+    <main class="workbench">
+      <aside class="guide">
+        <div class="version-line"><span class="version-tag">V2</span> Интерактивный макет</div>
+        <h1>Заявки<br />и чаты<span>.</span></h1>
+        <p class="guide-intro">
+          Рабочее место монтёра. Откройте адрес, внесите показания и передайте результат менеджеру.
+        </p>
+        <section>
+          <h2>Режим приложения</h2>
+          <div id="studio-modes"></div>
+        </section>
+        <section>
+          <h2>Сценарии</h2>
+          <nav id="studio-routes"></nav>
+        </section>
+        <details class="demo-settings">
+          <summary>Настройки макета</summary>
+          <div>
+            <button data-action="toggle-offline" id="studio-network"></button
+            ><button data-action="reset-demo">Сбросить демонстрацию</button>
+          </div>
+        </details>
+      </aside>
+      <section class="live-frame" aria-label="Интерактивное приложение">
+        <div class="frame-label">
+          <span><i></i> Интерактивный экран</span><span id="live-title"></span>
+        </div>
+        <div class="device" id="device">
+          <div class="statusbar" aria-hidden="true">
+            <b>9:41</b>
+            <div>
+              <span class="signal">▂▄▆</span
+              ><svg viewBox="0 0 24 24"><path d="M3 9a14 14 0 0 1 18 0M6 13a9 9 0 0 1 12 0M10 17a3 3 0 0 1 4 0" /></svg
+              ><span class="battery"></span>
+            </div>
+          </div>
+          <div id="app"></div>
+          <div class="home-indicator" aria-hidden="true"></div>
+          <div id="toast" role="status" aria-live="polite"></div>
+          <dialog id="sheet" aria-labelledby="sheet-title"></dialog>
+        </div>
+      </section>
+      <aside class="reference" aria-label="Связанный экран макета">
+        <div class="frame-label"><span>Связанный экран</span><span>Пример</span></div>
+        <button class="reference-frame" id="reference-link">
+          <img id="reference-image" alt="" /><span id="reference-caption"></span>
+        </button>
+      </aside>
+    </main>
+    <input type="file" id="file-picker" hidden multiple />
+  </body>
+</html>

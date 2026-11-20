@@ -1,0 +1,1004 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "По умолчанию все пять активных назначений представлены диалогами",
+      "ok": true
+    },
+    {
+      "name": "Светлый список и закреплённая заявка · метки и контраст",
+      "ok": true
+    },
+    {
+      "name": "Поиск по улице и дому",
+      "ok": true
+    },
+    {
+      "name": "Пустая подборка с возвратом",
+      "ok": true
+    },
+    {
+      "name": "Два диалога с непрочитанными сообщениями",
+      "ok": true
+    },
+    {
+      "name": "Адрес открывает диалог с рабочим шагом",
+      "ok": true
+    },
+    {
+      "name": "Скрепка открывает три источника в диалоге",
+      "ok": true
+    },
+    {
+      "name": "Вложение ждёт отправки и не подменяет фото формы",
+      "ok": true
+    },
+    {
+      "name": "Чужой черновик и сообщения отсутствуют",
+      "ok": true
+    },
+    {
+      "name": "Защита от двух одновременных работ",
+      "ok": true
+    },
+    {
+      "name": "По возврате восстановлены текст и файл",
+      "ok": true
+    },
+    {
+      "name": "Вложение можно снять до отправки",
+      "ok": true
+    },
+    {
+      "name": "Настоящий локальный файл попал в нужный черновик",
+      "ok": true
+    },
+    {
+      "name": "Отправленный текст и файл видны в переписке",
+      "ok": true
+    },
+    {
+      "name": "Проверка числовых показаний",
+      "ok": true
+    },
+    {
+      "name": "Сохранённое показание отражено в шаге и в ленте",
+      "ok": true
+    },
+    {
+      "name": "Смена режима в диалоге оставляет открытой ту же заявку",
+      "ok": true
+    },
+    {
+      "name": "Общая форма показывает те же показания и одну кнопку материалов",
+      "ok": true
+    },
+    {
+      "name": "Дополнительный файл попадает в рабочую форму",
+      "ok": true
+    },
+    {
+      "name": "В отдельном чате расширенного режима те же сообщения и черновик",
+      "ok": true
+    },
+    {
+      "name": "Неотправленный файл переживает переключение в расширенный режим",
+      "ok": true
+    },
+    {
+      "name": "Неотправленные текст и файл вернулись в упрощённый диалог",
+      "ok": true
+    },
+    {
+      "name": "Обратное переключение возвращает к следующему шагу той же заявки",
+      "ok": true
+    },
+    {
+      "name": "Обязательное фото имеет контекст формы и только подходящие источники",
+      "ok": true
+    },
+    {
+      "name": "Сверка показывает текущие значения перед завершением",
+      "ok": true
+    },
+    {
+      "name": "Завершение видно событием в диалоге",
+      "ok": true
+    },
+    {
+      "name": "Завершённая работа исчезла из активного списка",
+      "ok": true
+    },
+    {
+      "name": "Переписка выполненной заявки доступна в архиве",
+      "ok": true
+    },
+    {
+      "name": "Архивный отчёт содержит фактические значения обеих версий",
+      "ok": true
+    },
+    {
+      "name": "Расширенная навигация разделяет заявки и чаты",
+      "ok": true
+    },
+    {
+      "name": "Выбранный режим восстановился при новой загрузке",
+      "ok": true
+    },
+    {
+      "name": "Расширенные чаты · палитра статусов",
+      "ok": true
+    },
+    {
+      "name": "Переключатель из профиля возвращает упрощённую навигацию",
+      "ok": true
+    },
+    {
+      "name": "Без сети есть подтверждение очереди и блокировка повторного завершения",
+      "ok": true
+    },
+    {
+      "name": "Без сети видны рабочий статус и отметка об отправке",
+      "ok": true
+    },
+    {
+      "name": "После восстановления сети завершение переходит в историю",
+      "ok": true
+    },
+    {
+      "name": "Панель вложений в пределах экрана 320",
+      "ok": true
+    },
+    {
+      "name": "Панель вложений в пределах экрана 360",
+      "ok": true
+    },
+    {
+      "name": "Панель вложений в пределах экрана 390",
+      "ok": true
+    },
+    {
+      "name": "Панель вложений в пределах экрана 430",
+      "ok": true
+    },
+    {
+      "name": "Тёмный список · разные цвета и читаемые названия",
+      "ok": true
+    },
+    {
+      "name": "Внутри групп статус совпадает с обычным списком",
+      "ok": true
+    },
+    {
+      "name": "Зелёная метка архивного диалога",
+      "ok": true
+    },
+    {
+      "name": "Камера запрашивает одиночное фото",
+      "ok": true
+    },
+    {
+      "name": "Один источник принимает фото, видео и аудио",
+      "ok": true
+    },
+    {
+      "name": "Отмена выбора закрывает панель и сохраняет диалог",
+      "ok": true
+    },
+    {
+      "name": "После недопуска метка обновляется у заявки с доработкой",
+      "ok": true
+    },
+    {
+      "name": "Новый статус виден при возврате в список",
+      "ok": true
+    },
+    {
+      "name": "Настройка предлагает четыре группировки и обычный список",
+      "ok": true
+    },
+    {
+      "name": "Строки одной улицы сохраняют дом и квартиру",
+      "ok": true
+    },
+    {
+      "name": "Из группы открыта квартира 47 второго дома",
+      "ok": true
+    },
+    {
+      "name": "После возврата открытые группы сохранились",
+      "ok": true
+    },
+    {
+      "name": "Городской поиск пересчитывает группу и счётчик",
+      "ok": true
+    },
+    {
+      "name": "У пустого поиска нет групп",
+      "ok": true
+    },
+    {
+      "name": "В группу попадают только непрочитанные диалоги",
+      "ok": true
+    },
+    {
+      "name": "Прочтение обновляет состав группы",
+      "ok": true
+    },
+    {
+      "name": "Архив группирует только завершённые заявки",
+      "ok": true
+    },
+    {
+      "name": "Выбор группировки общий для обоих режимов",
+      "ok": true
+    },
+    {
+      "name": "После перезагрузки выбор восстановлен",
+      "ok": true
+    },
+    {
+      "name": "Настройка из профиля применяется к списку чатов",
+      "ok": true
+    },
+    {
+      "name": "Вид адресного реестра и группировка чатов независимы",
+      "ok": true
+    },
+    {
+      "name": "simple · street — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "simple · street-house — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "simple · city — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "simple · type — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "expanded · street — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "expanded · street-house — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "expanded · city — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "expanded · type — заголовки, счётчики и все ID без повторов",
+      "ok": true
+    },
+    {
+      "name": "Одноимённые адреса в разных городах разделены · street",
+      "ok": true
+    },
+    {
+      "name": "Одноимённые адреса в разных городах разделены · street-house",
+      "ok": true
+    },
+    {
+      "name": "Без группировки возвращает обычный список диалогов",
+      "ok": true
+    },
+    {
+      "name": "Обзор на компьютере показывает оба экрана и переключатели",
+      "ok": true
+    }
+  ],
+  "layouts": [
+    {
+      "width": 320,
+      "screen": "inbox",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chat/10428",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chat/10429",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "profile",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "delay",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "notifications",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "queue",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chats",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chat/10428",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "detail",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "work",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "locations",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "statuses",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "profile",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "inbox",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chat/10428",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chat/10429",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "profile",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "delay",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "notifications",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "queue",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chats",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chat/10428",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "detail",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "work",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "locations",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "statuses",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "profile",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "inbox",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chat/10428",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chat/10429",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "profile",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "delay",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "notifications",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "queue",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chats",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chat/10428",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "detail",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "work",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "locations",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "statuses",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "profile",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "inbox",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chat/10428",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chat/10429",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "profile",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "delay",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "notifications",
+      "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "queue",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chats",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chat/10428",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "detail",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "work",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "locations",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "statuses",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "profile",
+      "variant": "expanded",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "inbox",
+      "variant": "simple/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "inbox",
+      "variant": "simple/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "inbox",
+      "variant": "simple/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "inbox",
+      "variant": "simple/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chats",
+      "variant": "expanded/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chats",
+      "variant": "expanded/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chats",
+      "variant": "expanded/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chats",
+      "variant": "expanded/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "inbox",
+      "variant": "simple/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "inbox",
+      "variant": "simple/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "inbox",
+      "variant": "simple/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "inbox",
+      "variant": "simple/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chats",
+      "variant": "expanded/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chats",
+      "variant": "expanded/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chats",
+      "variant": "expanded/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chats",
+      "variant": "expanded/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "inbox",
+      "variant": "simple/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "inbox",
+      "variant": "simple/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "inbox",
+      "variant": "simple/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "inbox",
+      "variant": "simple/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chats",
+      "variant": "expanded/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chats",
+      "variant": "expanded/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chats",
+      "variant": "expanded/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chats",
+      "variant": "expanded/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "inbox",
+      "variant": "simple/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "inbox",
+      "variant": "simple/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "inbox",
+      "variant": "simple/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "inbox",
+      "variant": "simple/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chats",
+      "variant": "expanded/street",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chats",
+      "variant": "expanded/street-house",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chats",
+      "variant": "expanded/city",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chats",
+      "variant": "expanded/type",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    }
+  ],
+  "errors": []
+}
