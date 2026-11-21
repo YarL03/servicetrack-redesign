@@ -33,6 +33,15 @@ module.exports = async function ({
       theme + ' · открытый диалог теряет индикатор',
       `!document.querySelector('a[href="#chat/10430"] .unread-dot') && document.querySelector('.inbox-tabs .unread-total').textContent==='1'`,
     );
+    for (const filter of ['unread', 'archive']) {
+      await click(`[data-filter="${filter}"]`);
+      await assert(
+        `${theme} · при выборе «${filter === 'unread' ? 'Непрочитанные' : 'Архив'}» счётчик непрочитанных остаётся красным`,
+        `document.querySelector('[data-filter="${filter}"]').getAttribute('aria-pressed') === 'true' &&
+          getComputedStyle(document.querySelector('[data-filter="unread"] span')).backgroundColor === '${red}'`,
+      );
+      if (theme === 'light' && filter === 'unread') await shot('inbox-unread');
+    }
     await goto('chats', opts + '&mode=expanded');
     await assert(
       theme + ' · красные счётчики в расширенных чатах и навигации',

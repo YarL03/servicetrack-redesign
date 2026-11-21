@@ -88,6 +88,28 @@ module.exports = async function checkChatGroups({
   await click('.chat-group [href="#chat/10430"]');
   await click('#app .header-back a');
   await assert('Прочтение обновляет состав группы', `JSON.stringify(${snapshot}[0].ids)==='[10428]'`);
+  await select('type');
+  await click('.chat-group [href="#chat/10428"]');
+  await click('#app .header-back a');
+  for (const width of [320, 360, 390, 430]) {
+    await size(width);
+    await assert(
+      `Кнопка «К активным заявкам» по центру экрана «Всё прочитано» при ширине ${width} px`,
+      `(() => {
+        const button = document.querySelector('#inbox-rows [data-action=reset-inbox]').getBoundingClientRect();
+        const screen = document.querySelector('#app').getBoundingClientRect();
+        return document.querySelector('#inbox-rows h2').textContent === 'Всё прочитано' &&
+          Math.abs((button.left + button.width / 2) - (screen.left + screen.width / 2)) <= 1;
+      })()`,
+    );
+    if (width === 390) await shot('inbox-all-read');
+  }
+  await action('reset-inbox');
+  await assert(
+    'Из состояния «Всё прочитано» кнопка открывает активные заявки',
+    "document.querySelector('[data-filter=active]').getAttribute('aria-pressed')==='true' && !!document.querySelector('#inbox-rows .thread-row')",
+  );
+  await select('city');
   await click('[data-filter=archive]');
   await assert('Архив группирует только завершённые заявки', `JSON.stringify(${snapshot}[0].ids)==='[10433]'`);
   await action('mode-menu');

@@ -395,7 +395,7 @@ body {
   color: var(--accent);
   border-color: var(--accent);
 }
-.inbox-tabs button[aria-pressed='true'] span {
+.inbox-tabs button[aria-pressed='true'] span:not(.unread-total) {
   background: var(--accent-soft);
 }
 .pinned-bottom b {
@@ -416,6 +416,9 @@ body {
   background: var(--surface);
   padding: 12px 16px 20px;
   border-top: 1px solid var(--border);
+}
+.inbox-body .empty > .btn {
+  margin-inline: auto;
 }
 .pinned-job {
   display: block;
