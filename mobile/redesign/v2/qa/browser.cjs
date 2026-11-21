@@ -17,6 +17,8 @@ const chrome = spawn(
     '--disable-dev-shm-usage',
     '--no-first-run',
     '--disable-background-networking',
+    '--use-fake-device-for-media-stream',
+    '--use-fake-ui-for-media-stream',
     '--remote-debugging-pipe',
     `--user-data-dir=/tmp/kontur-mobile-qa-${process.pid}`,
   ],
@@ -72,8 +74,8 @@ function call(method, params = {}, sessionId = session) {
     chrome.stdio[3].write(JSON.stringify({id, method, params, ...(sessionId ? {sessionId} : {})}) + '\0');
   });
 }
-async function evaluate(expression) {
-  const r = await call('Runtime.evaluate', {expression, returnByValue: true, awaitPromise: true});
+async function evaluate(expression, userGesture = false) {
+  const r = await call('Runtime.evaluate', {expression, returnByValue: true, awaitPromise: true, userGesture});
   if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text);
   return r.result.value;
 }
@@ -112,6 +114,7 @@ async function shot(name) {
 async function click(selector) {
   const exists = await evaluate(
     `(()=>{const e=document.querySelector(${JSON.stringify(selector)});if(!e)return false;e.click();return true;})()`,
+    true,
   );
   if (!exists) throw new Error('Missing click ' + selector);
   await settle();
@@ -172,7 +175,7 @@ async function checkStatusColors(context, expected) {
 }
 const activeStatusExamples = [
   ['#app a[href="#chat/10428"]', 'info', 'В работе'],
-  ['#app a[href="#chat/10429"]', 'neutral', 'Готова к работе'],
+  ['#app a[href="#chat/10429"]', 'neutral', 'Готова к исполнению'],
   ['#app a[href="#chat/10430"]', 'warning', 'Недопуск'],
   ['#app a[href="#chat/10432"]', 'danger', 'Доработка'],
 ];
@@ -180,6 +183,22 @@ async function selectFiles(names) {
   const {root: doc} = await call('DOM.getDocument');
   const {nodeId} = await call('DOM.querySelector', {nodeId: doc.nodeId, selector: '#file-picker'});
   await call('DOM.setFileInputFiles', {nodeId, files: names});
+  await settle();
+}
+async function confirmFile() {
+  await evaluate(
+    `new Promise((resolve, reject) => {
+    const sheet = document.querySelector('#sheet'), panel = sheet.querySelector('.attachment-preview');
+    if (!panel || !sheet.open) return reject(new Error('Не открыт предпросмотр файла'));
+    const observer = new MutationObserver(() => {
+      if (!sheet.open || !panel.isConnected) { observer.disconnect(); clearTimeout(timer); resolve(); }
+    });
+    const timer = setTimeout(() => { observer.disconnect(); reject(new Error('Файл не подтверждён')); }, 5000);
+    observer.observe(sheet, {attributes:true, childList:true, subtree:true});
+    panel.querySelector('[data-intake-add]').click();
+  })`,
+    true,
+  );
   await settle();
 }
 (async () => {
@@ -222,7 +241,7 @@ async function selectFiles(names) {
   await inSheet('add-sample');
   await assert(
     'Вложение ждёт отправки и не подменяет фото формы',
-    "Kontur.state.attachments.length===1 && !Kontur.state.draft.photo && !!document.querySelector('.draft-attachments .file-card')",
+    "Kontur.state.attachments.length===1 && !Kontur.state.draft.fieldMedia.work.length && !!document.querySelector('.draft-attachments .file-card')",
   );
   await input('#message-text', 'Отправлю акт после осмотра.');
   await click('#app .header-back a');
@@ -234,10 +253,21 @@ async function selectFiles(names) {
   );
   await action('start-work');
   await assert(
-    'Защита от двух одновременных работ',
-    "document.querySelector('#sheet-title').textContent.includes('Уже есть') && document.querySelector('#sheet a').hash==='#chat/10428'",
+    'Вторая заявка начата из диалога при открытой первой',
+    on('chat', 10429) +
+      " && document.querySelector('.thread-context .chip').textContent==='В работе' && !!document.querySelector('[data-action=chat-step]') && !document.querySelector('#sheet').open",
   );
-  await click('#sheet a');
+  await action('chat-step');
+  await input('#step-value', '29001234');
+  await click('#step-form button');
+  await click('#app .header-back a');
+  await assert(
+    'Обе начатые заявки закреплены в активных диалогах и встречаются по одному разу',
+    `[10428,10429].every(id => document.querySelectorAll('#inbox-rows a[href="#chat/'+id+'"]').length===1 &&
+      document.querySelector('.pinned-job[href="#chat/'+id+'"] .chip').textContent==='В работе')`,
+  );
+  await checkLayout('inbox', 390, 'Две заявки в работе');
+  await click('#inbox-rows [href="#chat/10428"]');
   await assert(
     'По возврате восстановлены текст и файл',
     "Kontur.state.attachments.length===1 && document.querySelector('#message-text').value.includes('Отправлю акт')",
@@ -293,9 +323,10 @@ async function selectFiles(names) {
   );
   await action('attach-work');
   await inSheet('add-sample');
+  await confirmFile();
   await assert(
     'Дополнительный файл попадает в рабочую форму',
-    'Kontur.state.draft.extraFiles.length===1 && !Kontur.state.draft.photo',
+    "Kontur.state.draft.fieldMedia['work-extra'].filter(f=>f.delivery==='local' && f.name==='Акт замены.pdf').length===1 && !Kontur.state.draft.fieldMedia.work.length",
   );
   await input('#reading', '19,2');
   await click('#app a[aria-label="Чат заявки"]');
@@ -325,6 +356,7 @@ async function selectFiles(names) {
     "document.querySelectorAll('#sheet .source-grid button').length===2 && document.querySelector('.attachment-target').textContent.includes('Фото установленного прибора')",
   );
   await inSheet('add-sample');
+  await confirmFile();
   await action('chat-step');
   await assert(
     'Сверка показывает текущие значения перед завершением',
@@ -340,6 +372,10 @@ async function selectFiles(names) {
   await assert(
     'Завершённая работа исчезла из активного списка',
     '!document.querySelector(\'#inbox-rows [href="#chat/10428"]\')',
+  );
+  await assert(
+    'После завершения первой заявки вторая остаётся в работе',
+    `document.querySelector('.pinned-job[href="#chat/10429"] .chip').textContent==='В работе'`,
   );
   await click('[data-filter="archive"]');
   await assert(
@@ -360,9 +396,35 @@ async function selectFiles(names) {
     'Расширенная навигация разделяет заявки и чаты',
     "Kontur.state.screen==='queue' && document.querySelectorAll('.bottom-nav a').length===4 && !!document.querySelector('.bottom-nav [href=\"#chats\"]')",
   );
+  await click('#app [href="#detail/10431"]');
+  await action('start-work');
+  await assert(
+    'В расширенном режиме новая заявка открывает свою форму при другой начатой заявке',
+    on('work', 10431) + " && document.querySelector('#serial').value==='' && Kontur.request().status==='IN_PROGRESS'",
+  );
+  await navigate('queue');
+  await assert(
+    'Очередь позволяет продолжить обе начатые заявки',
+    `[10429,10431].every(id => document.querySelector('.focus-card a[href="#work/'+id+'"]')) &&
+      document.querySelectorAll('.focus-card').length===2`,
+  );
+  await checkLayout('queue', 390, 'Две заявки в работе');
+  await shot('queue');
+  await click('#app [href="#statuses"]');
+  await assert(
+    'В статусе «В работе» две карточки для выбора',
+    `document.querySelector('[data-status=IN_PROGRESS] b').textContent==='2' &&
+      [10429,10431].every(id => document.querySelector('.request-card[href="#detail/'+id+'"]'))`,
+  );
+  await click('#app [href="#detail/10429"]');
+  await action('start-work');
+  await assert(
+    'Продолжение возвращает черновик второй заявки и сохраняет единственное событие старта',
+    on('work', 10429) +
+      " && document.querySelector('#serial').value==='29001234' && Kontur.state.messages[10429].filter(m=>m.text==='Работа начата').length===1",
+  );
   await goto('queue');
   await assert('Выбранный режим восстановился при новой загрузке', "Kontur.state.mode==='expanded'");
-  await shot('queue');
   await click('.bottom-nav [href="#chats"]');
   await checkStatusColors('Расширенные чаты · палитра статусов', activeStatusExamples);
   await shot('chats');
@@ -381,6 +443,7 @@ async function selectFiles(names) {
   await click('#step-form button');
   await action('chat-step');
   await inSheet('add-sample');
+  await confirmFile();
   await action('chat-step');
   await inSheet('complete');
   await assert(
@@ -391,17 +454,44 @@ async function selectFiles(names) {
     ['.thread-context', 'info', 'В работе'],
     ['.thread-context', 'warning', 'Ожидает отправки'],
   ]);
+  await click('#app .header-back a');
+  await click('#inbox-rows [href="#chat/10429"]');
+  await action('start-work');
+  await assert(
+    'Пока отчёт первой заявки ожидает сети, можно начать вторую',
+    on('chat', 10429) +
+      " && !!document.querySelector('[data-action=chat-step]') && Kontur.state.pendingIds.join()==='10428'",
+  );
+  await click('#app .header-back a');
+  await click('#inbox-rows [href="#chat/10428"]');
   await click('#studio-network');
   await assert(
     'После восстановления сети завершение переходит в историю',
     "!Kontur.state.pendingIds.length && Kontur.request().status==='EXECUTED' && document.querySelector('.thread-context .chip.success')?.textContent==='Выполнена' && !document.querySelector('.chat-delivery')",
+  );
+  await click('#app .header-back a');
+  await assert(
+    'После отправки первого отчёта вторая заявка всё ещё в работе',
+    `document.querySelector('.pinned-job[href="#chat/10429"] .chip').textContent==='В работе'`,
   );
   await evaluate("localStorage.removeItem('kontur-mobile-v2-drafts')");
   for (const width of [320, 360, 390, 430]) {
     await size(width);
     for (const [style, screens] of Object.entries({
       simple: ['inbox', 'chat/10428', 'chat/10429', 'profile', 'delay', 'notifications'],
-      expanded: ['queue', 'chats', 'chat/10428', 'detail', 'work', 'locations', 'statuses', 'profile'],
+      expanded: [
+        'queue',
+        'chats',
+        'chat/10428',
+        'detail',
+        'work',
+        'locations',
+        'statuses',
+        'all',
+        'all-locations',
+        'all-statuses',
+        'profile',
+      ],
     })) {
       for (const screen of screens) {
         await goto(screen, scope(style));
@@ -431,10 +521,13 @@ async function selectFiles(names) {
   await goto('chat/10428', scope('simple'));
   await action('attach-chat');
   await click('[data-source="camera"]');
+  await click('[data-camera=native]');
   await assert(
-    'Камера запрашивает одиночное фото',
+    'Камера устройства запрашивает одиночное фото',
     "document.querySelector('#file-picker').accept==='image/*' && document.querySelector('#file-picker').hasAttribute('capture') && !document.querySelector('#file-picker').multiple",
   );
+  await click('.camera-view [data-action=close-sheet]');
+  await action('attach-chat');
   await click('[data-source="media"]');
   await assert(
     'Один источник принимает фото, видео и аудио',
@@ -452,6 +545,7 @@ async function selectFiles(names) {
   await inSheet('delay');
   await action('delay-photo');
   await inSheet('add-sample');
+  await confirmFile();
   await action('save-delay');
   await checkStatusColors('После недопуска метка обновляется у заявки с доработкой', [
     ['.thread-context', 'warning', 'Недопуск'],
@@ -460,6 +554,23 @@ async function selectFiles(names) {
   await checkStatusColors('Новый статус виден при возврате в список', [
     ['#app a[href="#chat/10432"]', 'warning', 'Недопуск'],
   ]);
+  await require('./chat-file-status.cjs')({action, assert, click, goto, input, scope, shot, size});
+  await require('./field-media.cjs')({
+    confirmFile,
+    action,
+    assert,
+    click,
+    evaluate,
+    goto,
+    inSheet,
+    input,
+    navigate,
+    scope,
+    selectFiles,
+    shot,
+    size,
+    checkLayout,
+  });
   await require('./chat-groups.cjs')({
     action,
     click,
@@ -472,6 +583,74 @@ async function selectFiles(names) {
     shot,
     checkLayout,
     on,
+  });
+  await require('./chat-media-unread.cjs')({
+    action,
+    assert,
+    click,
+    evaluate,
+    goto,
+    input,
+    navigate,
+    scope,
+    selectFiles,
+    shot,
+    size,
+    checkLayout,
+  });
+  await require('./request-addresses-fields.cjs')({
+    confirmFile,
+    action,
+    assert,
+    click,
+    evaluate,
+    goto,
+    navigate,
+    scope,
+    shot,
+    size,
+    checkLayout,
+  });
+  await require('./review-and-badge.cjs')({
+    confirmFile,
+    action,
+    assert,
+    checkLayout,
+    click,
+    evaluate,
+    goto,
+    input,
+    navigate,
+    scope,
+    shot,
+    size,
+  });
+  await require('./attachment-preview.cjs')({
+    action,
+    assert,
+    click,
+    confirmFile,
+    evaluate,
+    goto,
+    input,
+    navigate,
+    scope,
+    selectFiles,
+    shot,
+    size,
+  });
+  await require('./audio-recorder.cjs')({
+    action,
+    assert,
+    click,
+    confirmFile,
+    evaluate,
+    goto,
+    input,
+    navigate,
+    scope,
+    shot,
+    size,
   });
   await size(1440, 940);
   await goto('inbox', '?mode=simple&theme=light');

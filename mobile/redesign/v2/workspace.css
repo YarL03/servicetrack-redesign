@@ -398,6 +398,20 @@ body {
 .inbox-tabs button[aria-pressed='true'] span {
   background: var(--accent-soft);
 }
+.pinned-bottom b {
+  box-shadow: 0 0 0 1px #ffffffc7;
+}
+.inbox-tabs button .unread-total,
+.notification-scopes button .unread-total {
+  background: var(--unread);
+  color: var(--on-unread);
+  padding: 2px 5px;
+  border-radius: 6px;
+}
+.inbox-tabs [data-filter='unread'][aria-pressed='true'] {
+  color: var(--unread);
+  border-color: var(--unread);
+}
 .scroll-content.inbox-body {
   background: var(--surface);
   padding: 12px 16px 20px;
@@ -412,6 +426,10 @@ body {
   padding: 15px 16px 0;
   border-radius: 16px;
   background: var(--blue-print);
+}
+.pinned-job + .pinned-job,
+.focus-card + .focus-card {
+  margin-top: 12px;
 }
 .prompt-kicker > span {
   display: flex;
@@ -462,8 +480,8 @@ body {
 }
 .pinned-bottom b,
 .unread-dot {
-  background: white;
-  color: var(--blue-print);
+  background: var(--unread);
+  color: var(--on-unread);
   font: 650 11px/19px var(--body);
   min-width: 19px;
   padding: 0 4px;
@@ -563,8 +581,6 @@ body {
   position: absolute;
   right: 1px;
   bottom: 12px;
-  background: var(--accent);
-  color: var(--surface);
 }
 .simple-nav {
   grid-template-columns: repeat(2, 1fr);
@@ -843,21 +859,6 @@ body {
   .app-header h1 {
     font-size: 25px;
   }
-}
-.edit-report {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 12px;
-  margin-top: 7px;
-}
-#sheet .edit-report .btn {
-  min-height: 36px;
-  width: auto;
-  margin: 0;
-  padding: 4px 0;
-  border: 0;
-  color: var(--accent);
-  font-size: 12px;
 }
 #sheet .info-line strong {
   overflow-wrap: anywhere;

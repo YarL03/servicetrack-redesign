@@ -1,9 +1,8 @@
-/* Events share the app's palette; unread is a state, not a priority. */
 .notification-bell {
   position: relative;
 }
 .notification-menu-count {
-  color: var(--accent);
+  color: var(--unread);
   font: 12px var(--mono);
   margin-right: 6px;
 }
@@ -37,6 +36,9 @@
   background: var(--surface);
   font-weight: 650;
   box-shadow: 0 1px 3px #1c2b4310;
+}
+.notification-scopes [data-value='unread'].active {
+  color: var(--unread);
 }
 .notification-scopes button span {
   font: 12px var(--mono);
@@ -95,8 +97,8 @@
   background: var(--surface);
 }
 .notification-row.is-unread {
-  background: color-mix(in srgb, var(--accent-soft) 36%, var(--surface));
-  box-shadow: inset 3px 0 var(--accent);
+  background: color-mix(in srgb, var(--unread) 6%, var(--surface));
+  box-shadow: inset 3px 0 var(--unread);
 }
 .notification-open {
   display: flex;
@@ -167,13 +169,13 @@
   padding-right: 46px;
 }
 .is-unread .notification-read {
-  color: var(--accent);
+  color: var(--unread);
 }
 .notification-read i {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: currentColor;
 }
 .notification-more {
   position: absolute;
@@ -537,14 +539,14 @@
   align-items: flex-start;
   gap: 10px;
   padding: 12px 10px 4px 16px;
-  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--unread) 6%, var(--surface));
   border-block: 1px solid var(--border);
   flex-shrink: 0;
 }
 .incoming-icon {
   display: grid;
   place-items: center;
-  color: var(--accent);
+  color: var(--unread);
   width: 25px;
   height: 25px;
   flex-shrink: 0;

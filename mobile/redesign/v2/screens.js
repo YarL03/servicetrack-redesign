@@ -3,11 +3,11 @@ Kontur.screens = {
   queue() {
     const K = Kontur,
       active = K.activeRequests(),
-      current = active.find((r) => r.status === 'IN_PROGRESS'),
+      inProgress = active.filter((r) => r.status === 'IN_PROGRESS'),
       attention = active.filter((r) => r.revision || r.status === 'DELAYED'),
       ready = active.filter((r) => r.status === 'READY_TO_PROCESS' && !r.revision);
-    const focus = current
-      ? `<section class="focus-card"><div class="row between"><span class="focus-eyebrow">${K.icon('clock')}Текущая работа</span><span class="mono tiny muted">№ ${current.id}</span></div><h2>${current.street}, ${current.house} <span class="muted">· кв. ${current.apartment}</span></h2><p class="request-type">${current.type}</p><div class="progress-caption"><span>${K.state.pendingIds?.includes(current.id) ? 'Ожидает отправки' : 'Установка прибора'}</span><span class="muted">Этап 2 из 3</span></div><div class="progress-track" aria-label="Первый этап завершён, второй в работе"><i class="done"></i><i class="current"></i><i></i></div><a class="btn primary full" href="#${K.state.pendingIds?.includes(current.id) ? 'complete' : 'work'}/${current.id}">${K.state.pendingIds?.includes(current.id) ? 'Проверить отправку' : 'Продолжить работу'}${K.icon('arrow')}</a></section>`
+    const focus = inProgress.length
+      ? inProgress.map((r) => K.inProgressCard(r)).join('')
       : K.notice('Можно начать следующую работу', 'Выберите заявку в списке ниже.', 'success', 'check');
     return (
       K.header('Мои заявки', K.listSummary(), K.notifications.bell()) +
@@ -19,71 +19,66 @@ Kontur.screens = {
         .map((r) => K.requestCard(r, true))
         .join(
           '',
-        )}<div class="section-label"><span>Готовы к работе</span><small>Заявок: ${ready.length}</small></div>${ready.map((r) => K.requestCard(r, true)).join('')}<p class="search-hint">Данные обновлены в 09:38</p></div>` +
+        )}<div class="section-label"><span>Готовы к исполнению</span><small>Заявок: ${ready.length}</small></div>${ready.map((r) => K.requestCard(r, true)).join('')}<p class="search-hint">Данные обновлены в 09:38</p></div>` +
       K.bottom()
     );
   },
-  locations() {
-    const K = Kontur,
-      s = K.state;
-    const groups = K.addressGroups(),
-      streetOnly = s.addressGrouping === 'street';
+  locations(all = false) {
+    const K = Kontur;
     return (
-      K.header('Мои заявки', K.listSummary(), K.notifications.bell()) +
+      K.header(all ? 'Все заявки' : 'Мои заявки', all ? 'Заявок в реестре: ' + K.requests.length : K.listSummary()) +
       K.listTools() +
-      K.views() +
+      K.views(all) +
       K.network() +
-      `<div class="scroll-content no-top"><div class="address-grouping"><p id="address-grouping-label">Группировка заявок</p><div class="address-grouping-options" role="group" aria-labelledby="address-grouping-label">${[
-        ['street', 'По улице'],
-        ['street-house', 'По улице и дому'],
-      ]
-        .map(
-          ([value, label]) =>
-            `<button data-action="set-address-grouping" data-grouping="${value}" aria-pressed="${s.addressGrouping === value}">${label}</button>`,
-        )
-        .join(
-          '',
-        )}</div></div><div class="section-label"><span>Адреса заявок</span><small>${streetOnly ? 'Улиц' : 'Домов'}: ${groups.length}</small></div>${groups
-        .map(({key, city, street, house, rows}, i) => {
-          const open = s.addressExpanded[s.addressGrouping][key] ?? i < 2;
-          return `<details class="building-group" data-address-group="${K.escape(key)}" data-grouping-mode="${s.addressGrouping}" ${open ? 'open' : ''}><summary><span class="building-icon">${K.icon(streetOnly ? 'pin' : 'building')}</span><span class="grow"><h3>${K.escape(street)}${streetOnly ? '' : ', ' + K.escape(house)}</h3><p>${K.escape(city)} · Заявок: ${rows.length}${streetOnly ? ' · домов: ' + new Set(rows.map((r) => r.house)).size : ''}${rows.some((r) => r.status === 'IN_PROGRESS') ? ' · есть работа в процессе' : ''}</p></span>${K.icon('down')}</summary>${rows.map((r) => `<a class="apartment-row ${streetOnly ? 'street-request-row ' : ''}${r.status === 'IN_PROGRESS' ? 'current' : ''}" href="${K.href('detail', r.id)}">${streetOnly ? '' : `<span class="apartment-number">${K.escape(r.apartment)}<small>квартира</small></span>`}<span class="grow">${streetOnly ? `<strong class="street-request-address">Дом ${K.escape(r.house)} · кв. ${K.escape(r.apartment)}</strong>` : ''}<p>${K.escape(r.type)}</p>${K.badge(r)}</span>${K.icon('chevron')}</a>`).join('')}</details>`;
-        })
-        .join(
-          '',
-        )}${groups.length ? `<p class="search-hint">${streetOnly ? 'Откройте улицу, чтобы увидеть заявки во всех её домах.' : 'Откройте дом, чтобы увидеть все работы по этому адресу.'}</p>` : K.notice('Активных заявок пока нет', 'Новые назначения появятся здесь.', 'info', 'list')}</div>` +
-      K.bottom()
+      `<div class="scroll-content no-top">${K.requestAddresses.render(all ? K.requests : K.activeRequests(), all)}</div>` +
+      K.bottom(all ? 'all' : 'mine')
     );
   },
-  statuses() {
+  'all-locations'() {
+    return this.locations(true);
+  },
+  'all-statuses'() {
+    return this.statuses(true);
+  },
+  statuses(all = false) {
     const K = Kontur,
-      s = K.state;
+      s = K.state,
+      requests = all ? K.requests : K.activeRequests(),
+      status = all ? s.allStatus : s.status;
     const groups = [
       ['IN_PROGRESS', 'В работе'],
       ['READY_TO_PROCESS', 'Готовы'],
       ['DELAYED', 'Недопуск'],
       ['revision', 'Доработка'],
+      ...(all ? [['EXECUTED', 'Выполнены']] : []),
     ].map(([id, label]) => [
       id,
       label,
-      K.activeRequests().filter((r) => (id === 'revision' ? r.revision : r.status === id && !r.revision)).length,
+      requests.filter((r) => (id === 'revision' ? r.revision : r.status === id && !r.revision)).length,
     ]);
-    const rows = K.activeRequests().filter((r) =>
-      s.status === 'revision' ? r.revision : r.status === s.status && !r.revision,
-    );
+    const rows = requests.filter((r) => (status === 'revision' ? r.revision : r.status === status && !r.revision));
+    const onlyWork = status === 'IN_PROGRESS' && rows.length === 1 ? rows[0] : null;
     return (
-      K.header('Мои заявки', K.listSummary(), K.notifications.bell()) +
+      K.header(all ? 'Все заявки' : 'Мои заявки', all ? 'Заявок в реестре: ' + requests.length : K.listSummary()) +
       K.listTools() +
-      K.views() +
+      K.views(all) +
       K.network() +
-      `<div class="scroll-content no-top"><div class="status-grid">${groups.map(([id, label, count]) => `<button class="status-tile ${s.status === id ? 'active' : ''}" data-status="${id}" aria-pressed="${s.status === id}"><span>${label}</span><b>${count}</b></button>`).join('')}</div><div class="section-label"><span>${groups.find((g) => g[0] === s.status)[1]}</span><small>${rows.length} ${rows.length === 1 ? 'заявка' : 'заявки'}</small></div>${rows.map((r) => K.requestCard(r)).join('')}${s.status === 'IN_PROGRESS' && rows.length ? `<div class="mt16"><a class="btn primary full" href="#work/${rows[0].id}">Продолжить работу${K.icon('arrow')}</a></div><p class="search-hint">Заявки переходят между группами после смены статуса. Доработки выделены отдельно.</p>` : ''}</div>` +
-      K.bottom()
+      `<div class="scroll-content no-top"><div class="status-grid">${groups.map(([id, label, count]) => `<button class="status-tile ${status === id ? 'active' : ''}" data-status="${id}" aria-pressed="${status === id}"><span>${label}</span><b>${count}</b></button>`).join('')}</div><div class="section-label"><span>${groups.find((g) => g[0] === status)[1]}</span><small>Заявок: ${rows.length}</small></div>${rows.map((r) => K.requestCard(r)).join('')}` +
+      (onlyWork?.mine && !s.pendingIds?.includes(onlyWork.id)
+        ? `<div class="mt16"><a class="btn primary full" href="#work/${onlyWork.id}">Продолжить работу${K.icon('arrow')}</a></div>`
+        : '') +
+      (status === 'IN_PROGRESS' && rows.length
+        ? '<p class="search-hint">Заявки переходят между группами после смены статуса. Доработки выделены отдельно.</p>'
+        : '') +
+      '</div>' +
+      K.bottom(all ? 'all' : 'mine')
     );
   },
   search() {
     const K = Kontur,
       s = K.state;
     return (
-      K.backHeader('Поиск заявок', '', s.listView) +
+      K.backHeader('Поиск заявок', '', s.listOrigin) +
       `<div class="search-tools"><label class="search-field">${K.icon('search')}<span class="sr-only">Номер, адрес или абонент</span><input id="search-input" type="search" autocomplete="off" placeholder="Номер, адрес или абонент" value="${K.escape(s.query)}">${K.iconButton('close', 'Очистить запрос', 'clear-search')}</label><a class="icon-button bordered" href="#filters" aria-label="Фильтры">${K.icon('filter')}</a></div><div class="scope-tabs" role="group" aria-label="Область поиска">${[
         ['mine', 'Мои'],
         ['all', 'Все заявки'],
@@ -111,7 +106,7 @@ Kontur.screens = {
       ) +
       `<div class="scroll-content"><h2 class="mb16">Статус заявки</h2><div class="radio-list">${[
         ['all', 'Все статусы'],
-        ['READY_TO_PROCESS', 'Готова к работе'],
+        ['READY_TO_PROCESS', K.statuses.READY_TO_PROCESS[0]],
         ['IN_PROGRESS', 'В работе'],
         ['DELAYED', 'Недопуск'],
         ['EXECUTED', 'Выполнена'],
@@ -129,11 +124,12 @@ Kontur.screens = {
   all() {
     const K = Kontur;
     return (
-      K.header('Все заявки', '8 заявок в доступном реестре') +
+      K.header('Все заявки', 'Заявок в реестре: ' + K.requests.length) +
       K.listTools() +
+      K.views(true) +
       K.network() +
-      `<div class="scroll-content"><div class="section-label"><span>Ожидают исполнителя</span><small>2 заявки</small></div>${K.requests
-        .filter((r) => !r.mine)
+      `<div class="scroll-content"><div class="section-label"><span>Ожидают исполнителя</span><small>Заявок: ${K.requests.filter((r) => !r.mine && r.status !== 'EXECUTED').length}</small></div>${K.requests
+        .filter((r) => !r.mine && r.status !== 'EXECUTED')
         .map((r) => K.requestCard(r, true))
         .join(
           '',
@@ -155,11 +151,11 @@ Kontur.screens = {
       K.backHeader(
         'Заявка № ' + r.id,
         r.external,
-        K.state.listView,
+        K.state.listOrigin,
         K.iconButton('more', 'Действия заявки', 'request-menu'),
       ) +
       K.network() +
-      `<div class="scroll-content"><section class="request-hero">${K.badge(r)}<h1>ул. ${r.street}, ${r.house}<br>квартира ${r.apartment}</h1><p>${K.escape(r.city)} · ${r.type}</p></section><div class="quick-actions"><button data-action="route">${K.icon('pin')}Маршрут</button><button data-action="call-customer">${K.icon('phone')}Абонент</button><a href="${K.href('chat', r.id)}">${K.icon('chat')}Чат ${r.unread ? '· ' + r.unread : ''}</a></div>${r.id === 10428 ? K.notice('Перед началом', 'Счётчик в квартире. Абонент просит позвонить перед визитом.', 'info', 'file') : r.revision ? K.notice('Вернули на доработку', 'На фото не читается номер пломбы. Сделайте новый снимок.', 'warning', 'camera') : ''}<div class="panel mt16"><div class="info-line"><span>Абонент</span><strong>${r.customer}</strong></div><div class="info-line"><span>Место установки</span><strong>В квартире</strong></div><div class="info-line"><span>Лицевой счёт</span><strong class="mono">008241093</strong></div></div><div class="section-label">Ответственный менеджер</div><div class="panel person-row"><span class="avatar sage">ЕС</span><span class="grow"><strong>Елена Соколова</strong><small>Менеджер заявки</small></span><a class="icon-button" href="${K.href('chat', r.id)}" aria-label="Написать менеджеру">${K.icon('chat')}</a></div><details class="disclosure mt16"><summary>Объект и исходные данные${K.icon('down')}</summary><div class="info-line"><span>Старый прибор</span><strong>Меркурий 201</strong></div><div class="info-line"><span>Заводской номер</span><strong class="mono">59120318</strong></div><div class="info-line"><span>Контракт</span><strong>Иркутск · 2026</strong></div></details>${editable ? `<button class="text-link" data-action="delay">${K.icon('alert')}Сообщить о недопуске</button>` : ''}</div>` +
+      `<div class="scroll-content"><section class="request-hero">${K.badge(r)}<h1>ул. ${r.street}, ${r.house}<br>квартира ${r.apartment}</h1><p>${K.escape(r.city)} · ${r.type}</p></section><div class="quick-actions"><button data-action="route">${K.actionIcon('pin')}Маршрут</button><button data-action="call-customer">${K.actionIcon('phone')}Абонент</button><a href="${K.href('chat', r.id)}">${K.actionIcon('chat', r.unread)}Чат</a></div>${r.id === 10428 ? K.notice('Перед началом', 'Счётчик в квартире. Абонент просит позвонить перед визитом.', 'info', 'file') : r.revision ? K.notice('Вернули на доработку', 'На фото не читается номер пломбы. Сделайте новый снимок.', 'warning', 'camera') : ''}<div class="panel mt16"><div class="info-line"><span>Абонент</span><strong>${r.customer}</strong></div><div class="info-line"><span>Место установки</span><strong>В квартире</strong></div><div class="info-line"><span>Лицевой счёт</span><strong class="mono">008241093</strong></div></div><div class="section-label">Ответственный менеджер</div><div class="panel person-row"><span class="avatar sage">ЕС</span><span class="grow"><strong>Елена Соколова</strong><small>Менеджер заявки</small></span><a class="icon-button" href="${K.href('chat', r.id)}" aria-label="Написать менеджеру">${K.icon('chat')}</a></div><details class="disclosure mt16"><summary>Объект и исходные данные${K.icon('down')}</summary><div class="info-line"><span>Старый прибор</span><strong>${K.escape(K.state.draft.oldModel)}</strong></div><div class="info-line"><span>Заводской номер</span><strong class="mono">${K.escape(K.state.draft.oldSerial)}</strong></div><div class="info-line"><span>Контракт</span><strong>Иркутск · 2026</strong></div></details>${editable ? `<button class="text-link" data-action="delay">${K.icon('alert')}Сообщить о недопуске</button>` : ''}</div>` +
       K.actionbar(
         pending
           ? K.linkButton('Проверить отправку', 'complete', 'secondary', 'cloud')
@@ -192,8 +188,6 @@ Kontur.screens = {
   },
   work() {
     const K = Kontur,
-      s = K.state,
-      d = s.draft,
       r = K.request();
     return (
       K.backHeader(
@@ -204,7 +198,7 @@ Kontur.screens = {
       ) +
       `<div class="context-line"><span>${K.address(r)}</span>${K.modeButton()}<button data-action="stages">Этапы</button></div><div class="save-state" id="save-state">${K.icon('check')}Черновик сохранён на устройстве</div>` +
       K.network() +
-      `<div class="scroll-content"><div class="stepper"><b class="done">✓</b><i></i><b class="active">2</b><i></i><b>3</b><span>Этап 2 из 3</span></div><div class="form-intro"><h2>Новый счётчик</h2><p>Обязательные поля отмечены *</p></div><label class="field"><span>Заводской номер *</span><span class="field-input-row"><input id="serial" autocomplete="off" inputmode="numeric" value="${K.escape(d.serial)}">${K.iconButton('scan', 'Сканировать заводской номер', 'scan', 'bordered')}</span><small>Меркурий 201.7 · однофазный</small></label><label class="field ${s.reviewError && !d.reading ? 'error' : ''}"><span>Начальные показания, кВт·ч *</span><input id="reading" inputmode="decimal" placeholder="Например, 00012,5" value="${K.escape(d.reading)}" ${s.reviewError && !d.reading ? 'aria-invalid="true" aria-describedby="reading-error"' : ''}><small id="reading-error" class="${s.reviewError && !d.reading ? 'field-error' : ''}">${s.reviewError && !d.reading ? 'Укажите начальные показания.' : 'Введите показания с установленного прибора.'}</small></label><section class="field-panel"><h3>Фото установленного прибора *</h3><p>В кадре видны номер, показания и пломба.</p>${d.photo ? `<div class="photo-proof">${K.icon('photo')}<span>${K.escape(d.photoName || 'Счётчик после установки')}<br><small>Фото к отчёту</small></span>${K.iconButton('close', 'Удалить фото', 'remove-photo')}</div>` : `<button class="photo-add" data-action="work-photo">${K.icon('camera')}Сделать или выбрать фото</button>`}</section><label class="field mt24"><span>Комментарий <span class="muted">· необязательно</span></span><textarea id="work-comment" placeholder="Что важно знать менеджеру" maxlength="400">${K.escape(d.comment)}</textarea></label><button class="extra-attach" data-action="attach-work">${K.icon('clip')}Приложить материалы</button>${d.extraFiles?.length ? `<div class="photo-proof">${d.extraFiles.map(K.escape).join('<br>')}</div>` : ''}</div>` +
+      `<div class="scroll-content"><div class="stepper"><b class="done">✓</b><i></i><b class="active">2</b><i></i><b>3</b><span>Этап 2 из 3</span></div><div class="form-intro"><h2>Новый счётчик</h2><p>Обязательные поля отмечены *</p></div>${K.workForm.inputs()}</div>` +
       K.actionbar(
         K.button('Проверить результат', 'review', 'primary', 'arrow'),
         `${K.progress()} из 3 обязательных полей заполнено`,
@@ -214,13 +208,12 @@ Kontur.screens = {
   review() {
     const K = Kontur,
       s = K.state,
-      d = s.draft,
       r = K.request();
-    const missing = !d.serial.trim() || !/^\d+([.,]\d+)?$/.test(d.reading.trim()) || !d.photo;
+    const missing = K.progress() < 3;
     return (
       K.backHeader('Проверка результата', '№ ' + r.id, 'work') +
       K.network() +
-      `<div class="scroll-content"><div class="form-intro"><h2>Всё готово к отправке?</h2><p>${K.address(r)}</p></div>${missing ? K.notice('Есть незаполненные поля', 'Заполните обязательные поля установки. Ссылки ниже вернут к нужному месту.', 'warning', 'alert') : K.notice('Обязательные поля заполнены', 'Проверьте показания и фото перед завершением.', 'success', 'check')}<div class="panel mt16"><div class="summary-row"><span><p>Заводской номер</p><strong class="mono">${K.escape(d.serial) || 'Не заполнен'}</strong></span><button class="text-link" data-field="serial">Изменить</button></div><div class="summary-row"><span><p>Начальные показания</p><strong class="mono">${K.escape(d.reading) || 'Не заполнены'}${d.reading ? ' кВт·ч' : ''}</strong></span><button class="text-link" data-field="reading">${d.reading ? 'Изменить' : 'Заполнить'}</button></div><div class="summary-row"><span><p>Фото установленного прибора</p><strong>${d.photo ? '1 фото сохранено' : 'Фото не добавлено'}</strong></span><button class="text-link" data-field="photo">${d.photo ? 'Посмотреть' : 'Добавить'}</button></div>${d.comment ? `<div class="summary-row"><span><p>Комментарий</p><strong>${K.escape(d.comment)}</strong></span></div>` : ''}</div><div class="mt24">${K.notice('После отправки', 'Редактирование приостановится на время передачи. Статус «Выполнена» появится после подтверждения.', 'info', 'cloud')}</div><a class="text-link" href="${K.href('chat', r.id)}">${K.icon('chat')}Обсудить с менеджером</a></div>` +
+      `<div class="scroll-content"><div class="form-intro"><h2>Всё готово к отправке?</h2><p>${K.address(r)}</p></div>${missing ? K.notice('Есть незаполненные поля', 'Заполните обязательные поля установки. Ссылки ниже вернут к нужному месту.', 'warning', 'alert') : K.notice('Обязательные поля заполнены', 'Проверьте данные обоих шагов перед завершением.', 'success', 'check')}${K.workForm.review()}<div class="mt24">${K.notice('После отправки', 'Редактирование приостановится на время передачи. Статус «Выполнена» появится после подтверждения.', 'info', 'cloud')}</div><a class="text-link" href="${K.href('chat', r.id)}">${K.icon('chat')}Обсудить с менеджером</a></div>` +
       K.actionbar(
         missing
           ? K.linkButton('Заполнить обязательные поля', 'work', 'primary', 'arrow')
@@ -248,10 +241,10 @@ Kontur.screens = {
       s = K.state;
     return (
       K.backHeader('Сообщить о недопуске', '№ ' + s.id, 'detail') +
-      `<div class="scroll-content"><div class="form-intro"><h2>Не удалось попасть внутрь</h2><p>${K.address(K.request())}</p></div><div class="row"><label class="field grow"><span>Дата *</span><input id="delay-date" type="date" value="${s.delayDate}"></label><label class="field grow" style="margin-top:0"><span>Время *</span><input id="delay-time" type="time" value="${s.delayTime}"></label></div><section class="field-panel"><h3>Фото уведомления *</h3><p>Сфотографируйте оставленное уведомление.</p>${s.delayPhoto ? `<div class="photo-proof">${K.icon('photo')}Уведомление · фото добавлено</div>` : `<button class="photo-add" data-action="delay-photo">${K.icon('camera')}Добавить фото</button>`}</section><button class="text-link" data-action="delay-act">${K.icon('plus')}${s.delayAct ? 'Фото акта добавлено ✓' : 'Фото акта недопуска · необязательно'}</button><label class="field mt16"><span>Комментарий</span><textarea id="delay-comment" maxlength="400" placeholder="Например: звонил в домофон и по телефону, ответа нет">${K.escape(s.delayComment)}</textarea><small>До 400 символов</small></label><div class="mt24">${K.notice('Менеджер увидит причину', 'Данные недопуска сохранятся в заявке. Можно дополнительно написать в чат.', 'info', 'chat')}</div></div>` +
+      `<div class="scroll-content"><div class="form-intro"><h2>Не удалось попасть внутрь</h2><p>${K.address(K.request())}</p></div><div class="row"><label class="field grow"><span>Дата *</span><input id="delay-date" type="date" value="${s.delayDate}"></label><label class="field grow" style="margin-top:0"><span>Время *</span><input id="delay-time" type="time" value="${s.delayTime}"></label></div>${K.mediaUI.panel('delay')}${K.mediaUI.panel('delay-act')}<label class="field mt16"><span>Комментарий</span><textarea id="delay-comment" maxlength="400" placeholder="Например: звонил в домофон и по телефону, ответа нет">${K.escape(s.delayComment)}</textarea><small>До 400 символов</small></label><div class="mt24">${K.notice('Менеджер увидит причину', 'Данные недопуска сохранятся в заявке. Можно дополнительно написать в чат.', 'info', 'chat')}</div></div>` +
       K.actionbar(
         K.button('Сохранить недопуск', 'save-delay', 'primary', 'check'),
-        s.delayPhoto ? 'Фото уведомления добавлено' : 'Для сохранения нужно фото уведомления',
+        s.draft.fieldMedia.delay.length ? 'Фото уведомления добавлено' : 'Для сохранения нужно фото уведомления',
       )
     );
   },
@@ -278,7 +271,7 @@ Kontur.screens = {
         )
         .join(
           '',
-        )}<button class="menu-row" data-action="notifications">${K.icon('bell')}<span>Уведомления</span><span class="notification-menu-count">${K.notifications.count()}</span>${K.icon('chevron')}</button><button class="menu-row" data-action="app-settings">${K.icon('settings')}<span>Настройки</span>${K.icon('chevron')}</button></div><div class="mt24">${K.notice('Готово к работе без сети', '5 заявок и их формы сохранены. Состояние файлов можно проверить в разделе отправки.', 'success', 'check')}</div><p class="search-hint">Сервис Трек · мобильная команда<br>Рабочее пространство «Иркутск»</p></div>` +
+        )}<button class="menu-row" data-action="notifications">${K.icon('bell')}<span>Уведомления</span>${K.notifications.count() ? `<span class="notification-menu-count">${K.notifications.count()}</span>` : ''}${K.icon('chevron')}</button><button class="menu-row" data-action="app-settings">${K.icon('settings')}<span>Настройки</span>${K.icon('chevron')}</button></div><div class="mt24">${K.notice('Готово к работе без сети', '5 заявок и их формы сохранены. Состояние файлов можно проверить в разделе отправки.', 'success', 'check')}</div><p class="search-hint">Сервис Трек · мобильная команда<br>Рабочее пространство «Иркутск»</p></div>` +
       K.bottom('profile')
     );
   },

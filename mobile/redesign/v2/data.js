@@ -108,14 +108,15 @@ Kontur.requests = [
 ];
 Kontur.statuses = {
   IN_PROGRESS: ['В работе', 'info'],
-  READY_TO_PROCESS: ['Готова к работе', 'neutral'],
+  READY_TO_PROCESS: ['Готова к исполнению', 'neutral'],
   DELAYED: ['Недопуск', 'warning'],
   EXECUTED: ['Выполнена', 'success'],
 };
 Kontur.initialDraft = (id = 10428) => ({
+  oldModel: 'Меркурий 201',
+  oldSerial: '59120318',
   serial: id === 10428 ? '73280419' : '',
   reading: '',
-  photo: false,
   comment: '',
   finished: false,
   delayed: false,
@@ -126,7 +127,9 @@ Kontur.state = {
   listView: 'queue',
   chatGrouping: 'none',
   addressGrouping: 'street-house',
-  addressExpanded: {street: {}, 'street-house': {}},
+  allView: 'all',
+  listOrigin: 'queue',
+  allStatus: 'IN_PROGRESS',
   scope: 'mine',
   query: '',
   status: 'IN_PROGRESS',
@@ -139,7 +142,6 @@ Kontur.state = {
   attachments: [],
   attachmentContext: 'chat',
   reviewError: false,
-  delayPhoto: false,
   delayComment: '',
   delayDate: '2026-11-19',
   delayTime: '09:41',

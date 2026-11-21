@@ -12,30 +12,16 @@ Object.assign(Kontur, {
   activeRequests() {
     return this.requests.filter((r) => r.mine && r.status !== 'EXECUTED');
   },
-  addressGroups() {
-    const groups = new Map();
-    const streetOnly = this.state.addressGrouping === 'street';
-    for (const request of this.activeRequests()) {
-      const key = JSON.stringify([request.city, request.street, streetOnly ? null : request.house]);
-      if (!groups.has(key))
-        groups.set(key, {key, city: request.city, street: request.street, house: request.house, rows: []});
-      groups.get(key).rows.push(request);
-    }
-    return [...groups.values()].map((group) => ({
-      ...group,
-      rows: group.rows.sort(
-        (a, b) =>
-          String(a.house).localeCompare(String(b.house), 'ru', {numeric: true}) ||
-          String(a.apartment).localeCompare(String(b.apartment), 'ru', {numeric: true}),
-      ),
-    }));
-  },
   listSummary() {
     const rows = this.activeRequests();
     return `${rows.length} активных · адресов: ${new Set(rows.map((r) => JSON.stringify([r.city, r.street, r.house]))).size}`;
   },
   unreadCount() {
     return this.requests.reduce((count, r) => count + r.unread, 0);
+  },
+  actionIcon(icon, unread = 0) {
+    const badge = unread ? `<span class="badge-count" aria-label="Непрочитанных: ${unread}">${unread}</span>` : '';
+    return `<span class="action-icon">${this.icon(icon)}${badge}</span>`;
   },
   address(r, full = false) {
     return `${full ? r.city + ', ' : ''}ул. ${r.street}, ${r.house}${r.apartment ? ` · кв. ${r.apartment}` : ''}`;
@@ -79,25 +65,25 @@ Object.assign(Kontur, {
         ]
       : [
           ['mine', 'list', 'Мои', this.state.listView],
-          ['all', 'grid', 'Все', 'all'],
+          ['all', 'grid', 'Все', this.state.allView],
           ['chats', 'chat', 'Чаты', 'chats'],
           ['profile', 'user', 'Профиль', 'profile'],
         ];
     return `<nav class="bottom-nav ${simple ? 'simple-nav' : ''}" aria-label="Основная навигация">${tabs
       .map(
         ([id, icon, label, route]) =>
-          `<a href="#${route}" class="${active === id ? 'active' : ''}" ${active === id ? 'aria-current="page"' : ''}><span>${this.icon(icon)}${id === 'chats' && this.unreadCount() ? `<i class="badge-count">${this.unreadCount()}</i>` : ''}</span>${label}</a>`,
+          `<a href="#${route}" class="${active === id ? 'active' : ''}" ${active === id ? 'aria-current="page"' : ''}>${this.actionIcon(icon, id === 'chats' ? this.unreadCount() : 0)}${label}</a>`,
       )
       .join('')}</nav>`;
   },
   listTools() {
     return `<div class="search-tools"><a class="search-entry" href="#search">${this.icon('search')}Номер, адрес или абонент</a><a class="icon-button bordered" href="#filters" aria-label="Фильтры заявок">${this.icon('filter')}</a></div>`;
   },
-  views() {
+  views(all = false) {
     return `<nav class="view-switch" aria-label="Вид списка">${[
-      ['queue', 'Очередь'],
-      ['locations', 'Адреса'],
-      ['statuses', 'Статусы'],
+      [all ? 'all' : 'queue', 'Очередь'],
+      [all ? 'all-locations' : 'locations', 'Адреса'],
+      [all ? 'all-statuses' : 'statuses', 'Статусы'],
     ]
       .map(
         ([route, label]) =>
@@ -105,8 +91,12 @@ Object.assign(Kontur, {
       )
       .join('')}</nav>`;
   },
+  inProgressCard(r) {
+    const pending = this.state.pendingIds?.includes(r.id);
+    return `<section class="focus-card"><div class="row between"><span class="focus-eyebrow">${this.icon('clock')}В работе</span><span class="mono tiny muted">№ ${r.id}</span></div><h2>${r.street}, ${r.house} <span class="muted">· кв. ${r.apartment}</span></h2><p class="request-type">${r.type}</p><div class="progress-caption"><span>${pending ? 'Ожидает отправки' : 'Установка прибора'}</span><span class="muted">Этап 2 из 3</span></div><div class="progress-track" aria-label="Первый этап завершён, второй в работе"><i class="done"></i><i class="current"></i><i></i></div><a class="btn primary full" href="${this.href(pending ? 'complete' : 'work', r.id)}">${pending ? 'Проверить отправку' : 'Продолжить работу'}${this.icon('arrow')}</a></section>`;
+  },
   requestCard(r, compact = false) {
-    return `<a class="request-card ${r.revision || r.status === 'DELAYED' ? 'attention' : ''}" href="${this.href('detail', r.id)}"><div class="request-meta"><span class="mono">№ ${r.id}</span>${this.badge(r)}</div><h3>${this.address(r)}</h3><p class="request-type">${r.type}</p>${r.revision ? '<p class="compact-msg">Нужно переснять фото пломбы</p>' : r.status === 'DELAYED' ? '<p class="compact-msg">Абонента не было дома</p>' : !compact ? `<div class="request-footer"><span>${r.customer}</span><span>${r.unread ? this.icon('chat') + ` ${r.unread}` : this.icon('chevron')}</span></div>` : ''}</a>`;
+    return `<a class="request-card ${r.revision || r.status === 'DELAYED' ? 'attention' : ''}" href="${this.href('detail', r.id)}"><div class="request-meta"><span class="mono">№ ${r.id}</span>${this.badge(r)}</div><h3>${this.address(r)}</h3><p class="request-type">${r.type}</p>${r.revision ? '<p class="compact-msg">Нужно переснять фото пломбы</p>' : r.status === 'DELAYED' ? '<p class="compact-msg">Абонента не было дома</p>' : !compact ? `<div class="request-footer"><span>${r.customer}</span><span class="${r.unread ? 'unread-text' : ''}">${r.unread ? this.icon('chat') + ` ${r.unread}` : this.icon('chevron')}</span></div>` : ''}</a>`;
   },
   notice(title, text, tone = 'info', icon = 'alert') {
     return `<div class="notice ${tone}">${this.icon(icon)}<div>${title ? `<strong>${title}</strong>` : ''}${text}</div></div>`;
@@ -116,7 +106,11 @@ Object.assign(Kontur, {
   },
   progress() {
     const d = this.state.draft;
-    return Number(Boolean(d.serial.trim())) + Number(/^\d+([.,]\d+)?$/.test(d.reading.trim())) + Number(d.photo);
+    return (
+      Number(Boolean(d.serial.trim())) +
+      Number(/^\d+([.,]\d+)?$/.test(d.reading.trim())) +
+      Number(d.fieldMedia.work.length > 0)
+    );
   },
   filteredRequests() {
     const s = this.state;

@@ -9,10 +9,20 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="notifications.css" />
     <link rel="stylesheet" href="workspace.css" />
+    <link rel="stylesheet" href="media.css" />
     <script defer src="icons.js"></script>
     <script defer src="data.js"></script>
     <script defer src="notifications.data.js"></script>
     <script defer src="components.js"></script>
+    <script defer src="request-addresses.js"></script>
+    <script defer src="media-files.js"></script>
+    <script defer src="media-gallery.js"></script>
+    <script defer src="vendor/fflate-0.8.3.js"></script>
+    <script defer src="office-preview.js"></script>
+    <script defer src="attachment-preview.js"></script>
+    <script defer src="audio-recorder.js"></script>
+    <script defer src="camera.js"></script>
+    <script defer src="work-form.js"></script>
     <script defer src="screens.js"></script>
     <script defer src="notifications.js"></script>
     <script defer src="chat-groups.js"></script>
@@ -64,6 +74,7 @@
           <div id="app"></div>
           <div class="home-indicator" aria-hidden="true"></div>
           <div id="toast" role="status" aria-live="polite"></div>
+          <dialog id="media-viewer" aria-labelledby="media-title"></dialog>
           <dialog id="sheet" aria-labelledby="sheet-title"></dialog>
         </div>
       </section>

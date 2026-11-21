@@ -344,7 +344,7 @@
       return (
         K.backHeader(
           'Уведомления',
-          `Непрочитанных: ${count()}`,
+          `<span class="${count() ? 'unread-text' : ''}">Непрочитанных: ${count()}</span>`,
           n.entry.screen,
           K.iconButton('settings', 'Настройки уведомлений', 'notice-settings'),
         ) +
@@ -354,7 +354,7 @@
         ]
           .map(
             ([value, label, total]) =>
-              `<button data-action="notice-scope" data-value="${value}" aria-pressed="${n.scope === value}" class="${n.scope === value ? 'active' : ''}">${label}<span>${total}</span></button>`,
+              `<button data-action="notice-scope" data-value="${value}" aria-pressed="${n.scope === value}" class="${n.scope === value ? 'active' : ''}">${label}<span class="${value === 'unread' && total ? 'unread-total' : ''}">${total}</span></button>`,
           )
           .join(
             '',

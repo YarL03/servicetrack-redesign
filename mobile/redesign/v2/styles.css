@@ -13,6 +13,8 @@
   --success-soft: #eaf6ef;
   --warning: #86530f;
   --warning-soft: #fff4df;
+  --unread: #b92037;
+  --on-unread: #fff;
   --danger: #a72f40;
   --danger-soft: #fff0f2;
   --studio: #e9edf4;
@@ -318,13 +320,16 @@ small {
   min-width: 19px;
   height: 19px;
   border-radius: 6px;
-  background: var(--accent);
-  color: #fff;
+  background: var(--unread);
+  color: var(--on-unread);
   display: inline-grid;
   place-items: center;
   font-size: 11px;
   font-weight: 650;
   padding: 0 4px;
+}
+.unread-text {
+  color: var(--unread);
 }
 .icon-button .badge-count {
   position: absolute;
@@ -521,7 +526,7 @@ small {
   color: var(--muted);
   min-height: 56px;
 }
-.bottom-nav a > span {
+.action-icon {
   position: relative;
   display: flex;
   align-items: center;
@@ -537,7 +542,8 @@ small {
 .bottom-nav a.active > span {
   background: var(--accent-soft);
 }
-.bottom-nav .badge-count {
+.action-icon > .badge-count {
+  line-height: 1;
   position: absolute;
   top: -3px;
   right: 1px;
@@ -755,7 +761,7 @@ small {
 }
 .address-grouping-options {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
+  grid-template-columns: 1.4fr 0.85fr 1.05fr;
   gap: 4px;
   padding: 4px;
   border: 1px solid var(--border);
@@ -781,48 +787,72 @@ small {
   line-height: 1.4;
   margin-bottom: 5px;
 }
-.building-group {
+.address-city {
   border: 1px solid var(--border);
+  border-radius: 14px;
   background: var(--surface);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
-.building-group summary {
+.address-branch > summary {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px;
+  gap: 8px;
+  padding: 8px 12px;
+  min-height: 44px;
   cursor: pointer;
   list-style: none;
-  min-height: 80px;
 }
-.building-group summary::-webkit-details-marker {
+.address-city > summary {
+  min-height: 56px;
+}
+.address-branch > summary::-webkit-details-marker {
   display: none;
 }
-.building-group summary > .icon:last-child {
-  width: 16px;
+.address-branch > summary strong {
+  flex: 1;
+  font-size: 14px;
+  overflow-wrap: anywhere;
 }
-.building-group[open] summary > .icon:last-child {
-  transform: rotate(180deg);
-}
-.building-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-}
-.building-group summary h3 {
+.address-city > summary strong {
   font-size: 16px;
 }
-.building-group summary p {
+.address-symbol {
+  display: grid;
+  place-items: center;
   color: var(--muted);
-  font-size: 12px;
-  margin-top: 3px;
+}
+.address-symbol .icon,
+.address-branch > summary > .icon {
+  width: 16px;
+  height: 16px;
+}
+.address-city > summary .address-symbol {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 9px;
+}
+.address-branch > summary > .icon {
+  color: var(--muted);
+}
+.address-branch[open] > summary > .icon {
+  transform: rotate(180deg);
+}
+.address-count {
+  font: 12px var(--mono);
+  color: var(--muted);
+}
+.address-branch .address-branch {
+  border-top: 1px solid var(--border);
+}
+.address-children {
+  margin-inline-start: 12px;
+}
+.address-children .registry-owner {
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--muted);
 }
 .apartment-row {
   display: flex;
@@ -831,18 +861,6 @@ small {
   padding: 14px 16px;
   border-top: 1px solid var(--border);
   min-height: 88px;
-}
-.apartment-number {
-  width: 44px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 650;
-}
-.apartment-number small {
-  display: block;
-  font-size: 10px;
-  font-weight: 400;
-  color: var(--muted);
 }
 .apartment-row .grow p {
   font-size: 13px;
@@ -1735,13 +1753,14 @@ dialog .sheet-file .icon {
   --success-soft: #193b32;
   --warning: #f1ca83;
   --warning-soft: #403521;
+  --unread: #ff909a;
+  --on-unread: #35131a;
   --danger: #ffa8b5;
   --danger-soft: #442632;
   --studio: #0d1522;
 }
 [data-theme='dark'] .btn.primary,
 [data-theme='dark'] .send-button,
-[data-theme='dark'] .badge-count,
 [data-theme='dark'] .stage-row.active .stage-number,
 [data-theme='dark'] .stepper b.active {
   color: #14213b;

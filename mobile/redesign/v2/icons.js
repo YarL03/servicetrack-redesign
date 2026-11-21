@@ -39,6 +39,8 @@ Kontur.paths = {
   scan: '<path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M7 7v10m4-10v10m3-10v10m3-10v10"/>',
   more: '<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
   play: '<path d="m8 4 12 8-12 8Z"/>',
+  pause: '<path d="M8 5v14m8-14v14" stroke-width="4"/>',
+  trash: '<path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/>',
   lock: '<rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/>',
 };
 Kontur.icon = (name, cls = '') =>

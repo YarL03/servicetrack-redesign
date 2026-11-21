@@ -9,6 +9,8 @@
     filterDraft = null,
     localSaveAvailable = true;
   const draftKey = 'kontur-mobile-v2-drafts';
+  const mineLists = ['queue', 'locations', 'statuses'];
+  const allLists = ['all', 'all-locations', 'all-statuses'];
   const groupingKey = 'service-track-mobile-v2-address-grouping';
   const chatGroupingKey = 'service-track-mobile-v2-chat-grouping';
   const modeKey = 'service-track-mobile-v2-mode';
@@ -20,7 +22,7 @@
   let drafts = {};
   let readingEditor = '';
   s.attachmentDrafts = {};
-  let fileSequence = 0;
+  let pickerTarget;
   const scrollPositions = {};
   let renderedKey = '';
   try {
@@ -29,13 +31,14 @@
   } catch {
     localSaveAvailable = false;
   }
-  s.draft = {...K.initialDraft(), ...drafts[s.id]};
+  s.draft = K.mediaFiles.migrate({...K.initialDraft(), ...drafts[s.id]}, s.id);
   try {
     const saved = localStorage.getItem(chatGroupingKey);
     if (K.chatGroups.valid(saved)) s.chatGrouping = saved;
-    if (localStorage.getItem(groupingKey) === 'street') s.addressGrouping = 'street';
+    const addressMode = localStorage.getItem(groupingKey);
+    if (K.requestAddresses.valid(addressMode)) s.addressGrouping = addressMode;
   } catch {}
-  if (['street', 'street-house'].includes(params.get('grouping'))) s.addressGrouping = params.get('grouping');
+  if (K.requestAddresses.valid(params.get('grouping'))) s.addressGrouping = params.get('grouping');
   if (params.get('theme')) s.theme = params.get('theme') === 'dark' ? 'dark' : 'light';
   if (params.get('offline') === '1') s.offline = true;
   if (params.get('embed') === '1') document.body.classList.add('embed');
@@ -60,11 +63,9 @@
       s.attachmentDrafts[s.id] = s.attachments;
       s.id = id;
       s.attachments = s.attachmentDrafts[id] || [];
-      s.draft = {...K.initialDraft(id), ...drafts[id]};
+      s.draft = K.mediaFiles.migrate({...K.initialDraft(id), ...drafts[id]}, id);
       s.reviewError = false;
       for (const [key, fallback] of Object.entries({
-        delayPhoto: false,
-        delayAct: false,
         delayComment: '',
         delayDate: '2026-11-19',
         delayTime: '09:41',
@@ -111,7 +112,7 @@
       .join('');
     $('#live-title').textContent = K.modes[s.mode];
     $('#studio-network').textContent = s.offline ? 'Восстановить связь' : 'Показать без сети';
-    const list = ['inbox', 'queue', 'locations', 'statuses', 'chats', 'all'].includes(s.screen);
+    const list = [...mineLists, ...allLists, 'inbox', 'chats'].includes(s.screen);
     const target = list ? (simple ? 'chat' : 'chats') : home;
     const img = simple ? (list ? 'thread' : 'inbox') : list ? 'chats' : 'queue';
     const caption = simple
@@ -144,7 +145,7 @@
     $('#app').innerHTML = K.screens[s.screen]();
     catalog();
     setTheme();
-    if (s.screen === 'locations') renderedKey = 'locations/' + s.addressGrouping;
+    if (['locations', 'all-locations'].includes(s.screen)) renderedKey = s.screen + '/' + s.addressGrouping;
     else if (s.screen === 'inbox' || s.screen === 'chats')
       renderedKey = [s.screen, s.chatGrouping, s.screen === 'inbox' ? s.inboxFilter : ''].join('/');
     else renderedKey = s.screen + '/' + s.id;
@@ -191,7 +192,7 @@
     if (s.mode === 'simple') {
       if (K.notificationState.origin?.target === screen && ['detail', 'work'].includes(screen) && K.request().mine)
         K.notificationState.origin.target = 'chat';
-      if (['queue', 'locations', 'statuses', 'chats', 'all'].includes(screen)) screen = 'inbox';
+      if ([...mineLists, ...allLists, 'chats'].includes(screen)) screen = 'inbox';
       if (
         ['detail', 'work', 'stages', 'review', 'complete', 'notification-in-work'].includes(screen) &&
         K.request().mine
@@ -201,16 +202,22 @@
     if (screen !== requested) history.replaceState(history.state, '', K.href(screen, id));
     if (params.has('mode')) history.replaceState({...history.state, mode: s.mode}, '');
     s.screen = screen;
-    if (['queue', 'locations', 'statuses'].includes(s.screen)) s.listView = s.screen;
-    if (s.screen === 'inbox') s.scope = 'mine';
-    if (s.screen === 'all') s.scope = 'all';
-    if (s.screen === 'chat') K.request().unread = 0;
-    if (['queue', 'locations', 'statuses'].includes(s.screen)) s.scope = 'mine';
+    if (mineLists.includes(screen)) {
+      s.listOrigin = s.listView = screen;
+      s.scope = 'mine';
+    } else if (allLists.includes(screen)) {
+      s.listOrigin = s.allView = screen;
+      s.scope = 'all';
+    }
+    if (screen === 'inbox') s.scope = 'mine';
+    if (screen === 'chat') K.request().unread = 0;
     K.notifications.onRoute(s.screen, id);
+    if ($('#media-viewer').open) $('#media-viewer').close();
     if ($('#sheet').open) $('#sheet').close();
     render();
   }
   function sheet(title, content) {
+    K.audioRecorder.cancel();
     if (!$('#sheet').open) returnFocus = document.activeElement;
     placeSheet();
     $('#sheet').innerHTML =
@@ -219,14 +226,16 @@
   }
   function placeSheet() {
     const rect = $('#device').getBoundingClientRect();
-    const sheet = $('#sheet');
-    sheet.style.setProperty('--sheet-left', Math.max(0, rect.left) + 'px');
-    sheet.style.setProperty('--sheet-width', Math.min(innerWidth, rect.width) + 'px');
-    sheet.style.setProperty('--sheet-bottom', Math.max(0, innerHeight - rect.bottom) + 'px');
+    for (const dialog of document.querySelectorAll('#device dialog')) {
+      dialog.style.setProperty('--sheet-left', Math.max(0, rect.left) + 'px');
+      dialog.style.setProperty('--sheet-width', Math.min(innerWidth, rect.width) + 'px');
+      dialog.style.setProperty('--sheet-bottom', Math.max(0, innerHeight - rect.bottom) + 'px');
+      dialog.style.setProperty('--sheet-height', Math.min(innerHeight, rect.bottom) - Math.max(0, rect.top) + 'px');
+    }
   }
   window.addEventListener('resize', placeSheet);
   window.addEventListener('scroll', () => {
-    if ($('#sheet').open) placeSheet();
+    if ($('#device dialog[open]')) placeSheet();
   });
   function closeSheet() {
     $('#sheet').close();
@@ -244,19 +253,22 @@
   function validWork() {
     return K.progress() === 3;
   }
+  const documentTypes = '.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv';
+  const mediaTypes = 'image/*,video/*,audio/*';
   function chooseFile(kind, context) {
     const picker = $('#file-picker');
     s.attachmentContext = context;
     const photoOnly = ['work', 'delay', 'delay-act'].includes(context);
-    picker.accept =
-      photoOnly || kind === 'camera'
-        ? 'image/*'
-        : kind === 'media'
-          ? 'image/*,video/*,audio/*'
-          : '.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv';
-    picker.multiple = !photoOnly && kind !== 'camera';
-    if (kind === 'camera') picker.setAttribute('capture', 'environment');
+    const device = kind.startsWith('device-');
+    if (device || kind.startsWith('gallery-')) picker.accept = kind.endsWith('video') ? 'video/*' : 'image/*';
+    else if (photoOnly) picker.accept = 'image/*';
+    else if (kind === 'mixed') picker.accept = mediaTypes + ',' + documentTypes;
+    else if (kind === 'media') picker.accept = mediaTypes;
+    else picker.accept = documentTypes;
+    picker.multiple = !device;
+    if (device) picker.setAttribute('capture', 'environment');
     else picker.removeAttribute('capture');
+    pickerTarget = {id: s.id, screen: s.screen, context, panel: $('#sheet').firstElementChild};
     picker.value = '';
     picker.click();
   }
@@ -267,32 +279,66 @@
       return;
     }
     const photoOnly = ['work', 'delay', 'delay-act'].includes(context);
-    const target = {
-      work: 'Фото установленного прибора',
-      chat: 'Сообщение менеджеру',
-      'work-extra': 'Материалы рабочей формы',
-      delay: 'Фото уведомления',
-      'delay-act': 'Фото акта недопуска',
-    }[context];
+    const target = K.mediaFiles.titles[context] || 'Сообщение менеджеру';
+    const mixedField = context === 'work-extra';
     const sources = [
       ['camera', 'camera', 'Камера'],
-      ['media', 'photo', photoOnly ? 'Галерея' : 'Медиа'],
+      mixedField ? ['mixed', 'clip', 'Выбрать файлы'] : ['media', 'photo', photoOnly ? 'Галерея' : 'Медиа'],
     ];
-    if (!photoOnly) sources.push(['document', 'file', 'Документ']);
+    if (context === 'chat') sources.push(['document', 'file', 'Документ']);
+    if (mixedField) sources.push(['audio', 'mic', 'Записать аудио']);
+    const sourceButtons = sources
+      .map(
+        ([id, icon, label]) =>
+          `<button type="button" data-action="pick-source" data-source="${id}" aria-label="${label}"><span>${K.icon(icon)}</span>${mixedField ? '' : label}</button>`,
+      )
+      .join('');
     sheet(
       'Прикрепить',
-      `<p class="attachment-target">${target} · № ${s.id}</p><div class="source-grid">${sources.map(([id, icon, label]) => `<button data-action="pick-source" data-source="${id}"><span>${K.icon(icon)}</span>${label}</button>`).join('')}</div><p class="source-help">${photoOnly ? 'Снимок с камеры или фотография из галереи.' : 'Фото, видео, аудио и документы. До 25 МБ на файл.'}</p><button class="demo-attachment" data-action="add-sample">${K.icon(photoOnly ? 'photo' : 'file')}<span>Добавить пример<small>${photoOnly ? 'Счётчик.jpg · 1,2 МБ' : 'Акт замены.pdf · 248 КБ'}</small></span>${K.icon('plus')}</button>`,
+      `<p class="attachment-target">${target} · № ${s.id}</p><div class="source-grid">${sourceButtons}</div><p class="source-help">${photoOnly ? 'Снимок с камеры или фотография из галереи.' : 'Можно выбрать несколько фото, видео, аудиозаписей и документов. До 25 МБ на файл.'}</p><button class="demo-attachment" data-action="add-sample">${K.icon(photoOnly ? 'photo' : 'file')}<span>Добавить пример<small>${K.mediaFiles.samples[photoOnly ? 'photo' : 'file'].name}</small></span>${K.icon('plus')}</button>` +
+        (mixedField
+          ? '<div class="sample-choices">' +
+            ['photo', 'video', 'audio']
+              .map(
+                (type, i) =>
+                  `<button data-action="add-media-sample" data-type="${type}">${['Пример фото', 'Пример видео', 'Пример аудио'][i]}</button>`,
+              )
+              .join('') +
+            '</div>'
+          : ''),
     );
   }
-  function afterAttachment(name) {
-    if (s.attachmentContext === 'work') {
-      s.draft.photo = true;
-      s.draft.photoName = name;
-      K.addEntry({role: 'event', text: 'К отчёту приложено фото · ' + name});
-    }
-    if (s.attachmentContext === 'delay') s.draft.delayPhoto = s.delayPhoto = true;
-    if (s.attachmentContext === 'delay-act') s.draft.delayAct = s.delayAct = true;
-    if (s.attachmentContext === 'work-extra') (s.draft.extraFiles ||= []).push(name);
+  function previewFieldFiles(items, recordedDuration) {
+    const {id, attachmentContext: field, draft} = s;
+    K.attachmentPreview.open({
+      items,
+      recordedDuration,
+      field,
+      requestId: id,
+      sheet,
+      closeSheet,
+      toast,
+      async add(entry, comment) {
+        const file =
+          entry instanceof Blob
+            ? await K.mediaFiles.localFile(entry, () => toast('Файл доступен до закрытия вкладки.'))
+            : entry;
+        file.comment = comment;
+        if (recordedDuration) file.duration = recordedDuration;
+        draft.fieldMedia[field].push(file);
+        if (field === 'work') K.addEntry({role: 'event', text: 'К отчёту приложено фото · ' + file.name}, id);
+        saveDraft();
+        if (s.id === id) render();
+      },
+    });
+  }
+  function addSample(type) {
+    const file = K.mediaFiles.sample(type);
+    if (s.attachmentContext === 'chat') {
+      if (s.attachments.length >= 5) return;
+      s.attachments.push({...file, demo: true, size: 'Пример', url: K.mediaFiles.source(file)});
+      saveAttachment();
+    } else previewFieldFiles([file]);
   }
   function saveAttachment() {
     saveDraft();
@@ -300,11 +346,37 @@
     render();
     if (s.screen === 'chat') $('#messages').scrollTop = $('#messages').scrollHeight;
   }
-  function sendMessage() {
+  function startWork(request) {
+    if (request.status !== 'IN_PROGRESS') K.addEntry({role: 'event', text: 'Работа начата'}, request.id);
+    request.status = 'IN_PROGRESS';
+    request.revision = false;
+  }
+  function cacheChatMedia(requestId, message) {
+    if (message.files?.some((f) => f.kind === 'photo' || f.kind === 'video'))
+      K.mediaFiles
+        .saveChatMessage(requestId, message)
+        .catch(() => toast('Медиа сообщения доступны до закрытия вкладки.'));
+  }
+  function sendMessage(resumeConfirmed = false) {
     const text = (s.chatText[s.id] || '').trim();
     if (!text && !s.attachments.length) {
       toast('Напишите сообщение или добавьте файл.');
       return;
+    }
+    const r = K.request();
+    const ready = r.status === 'READY_TO_PROCESS' && !r.revision;
+    const delayed = r.status === 'DELAYED';
+    if (s.attachments.length && r.mine && !s.pendingIds?.includes(r.id) && (ready || delayed)) {
+      if (delayed && !resumeConfirmed) {
+        sheet(
+          'Возобновить работу?',
+          `<p>При отправке сообщения с вложением заявка № ${r.id} перейдёт из статуса «Недопуск» в статус «В работе».</p>` +
+            K.button('Отправить и взять в работу', 'confirm-resume-send') +
+            K.button('Отмена', 'close-sheet', 'secondary'),
+        );
+        return;
+      }
+      startWork(r);
     }
     const message = {
       text,
@@ -312,7 +384,8 @@
       status: s.offline ? 'queued' : 'delivered',
       role: 'worker',
     };
-    K.addEntry(message);
+    const sent = K.addEntry(message);
+    cacheChatMedia(s.id, sent);
     s.attachments = [];
     s.chatText[s.id] = '';
     render();
@@ -344,7 +417,7 @@
     if (step === 'review') {
       sheet(
         'Проверить результат',
-        `<p>№ ${s.id} · ${K.address(K.request())}</p>${K.resultLines()}${K.button(s.offline ? 'Завершить и отправить позже' : 'Завершить заявку', 'complete', 'primary', 'check')}<div class="edit-report">${K.button('Изменить номер', 'edit-serial', 'secondary')}${K.button('Изменить показания', 'edit-reading', 'secondary')}${K.button('Заменить фото', 'work-photo', 'secondary')}</div>`,
+        `<p>№ ${s.id} · ${K.address(K.request())}</p>${K.workForm.review()}${K.button(s.offline ? 'Завершить и отправить позже' : 'Завершить заявку', 'complete', 'primary', 'check')}`,
       );
       return;
     }
@@ -359,16 +432,26 @@
     );
     $('#step-value').focus();
   }
+  function deliverQueuedMessages() {
+    for (const [id, messages] of Object.entries(s.messages)) {
+      for (const message of messages)
+        if (message.status === 'queued') {
+          message.status = 'delivered';
+          cacheChatMedia(Number(id), message);
+        }
+    }
+  }
   function flushQueue() {
     K.notifications.sync();
     if (s.offline) return;
-    for (const messages of Object.values(s.messages)) {
-      for (const message of messages) if (message.status === 'queued') message.status = 'delivered';
-    }
+    deliverQueuedMessages();
     for (const id of s.pendingIds || []) {
       K.requests.find((r) => r.id === id).status = 'EXECUTED';
       K.addEntry({role: 'event', text: 'Результат доставлен · заявка выполнена'}, id);
     }
+    for (const draft of Object.values(drafts)) K.mediaFiles.acknowledge(draft);
+    K.mediaFiles.acknowledge(s.draft);
+    saveDraft();
     s.pendingIds = [];
   }
   const actions = {
@@ -412,21 +495,21 @@
       );
     },
     'attach-chat': () => attachmentSheet('chat'),
-    'attach-work': () => attachmentSheet('work-extra'),
-    'pick-source': (button) => chooseFile(button.dataset.source, s.attachmentContext),
-    'add-sample': () => {
-      if (s.attachmentContext === 'chat') {
-        if (s.attachments.length >= 5) return;
-        s.attachments.push({
-          id: 'local-' + ++fileSequence,
-          name: 'Акт замены.pdf',
-          size: '248 КБ',
-          kind: 'file',
-          demo: true,
-        });
-      } else afterAttachment(s.attachmentContext === 'work-extra' ? 'Акт замены.pdf' : 'Счётчик.jpg');
-      saveAttachment();
+    'confirm-resume-send': () => {
+      if (!$('#sheet').open) return;
+      closeSheet();
+      sendMessage(true);
     },
+    'attach-work': () => attachmentSheet('work-extra'),
+    'pick-source': (button) => {
+      const source = button.dataset.source;
+      if (source === 'camera') return K.camera.open(s.attachmentContext);
+      if (source === 'audio')
+        return K.audioRecorder.open(sheet, s.id, (file, duration) => previewFieldFiles([file], duration));
+      chooseFile(source, s.attachmentContext);
+    },
+    'add-media-sample': (button) => addSample(button.dataset.type),
+    'add-sample': () => addSample(['chat', 'work-extra'].includes(s.attachmentContext) ? 'file' : 'photo'),
     'studio-attach': () => {
       history.pushState(null, '', K.href('chat', s.id));
       route();
@@ -434,7 +517,7 @@
     },
     'set-address-grouping': (button) => {
       const grouping = button.dataset.grouping;
-      if (!['street', 'street-house'].includes(grouping) || grouping === s.addressGrouping) return;
+      if (!K.requestAddresses.valid(grouping) || grouping === s.addressGrouping) return;
       s.addressGrouping = grouping;
       try {
         localStorage.setItem(groupingKey, grouping);
@@ -452,10 +535,11 @@
     'reset-demo': () => {
       sheet(
         'Сбросить демонстрацию?',
-        `<p>Будут удалены только черновики и сообщения этого локального макета.</p>${K.button('Сбросить макет', 'confirm-reset', 'primary')}`,
+        `<p>Будут удалены черновики, сохранённые файлы и сообщения этого макета.</p>${K.button('Сбросить макет', 'confirm-reset', 'primary')}`,
       );
     },
-    'confirm-reset': () => {
+    'confirm-reset': async () => {
+      await K.mediaFiles.reset().catch(() => {});
       try {
         localStorage.removeItem(draftKey);
         localStorage.removeItem(groupingKey);
@@ -501,17 +585,7 @@
       const r = K.request();
       if (r.status === 'EXECUTED' || !r.mine) return;
       if (s.pendingIds?.includes(r.id)) return go('complete');
-      const current = K.requests.find((other) => other.id !== r.id && other.status === 'IN_PROGRESS');
-      if (current) {
-        sheet(
-          'Уже есть заявка в работе',
-          `<p>Сначала завершите № ${current.id} · ${K.address(current)}.</p><a class="btn primary full" href="#${s.mode === 'simple' ? 'chat' : 'work'}/${current.id}">Открыть текущую заявку</a>`,
-        );
-        return;
-      }
-      if (r.status !== 'IN_PROGRESS') K.addEntry({role: 'event', text: 'Работа начата'});
-      r.status = 'IN_PROGRESS';
-      r.revision = false;
+      startWork(r);
       go(s.mode === 'simple' ? 'chat' : 'work');
     },
     review: () => {
@@ -530,6 +604,7 @@
         go('work');
         return;
       }
+      K.mediaFiles.submit(s.draft, ['work', 'work-extra'], s.offline);
       s.draft.finished = true;
       saveDraft();
       if (s.offline) (s.pendingIds ||= []).push(s.id);
@@ -543,12 +618,6 @@
     },
     'work-photo': () => attachmentSheet('work'),
     'delay-photo': () => attachmentSheet('delay'),
-    'remove-photo': () => {
-      s.draft.photo = false;
-      delete s.draft.photoName;
-      saveDraft();
-      render();
-    },
     scan: () =>
       sheet(
         'Сканирование номера',
@@ -563,7 +632,10 @@
     delay: () => go('delay'),
     'delay-act': () => attachmentSheet('delay-act'),
     'save-delay': () => {
-      if (!s.delayPhoto) {
+      if (!s.draft.fieldMedia.delay.length) {
+        const field = $('[data-upload-field="delay"]');
+        field.open = true;
+        field.querySelector('button[data-action="delay-photo"]').focus();
         toast('Добавьте обязательное фото уведомления.');
         return;
       }
@@ -572,6 +644,7 @@
         return;
       }
       K.request().status = 'DELAYED';
+      K.mediaFiles.submit(s.draft, ['delay', 'delay-act'], s.offline);
       s.draft.delayed = true;
       K.addEntry({role: 'event', text: 'Зафиксирован недопуск' + (s.delayComment ? ' · ' + s.delayComment : '')});
       saveDraft();
@@ -620,20 +693,17 @@
     'stage-source': () =>
       sheet(
         'Осмотр и демонтаж',
-        `<p>Этап сохранён. Исходные данные доступны для просмотра.</p><div class="info-line"><span>Старый прибор</span><strong>Меркурий 201</strong></div><div class="info-line"><span>Номер</span><strong>59120318</strong></div><div class="info-line"><span>Фото до работ</span><strong>1 фото</strong></div>${K.button('Продолжить установку', 'continue-work', 'primary')}`,
+        `<p>Этап сохранён. Исходные данные доступны для просмотра.</p>${K.workForm.inspection()}${K.button('Продолжить установку', 'continue-work', 'primary')}`,
       ),
     'continue-work': () => {
       closeSheet();
       go('work');
     },
     'view-result': () => {
-      const result =
-        s.id === 10433
-          ? {serial: '73150622', reading: '12,5', photoName: 'Счётчик.jpg', extraFiles: ['Акт замены.pdf']}
-          : s.draft;
+      const result = s.id === 10433 ? {...s.draft, serial: '73150622', reading: '12,5'} : s.draft;
       sheet(
         'Результат работы',
-        `<p>Заявка № ${s.id} · ${K.address(K.request())}</p>${K.resultLines(result)}${K.button('Закрыть', 'close-sheet', 'secondary')}`,
+        `<p>Заявка № ${s.id} · ${K.address(K.request())}</p>${K.workForm.review(result, false)}${K.button('Закрыть', 'close-sheet', 'secondary')}`,
       );
     },
     'retry-sync': () => {
@@ -673,9 +743,10 @@
       const file = [...s.attachments, ...(s.messages[s.id] || []).flatMap((m) => m.files || [])].find(
         (f) => String(f.id) === id,
       ) || {name: 'Схема подключения.pdf', size: '248 КБ', demo: true};
+      const src = K.mediaFiles.source(file);
       sheet(
         'Предпросмотр файла',
-        `<div class="sheet-file">${K.icon(file.kind || 'file')}<h3 class="mt16">${K.escape(file.name)}</h3><p>${K.escape(file.size)} · ${file.demo ? 'пример вложения' : 'локальный файл'}</p></div>${file.url ? `<a class="btn primary full" href="${file.url}" download="${K.escape(file.name)}">Сохранить выбранный файл</a>` : '<p>Демонстрационное вложение показывает вид документа в переписке. Рабочей электросхемы в макете нет.</p>'}${K.button('Закрыть просмотр', 'close-sheet', 'secondary')}`,
+        `<div class="sheet-file">${K.icon(file.kind || 'file')}<h3 class="mt16">${K.escape(file.name)}</h3><p>${K.escape(file.size)} · ${file.demo ? 'пример вложения' : 'локальный файл'}</p></div>${src ? `<a class="btn primary full" href="${K.escape(src)}" download="${K.escape(file.name)}">Сохранить выбранный файл</a>` : '<p>Демонстрационное вложение показывает вид документа в переписке. Рабочей электросхемы в макете нет.</p>'}${K.button('Закрыть просмотр', 'close-sheet', 'secondary')}`,
       );
     },
     'app-settings': () =>
@@ -694,6 +765,13 @@
       render();
     },
   };
+  K.mediaUI.init(saveDraft, () => {
+    render();
+    K.mediaUI.refreshPanels($('#sheet'));
+    const finish = $('#sheet [data-action="complete"]');
+    if (finish) finish.disabled = !validWork();
+  });
+  K.camera.init({sheet, chooseFile, capture: addSample, toast});
   K.notifications.init({go, render: renderPreservingInput, sheet, closeSheet, toast});
   Object.assign(actions, K.notifications.actions);
   document.addEventListener('click', (event) => {
@@ -705,7 +783,8 @@
     }
     const status = event.target.closest('[data-status]');
     if (status) {
-      s.status = status.dataset.status;
+      if (s.screen === 'all-statuses') s.allStatus = status.dataset.status;
+      else s.status = status.dataset.status;
       render();
       return;
     }
@@ -724,18 +803,8 @@
     const field = event.target.closest('[data-field]');
     if (field) {
       const id = field.dataset.field;
-      if (id === 'photo' && s.draft.photo) {
-        sheet(
-          'Фото установленного прибора',
-          `<div class="sheet-file">${K.icon('photo')}<p>Счётчик после установки · пример фото</p></div>${K.button('Заменить фото', 'work-photo', 'secondary')}`,
-        );
-        return;
-      }
       go('work');
-      setTimeout(() => {
-        if (id === 'photo') attachmentSheet('work');
-        else $('#' + id)?.focus();
-      }, 60);
+      setTimeout(() => $('#' + id)?.focus(), 60);
       return;
     }
     const remove = event.target.closest('[data-remove-file]');
@@ -813,13 +882,22 @@
     (event) => {
       const group = event.target;
       if (group.matches?.('details[data-chat-group]')) K.chatGroups.remember(group);
-      if (group.matches?.('details[data-address-group]')) {
-        s.addressExpanded[group.dataset.groupingMode][group.dataset.addressGroup] = group.open;
-      }
+      if (group.matches?.('details[data-address-group]')) K.requestAddresses.remember(group);
     },
     true,
   );
   $('#file-picker').addEventListener('change', (event) => {
+    const target = pickerTarget;
+    pickerTarget = null;
+    if (
+      !target ||
+      !$('#sheet').open ||
+      !target.panel?.isConnected ||
+      s.id !== target.id ||
+      s.screen !== target.screen ||
+      s.attachmentContext !== target.context
+    )
+      return;
     const files = Array.from(event.target.files || []);
     if (!files.length) return;
     const allowed = /\.(pdf|docx?|xlsx?|txt|csv|jpe?g|png|webp|heic|mp4|mov|webm|m4a|mp3|wav|ogg)$/i;
@@ -842,25 +920,20 @@
       const capacity = 5 - s.attachments.length;
       accepted.slice(0, capacity).forEach((f) =>
         s.attachments.push({
-          id: 'local-' + ++fileSequence,
+          id: K.mediaFiles.uniqueId(),
           name: f.name,
           size:
             f.size < 1024 * 1024
               ? `${Math.max(1, Math.round(f.size / 1024))} КБ`
               : `${(f.size / 1024 / 1024).toFixed(1)} МБ`,
-          kind: f.type.startsWith('image')
-            ? 'photo'
-            : f.type.startsWith('video')
-              ? 'video'
-              : f.type.startsWith('audio')
-                ? 'audio'
-                : 'file',
+          kind: K.mediaFiles.kind(f.name, f.type),
+          blob: f,
           url: URL.createObjectURL(f),
         }),
       );
       if (accepted.length > capacity) toast('В одно сообщение можно добавить до 5 файлов.');
-    } else (photoOnly ? accepted.slice(0, 1) : accepted).forEach((f) => afterAttachment(f.name));
-    saveAttachment();
+      saveAttachment();
+    } else previewFieldFiles(accepted);
   });
   document.addEventListener('submit', (event) => {
     if (event.target.id === 'step-form') {
@@ -907,5 +980,14 @@
     }
   });
   window.addEventListener('hashchange', route);
-  route();
+  Promise.all([
+    K.restoreChatMedia().catch(() => {}),
+    ...Object.values(drafts)
+      .filter((d) => d.fieldMedia)
+      .map(K.mediaFiles.restore),
+  ]).then(() => {
+    if (!s.offline) deliverQueuedMessages();
+    placeSheet();
+    route();
+  });
 })();

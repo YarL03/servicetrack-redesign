@@ -14,7 +14,7 @@
       ['08:50', 'event', 'Заявка назначена'],
       ['09:24', 'worker', 'Я на объекте. Начинаю замену счётчика.'],
       ['09:35', 'manager', 'Схема подключения во вложении.'],
-      ['09:37', 'manager', 'Пришлите фото новой пломбы, чтобы был виден номер.'],
+      ['09:37', 'manager', 'Пришлите фото новой пломбы, чтобы был виден номер. Прикладываю примеры.'],
     ],
     10430: [
       ['08:20', 'event', 'Заявка назначена'],
@@ -41,24 +41,23 @@
     kind: 'file',
     demo: true,
   });
+  s.messages[10428][3].files = ['photo', 'video'].map((type) => K.mediaFiles.sample(type, 'sent'));
   s.inboxFilter = 'active';
   s.inboxQuery = '';
   let minute = 9 * 60 + 41;
   K.addEntry = (entry, requestId = s.id) => {
     const time = String(Math.floor(minute / 60) % 24).padStart(2, '0') + ':' + String(minute % 60).padStart(2, '0');
-    (s.messages[requestId] ||= []).push({...entry, time, id: 'new-' + minute, order: ++minute});
+    const message = {...entry, time, id: K.mediaFiles.uniqueId(), order: ++minute};
+    (s.messages[requestId] ||= []).push(message);
+    return message;
   };
-  K.resultLines = (draft = s.draft) => {
-    const rows = [
-      ['Заводской номер', draft.serial],
-      ['Показания', draft.reading + ' кВт·ч'],
-      ['Фото прибора', draft.photoName || '1 фото'],
-    ];
-    if (draft.comment) rows.push(['Комментарий', draft.comment]);
-    if (draft.extraFiles?.length) rows.push(['Материалы', draft.extraFiles.join(', ')]);
-    return rows
-      .map(([label, value]) => `<div class="info-line"><span>${label}</span><strong>${E(value)}</strong></div>`)
-      .join('');
+  K.restoreChatMedia = async () => {
+    const saved = await K.mediaFiles.savedChatMessages();
+    for (const {requestId, ...m} of saved.sort((a, b) => a.order - b.order)) {
+      for (const f of m.files) if (f.blob) f.url = URL.createObjectURL(f.blob);
+      (s.messages[requestId] ||= []).push(m);
+      minute = Math.max(minute, m.order);
+    }
   };
   K.modes = {simple: 'Упрощённый', expanded: 'Расширенный'};
   K.modeChoices = (description = false) =>
@@ -95,7 +94,7 @@
     return `<a class="thread-row" href="#chat/${r.id}"><span class="request-symbol">${I(r.type === 'Проверка подключения' ? 'bolt' : 'meter')}</span><span class="row-text"><span class="row-heading"><strong>${E(heading)}</strong><time>${latest(r)?.time || ''}</time></span><span class="thread-meta">${chatStatus(r)}<span class="unit-line">${E(location)}№ ${r.id}</span></span><span class="row-preview">${E(preview(r))}</span></span>${r.unread ? `<b class="unread-dot" aria-label="Непрочитанных: ${r.unread}">${r.unread}</b>` : ''}</a>`;
   }
   function pinned(r) {
-    return `<a class="pinned-job" href="#chat/${r.id}"><span class="pinned-top">${chatStatus(r)}<small>№ ${r.id}</small></span><strong>${address(r)}</strong><span class="pinned-unit">квартира ${r.apartment} · ${r.type}</span><span class="pinned-bottom"><span>${I('chat')}${E(preview(r))}</span>${r.unread ? `<b>${r.unread}</b>` : I('chevron')}</span></a>`;
+    return `<a class="pinned-job" href="#chat/${r.id}"><span class="pinned-top">${chatStatus(r)}<small>№ ${r.id}</small></span><strong>${address(r)}</strong><span class="pinned-unit">квартира ${r.apartment} · ${r.type}</span><span class="pinned-bottom"><span>${I('chat')}${E(preview(r))}</span>${r.unread ? `<b aria-label="Непрочитанных: ${r.unread}">${r.unread}</b>` : I('chevron')}</span></a>`;
   }
   function sorted(rows) {
     return rows
@@ -123,18 +122,22 @@
     const rows = sorted(pool(s.inboxFilter)).filter((r) =>
       terms.every((term) => `${r.id} ${K.address(r, true)} ${r.customer}`.toLocaleLowerCase('ru').includes(term)),
     );
-    const current = s.inboxFilter === 'active' && !terms.length && rows.find((r) => r.status === 'IN_PROGRESS');
-    if (s.chatGrouping !== 'none' && rows.length) {
-      const ordered = current ? [current, ...rows.filter((r) => r !== current)] : rows;
-      return K.chatGroups.rows(ordered, threadRow);
+    if (!rows.length)
+      return `<div class="empty">${I('chat')}<h2>${s.inboxFilter === 'unread' && !terms.length ? 'Всё прочитано' : 'Заявок не найдено'}</h2><p>Посмотрите активные заявки или измените поиск.</p><button class="btn soft" data-action="reset-inbox">К активным заявкам</button></div>`;
+    const inProgress = [];
+    const rest = [];
+    const pinWork = s.inboxFilter === 'active' && !terms.length;
+    for (const r of rows) {
+      if (pinWork && r.status === 'IN_PROGRESS') inProgress.push(r);
+      else rest.push(r);
     }
-    const rest = rows.filter((r) => r !== current);
+    if (s.chatGrouping !== 'none') return K.chatGroups.rows([...inProgress, ...rest], threadRow);
+    const caption = s.inboxFilter === 'archive' ? 'Завершённые диалоги' : 'Диалоги по заявкам';
     return (
-      (current ? pinned(current) : '') +
-      (rows.length
-        ? `<div class="list-caption">${s.inboxFilter === 'archive' ? 'Завершённые диалоги' : 'Диалоги по заявкам'} <span>${rest.length}</span></div>` +
-          rest.map(threadRow).join('')
-        : `<div class="empty">${I('chat')}<h2>${s.inboxFilter === 'unread' && !terms.length ? 'Всё прочитано' : 'Заявок не найдено'}</h2><p>Посмотрите активные заявки или измените поиск.</p><button class="btn soft" data-action="reset-inbox">К активным заявкам</button></div>`)
+      inProgress.map(pinned).join('') +
+      (rest.length
+        ? `<div class="list-caption">${caption} <span>${rest.length}</span></div>` + rest.map(threadRow).join('')
+        : '')
     );
   };
   K.screens.inbox = () =>
@@ -143,7 +146,7 @@
     )
       .map(
         ([id, label]) =>
-          `<button data-action="filter-inbox" data-filter="${id}" aria-pressed="${s.inboxFilter === id}">${label}<span>${pool(id).length}</span></button>`,
+          `<button data-action="filter-inbox" data-filter="${id}" aria-pressed="${s.inboxFilter === id}">${label}<span class="${id === 'unread' && pool(id).length ? 'unread-total' : ''}">${pool(id).length}</span></button>`,
       )
       .join('')}</div></header>` +
     K.network() +
@@ -164,26 +167,31 @@
       !own && m === s.messages[r.id].filter((msg) => msg.role === 'manager').at(-1)
         ? ` id="message-manager-${r.id}"`
         : '';
-    return `<article${anchor} class="message ${own ? 'own' : ''}">${own ? '' : '<div class="sender">Елена · менеджер</div>'}${m.text ? `<p>${E(m.text)}</p>` : ''}${(m.files || []).map((f) => K.fileCard(f)).join('')}<div class="message-meta">${m.time} ${m.status === 'queued' ? '· В очереди' : m.status === 'failed' ? '· Не отправлено' : ''} ${own ? I(m.status === 'queued' ? 'clock' : 'checks') : ''}</div></article>`;
+    return `<article${anchor} class="message ${own ? 'own' : ''}">${own ? '' : '<div class="sender">Елена · менеджер</div>'}${m.text ? `<p>${E(m.text)}</p>` : ''}${K.mediaUI.messageFiles(m)}<div class="message-meta">${m.time} ${m.status === 'queued' ? '· В очереди' : m.status === 'failed' ? '· Не отправлено' : ''} ${own ? I(m.status === 'queued' ? 'clock' : 'checks') : ''}</div></article>`;
   }
   K.workStep = () =>
     !s.draft.serial.trim()
       ? 'serial'
       : !/^\d+([.,]\d+)?$/.test(s.draft.reading.trim())
         ? 'reading'
-        : !s.draft.photo
+        : !s.draft.fieldMedia.work.length
           ? 'photo'
           : 'review';
   const steps = {
     serial: ['Заводской номер', 'Перенесите номер с корпуса установленного прибора.', 'Ввести номер'],
     reading: ['Начальные показания', 'Введите значение с дисплея счётчика в кВт·ч.', 'Внести показания'],
     photo: ['Фото установленного прибора', 'В кадре должны быть видны показания и номер пломбы.', 'Приложить фото'],
-    review: ['Проверка результата', 'Сверьте показания и фото перед завершением заявки.', 'Проверить результат'],
+    review: ['Проверка результата', 'Сверьте данные всех шагов перед завершением заявки.', 'Проверить результат'],
   };
+  function workMedia(nextPhoto) {
+    const photos = nextPhoto || s.draft.fieldMedia.work.length ? K.mediaUI.panel('work', 'chat', nextPhoto) : '';
+    return photos + K.mediaUI.panel('work-extra', 'chat');
+  }
   function workCard(r) {
     if (r.status === 'EXECUTED') return K.button('Посмотреть отчёт', 'view-result', 'secondary', 'file');
     if (!r.mine || s.pendingIds?.includes(r.id)) return '';
     const started = r.status === 'IN_PROGRESS';
+    const nextPhoto = started && K.workStep() === 'photo';
     const [title, hint, cta] = started
       ? steps[K.workStep()]
       : [
@@ -191,7 +199,7 @@
           r.revision ? 'Проверьте замечание менеджера перед началом.' : 'Начните работу, когда будете на объекте.',
           r.status === 'DELAYED' ? 'Возобновить работу' : 'Начать работу',
         ];
-    return `<section class="work-prompt"><div class="prompt-kicker"><span>${I('meter')} Рабочий шаг</span><small>${started ? K.progress() + ' / 3' : '№ ' + r.id}</small></div><h2>${title}</h2><p>${hint}</p>${started ? '<div class="progress-bars" aria-label="Заполнено полей: ' + K.progress() + ' из 3">' + [1, 2, 3].map((i) => '<i class="' + (K.progress() >= i ? 'done' : '') + '"></i>').join('') + '</div>' : ''}<button class="btn primary full" data-action="${started ? 'chat-step' : 'start-work'}">${cta}${I('arrow')}</button></section>`;
+    return `<section class="work-prompt"><div class="prompt-kicker"><span>${I('meter')} Рабочий шаг</span><small>${started ? K.progress() + ' / 3' : '№ ' + r.id}</small></div>${nextPhoto ? '' : `<h2>${title}</h2><p>${hint}</p>`}${started ? '<div class="progress-bars" aria-label="Заполнено полей: ' + K.progress() + ' из 3">' + [1, 2, 3].map((i) => '<i class="' + (K.progress() >= i ? 'done' : '') + '"></i>').join('') + '</div>' : ''}${nextPhoto ? '' : K.button(cta, started ? 'chat-step' : 'start-work', 'primary', 'arrow')}${started ? workMedia(nextPhoto) : ''}</section>`;
   }
   K.screens.chat = () => {
     const r = K.request(),
