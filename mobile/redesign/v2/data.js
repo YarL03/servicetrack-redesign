@@ -2,6 +2,7 @@
 Kontur.requests = [
   {
     id: 10428,
+    hasChatFormSteps: true,
     external: 'ИРК-8241',
     city: 'Иркутск',
     street: 'Лермонтова',
@@ -15,6 +16,7 @@ Kontur.requests = [
   },
   {
     id: 10429,
+    hasChatFormSteps: true,
     external: 'ИРК-8242',
     city: 'Иркутск',
     street: 'Лермонтова',
@@ -28,6 +30,7 @@ Kontur.requests = [
   },
   {
     id: 10430,
+    hasChatFormSteps: false,
     external: 'ИРК-8243',
     city: 'Иркутск',
     street: 'Байкальская',
@@ -41,6 +44,7 @@ Kontur.requests = [
   },
   {
     id: 10431,
+    hasChatFormSteps: false,
     external: 'ИРК-8244',
     city: 'Иркутск',
     street: 'Байкальская',
@@ -54,6 +58,7 @@ Kontur.requests = [
   },
   {
     id: 10432,
+    hasChatFormSteps: true,
     external: 'ИРК-8245',
     city: 'Ангарск',
     street: 'Гагарина',
@@ -68,6 +73,7 @@ Kontur.requests = [
   },
   {
     id: 10433,
+    hasChatFormSteps: true,
     external: 'ИРК-8230',
     city: 'Иркутск',
     street: 'Декабрьских Событий',
@@ -81,6 +87,7 @@ Kontur.requests = [
   },
   {
     id: 10440,
+    hasChatFormSteps: true,
     external: 'ИРК-8250',
     city: 'Иркутск',
     street: 'Лермонтова',
@@ -94,6 +101,7 @@ Kontur.requests = [
   },
   {
     id: 10441,
+    hasChatFormSteps: true,
     external: 'ИРК-8251',
     city: 'Иркутск',
     street: 'Байкальская',
@@ -108,9 +116,10 @@ Kontur.requests = [
 ];
 Kontur.statuses = {
   IN_PROGRESS: ['В работе', 'info'],
-  READY_TO_PROCESS: ['Готова к исполнению', 'neutral'],
-  DELAYED: ['Недопуск', 'warning'],
+  READY_TO_PROCESS: ['Готова к исполнению', 'warning'],
+  DELAYED: ['Недопуск', 'delayed'],
   EXECUTED: ['Выполнена', 'success'],
+  revision: ['Доработка', 'danger'],
 };
 Kontur.initialDraft = (id = 10428) => ({
   oldModel: 'Меркурий 201',

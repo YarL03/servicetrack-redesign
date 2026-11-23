@@ -31,8 +31,8 @@ Object.assign(Kontur, {
   },
   badge(r) {
     const awaitingRevision = r.revision && r.status === 'READY_TO_PROCESS';
-    const [label, tone] = awaitingRevision ? ['Доработка', 'danger'] : this.statuses[r.status];
-    return `<span class="chip ${tone}">${this.icon(awaitingRevision ? 'alert' : r.status === 'EXECUTED' ? 'check' : r.status === 'DELAYED' ? 'clock' : 'list')}${label}</span>`;
+    const [label, tone] = this.statuses[awaitingRevision ? 'revision' : r.status];
+    return `<span class="chip request-status ${tone}">${this.icon(awaitingRevision ? 'alert' : r.status === 'EXECUTED' ? 'check' : r.status === 'DELAYED' ? 'clock' : 'list')}${label}</span>`;
   },
   button(label, action, kind = 'primary', icon = '') {
     return `<button class="btn ${kind} full" data-action="${action}">${label}${icon ? this.icon(icon) : ''}</button>`;
@@ -93,7 +93,7 @@ Object.assign(Kontur, {
   },
   inProgressCard(r) {
     const pending = this.state.pendingIds?.includes(r.id);
-    return `<section class="focus-card"><div class="row between"><span class="focus-eyebrow">${this.icon('clock')}В работе</span><span class="mono tiny muted">№ ${r.id}</span></div><h2>${r.street}, ${r.house} <span class="muted">· кв. ${r.apartment}</span></h2><p class="request-type">${r.type}</p><div class="progress-caption"><span>${pending ? 'Ожидает отправки' : 'Установка прибора'}</span><span class="muted">Этап 2 из 3</span></div><div class="progress-track" aria-label="Первый этап завершён, второй в работе"><i class="done"></i><i class="current"></i><i></i></div><a class="btn primary full" href="${this.href(pending ? 'complete' : 'work', r.id)}">${pending ? 'Проверить отправку' : 'Продолжить работу'}${this.icon('arrow')}</a></section>`;
+    return `<section class="focus-card"><div class="row between">${this.badge(r)}<span class="mono tiny muted">№ ${r.id}</span></div><h2>${r.street}, ${r.house} <span class="muted">· кв. ${r.apartment}</span></h2><p class="request-type">${r.type}</p><div class="progress-caption"><span>${pending ? 'Ожидает отправки' : 'Установка прибора'}</span><span class="muted">Этап 2 из 3</span></div><div class="progress-track" aria-label="Первый этап завершён, второй в работе"><i class="done"></i><i class="current"></i><i></i></div><a class="btn primary full" href="${this.href(pending ? 'complete' : 'work', r.id)}">${pending ? 'Проверить отправку' : 'Продолжить работу'}${this.icon('arrow')}</a></section>`;
   },
   requestCard(r, compact = false) {
     return `<a class="request-card ${r.revision || r.status === 'DELAYED' ? 'attention' : ''}" href="${this.href('detail', r.id)}"><div class="request-meta"><span class="mono">№ ${r.id}</span>${this.badge(r)}</div><h3>${this.address(r)}</h3><p class="request-type">${r.type}</p>${r.revision ? '<p class="compact-msg">Нужно переснять фото пломбы</p>' : r.status === 'DELAYED' ? '<p class="compact-msg">Абонента не было дома</p>' : !compact ? `<div class="request-footer"><span>${r.customer}</span><span class="${r.unread ? 'unread-text' : ''}">${r.unread ? this.icon('chat') + ` ${r.unread}` : this.icon('chevron')}</span></div>` : ''}</a>`;

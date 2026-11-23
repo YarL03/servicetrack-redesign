@@ -96,18 +96,19 @@
     const simple = s.mode === 'simple';
     $('#studio-modes').innerHTML = K.modeChoices();
     const home = simple ? 'inbox' : s.listView;
-    const checkpoint = K.requests.find((r) => r.status === 'IN_PROGRESS') || K.request();
+    const checkpointId = simple ? 10428 : (K.requests.find((r) => r.status === 'IN_PROGRESS') || K.request()).id;
     const links = [
       [home, 'list', simple ? 'Список диалогов' : 'Очередь заявок'],
-      [simple ? 'chat' : 'work', 'meter', 'Работа по заявке', checkpoint.id],
-      [simple ? 'attach' : 'chats', simple ? 'clip' : 'chat', simple ? 'Выбор вложения' : 'Переписка', checkpoint.id],
+      [simple ? 'chat' : 'work', 'meter', simple ? 'Чат с формой' : 'Работа по заявке', checkpointId],
+      ...(simple ? [['chat', 'chat', 'Чат без шагов формы', 10430]] : []),
+      [simple ? 'attach' : 'chats', simple ? 'clip' : 'chat', simple ? 'Выбор вложения' : 'Переписка', checkpointId],
       ['profile', 'user', 'Профиль монтёра'],
     ];
     $('#studio-routes').innerHTML = links
       .map(([screen, icon, label, id]) =>
         screen === 'attach'
           ? `<button data-action="studio-attach">${K.icon(icon)}${label}</button>`
-          : `<a href="${K.href(screen, id)}" ${s.screen === screen ? 'aria-current="page"' : ''}>${K.icon(icon)}${label}</a>`,
+          : `<a href="${K.href(screen, id)}" ${s.screen === screen && (screen !== 'chat' || s.id === id) ? 'aria-current="page"' : ''}>${K.icon(icon)}${label}</a>`,
       )
       .join('');
     $('#live-title').textContent = K.modes[s.mode];
@@ -125,7 +126,7 @@
     $('#reference-image').src = 'previews/' + img + '.png';
     $('#reference-image').alt = '';
     $('#reference-caption').textContent = caption + ' ↗';
-    $('#reference-link').onclick = () => go(target, list ? checkpoint.id : s.id);
+    $('#reference-link').onclick = () => go(target, list ? checkpointId : s.id);
   }
   function render() {
     const oldScroll = $('#app .scroll-content');
@@ -148,6 +149,7 @@
     if (['locations', 'all-locations'].includes(s.screen)) renderedKey = s.screen + '/' + s.addressGrouping;
     else if (s.screen === 'inbox' || s.screen === 'chats')
       renderedKey = [s.screen, s.chatGrouping, s.screen === 'inbox' ? s.inboxFilter : ''].join('/');
+    else if (s.screen === 'chat') renderedKey = [s.screen, s.id, s.mode].join('/');
     else renderedKey = s.screen + '/' + s.id;
     const newScroll = $('#app .scroll-content');
     if (newScroll)
@@ -729,15 +731,16 @@
       go('detail', 10432);
       setTimeout(() => toast('Обновлённая форма принята. Проверьте поля перед завершением.'), 40);
     },
-    'chat-menu': () =>
+    'chat-menu': () => {
+      const r = K.request();
+      const editable = r.mine && r.status !== 'EXECUTED' && !s.pendingIds?.includes(r.id);
       sheet(
         'Диалог заявки № ' + s.id,
         K.button('Данные заявки', 'chat-context', 'secondary', 'list') +
-          (K.request().mine && K.request().status !== 'EXECUTED' && !s.pendingIds?.includes(s.id)
-            ? K.button('Сообщить о недопуске', 'delay', 'secondary', 'clock')
-            : '') +
+          (editable ? K.button('Сообщить о недопуске', 'delay', 'secondary', 'clock') : '') +
           K.button('Режим приложения', 'mode-menu', 'secondary', 'layers'),
-      ),
+      );
+    },
     'preview-file': (button) => {
       const id = button?.dataset.fileId;
       const file = [...s.attachments, ...(s.messages[s.id] || []).flatMap((m) => m.files || [])].find(

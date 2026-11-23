@@ -1,6 +1,5 @@
 /* Presentation and the mobile conversation screens. The other work screens use v1 tokens. */
 :root {
-  --blue-print: #214fc7;
   --bench: #edf1f7;
 }
 [data-theme='dark'] {
@@ -298,8 +297,6 @@ body {
 }
 .inbox-tools,
 .inbox-title,
-.pinned-top,
-.pinned-bottom,
 .row-heading,
 .prompt-kicker {
   display: flex;
@@ -398,9 +395,6 @@ body {
 .inbox-tabs button[aria-pressed='true'] span:not(.unread-total) {
   background: var(--accent-soft);
 }
-.pinned-bottom b {
-  box-shadow: 0 0 0 1px #ffffffc7;
-}
 .inbox-tabs button .unread-total,
 .notification-scopes button .unread-total {
   background: var(--unread);
@@ -420,17 +414,6 @@ body {
 .inbox-body .empty > .btn {
   margin-inline: auto;
 }
-.pinned-job {
-  display: block;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  color: white;
-  padding: 15px 16px 0;
-  border-radius: 16px;
-  background: var(--blue-print);
-}
-.pinned-job + .pinned-job,
 .focus-card + .focus-card {
   margin-top: 12px;
 }
@@ -445,43 +428,6 @@ body {
   width: 14px;
   height: 14px;
 }
-.pinned-top small {
-  font: 11px var(--mono);
-  color: #e3ebff;
-}
-.pinned-job > strong {
-  display: block;
-  font-size: 24px;
-  font-weight: 670;
-  letter-spacing: -0.9px;
-  margin: 12px 0 1px;
-  line-height: 1.15;
-}
-.pinned-unit {
-  display: block;
-  font-size: 12px;
-  color: #e5edff;
-}
-.pinned-bottom {
-  margin-top: 13px;
-  border-top: 1px solid #ffffff4d;
-  padding: 9px 0 11px;
-}
-.pinned-bottom > span {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 12px;
-}
-.pinned-bottom .icon {
-  display: inline;
-  vertical-align: middle;
-  width: 15px;
-  height: 15px;
-  margin-right: 6px;
-}
-.pinned-bottom b,
 .unread-dot {
   background: var(--unread);
   color: var(--on-unread);
@@ -532,7 +478,6 @@ body {
   width: 21px;
   height: 21px;
 }
-/* A request uses the same status chip in its list row, pinned card and conversation. */
 .chat-status,
 .thread-meta {
   display: flex;
@@ -561,6 +506,13 @@ body {
 .row-heading time {
   font: 10px var(--mono);
   color: var(--muted);
+}
+.thread-row .request-type {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
 }
 .row-preview {
   display: block;

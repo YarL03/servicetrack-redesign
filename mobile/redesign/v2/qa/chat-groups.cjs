@@ -16,6 +16,13 @@ module.exports = async function checkChatGroups({
     await click(`#sheet [data-chat-grouping="${by}"]`);
   }
 
+  const rowTypesMatchRequests = `(() => {
+    const rows = [...document.querySelectorAll('#app .thread-row')];
+    return rows.length > 0 && rows.every(row => {
+      const request = Kontur.requests.find(r => row.hash === '#chat/' + r.id);
+      return request && row.querySelector('.request-type')?.textContent === request.type;
+    });
+  })()`;
   const snapshot = `[...document.querySelectorAll('.chat-group')].map(g => ({
     title: g.querySelector('.group-heading strong').textContent,
     city: g.querySelector('.group-heading small')?.textContent || '',
@@ -46,6 +53,7 @@ module.exports = async function checkChatGroups({
 
   await size(390);
   await goto('inbox', scope('simple'));
+  await assert('В «Моих заявках» каждая строка показывает тип работ своей заявки', rowTypesMatchRequests);
   await action('chat-group-menu');
   await assert(
     'Настройка предлагает четыре группировки и обычный список',
@@ -112,6 +120,7 @@ module.exports = async function checkChatGroups({
   await select('city');
   await click('[data-filter=archive]');
   await assert('Архив группирует только завершённые заявки', `JSON.stringify(${snapshot}[0].ids)==='[10433]'`);
+  await assert('Тип работ виден в строке архивного диалога', rowTypesMatchRequests);
   await action('mode-menu');
   await click('#sheet [data-mode=expanded]');
   await click('.bottom-nav [href="#chats"]');
@@ -160,6 +169,7 @@ module.exports = async function checkChatGroups({
             `${style} · ${by} — заголовки, счётчики и все ID без повторов`,
             `JSON.stringify(${snapshot})===JSON.stringify(${JSON.stringify(projected)})`,
           );
+          await assert(`${style} · ${by} — тип работ в каждой строке группы`, rowTypesMatchRequests);
           if (style === 'simple' && by !== 'type') await shot('inbox-by-' + by);
           if (style === 'expanded' && by === 'type') await shot('chats-by-type');
         }
@@ -179,5 +189,22 @@ module.exports = async function checkChatGroups({
   await assert(
     'Без группировки возвращает обычный список диалогов',
     "document.querySelectorAll('.thread-row').length===4 && !document.querySelector('.chat-group')",
+  );
+  await assert('В разделе «Чаты» каждая строка показывает тип работ своей заявки', rowTypesMatchRequests);
+  await size(320);
+  await evaluate(
+    "Kontur.requests.find(r => r.id === 10428).type = 'Замена электросчётчика с проверкой подключения и программированием тарифных зон'",
+  );
+  await select('none');
+  await assert(
+    'На ширине 320 px полное название работ переносится и помещается над статусом',
+    `(() => {
+      const row = document.querySelector('.thread-row[href="#chat/10428"]');
+      const label = row.querySelector('.request-type');
+      const bounds = label.getBoundingClientRect();
+      return label.textContent === Kontur.requests.find(r => r.id === 10428).type &&
+        bounds.height > parseFloat(getComputedStyle(label).lineHeight) &&
+        label.scrollWidth <= label.clientWidth && bounds.bottom <= row.querySelector('.thread-meta').getBoundingClientRect().top;
+    })()`,
   );
 };

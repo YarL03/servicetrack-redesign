@@ -153,6 +153,10 @@ async function checkStatusColors(context, expected) {
     context,
     `(() => {
     const entries = ${JSON.stringify(expected)};
+    const palette = Kontur.state.theme === 'dark'
+      ? {info: ['#155774','#b3e5fc'], warning: ['#72531d','#ffe2a7'], delayed: ['#415665','#dee9f0'], danger: ['#8a3735','#ffdad5'], success: ['#286844','#cef5dc']}
+      : {info: ['#b3e5fc','#01579b'], warning: ['#ffe0a3','#533600'], delayed: ['#d4dfe7','#455a64'], danger: ['#ffcdc9','#681710'], success: ['#b9e7ca','#123621']};
+    const hex = rgb => '#' + rgb.match(/[0-9]+/g).map(n => Number(n).toString(16).padStart(2, '0')).join('');
     const colors = new Set();
     function luminance(rgb) {
       const [r, g, b] = rgb.match(/[\\d.]+/g).slice(0, 3).map(Number).map(value => {
@@ -166,6 +170,10 @@ async function checkStatusColors(context, expected) {
       if (!chip || chip.textContent !== label || !chip.querySelector('svg')) return false;
       const style = getComputedStyle(chip);
       if (style.backgroundColor === 'rgba(0, 0, 0, 0)' || colors.has(style.color)) return false;
+      if (!chip.classList.contains('chat-delivery')) {
+        const [background, foreground] = palette[tone];
+        if (hex(style.backgroundColor) !== background || hex(style.color) !== foreground) return false;
+      }
       colors.add(style.color);
       const text = luminance(style.color), bg = luminance(style.backgroundColor);
       return (Math.max(text, bg) + 0.05) / (Math.min(text, bg) + 0.05) >= 4.5;
@@ -175,8 +183,8 @@ async function checkStatusColors(context, expected) {
 }
 const activeStatusExamples = [
   ['#app a[href="#chat/10428"]', 'info', 'В работе'],
-  ['#app a[href="#chat/10429"]', 'neutral', 'Готова к исполнению'],
-  ['#app a[href="#chat/10430"]', 'warning', 'Недопуск'],
+  ['#app a[href="#chat/10429"]', 'warning', 'Готова к исполнению'],
+  ['#app a[href="#chat/10430"]', 'delayed', 'Недопуск'],
   ['#app a[href="#chat/10432"]', 'danger', 'Доработка'],
 ];
 async function selectFiles(names) {
@@ -211,9 +219,9 @@ async function confirmFile() {
   await goto('inbox');
   await assert(
     'По умолчанию все пять активных назначений представлены диалогами',
-    "Kontur.state.mode==='simple' && document.querySelectorAll('#inbox-rows a').length===5 && document.querySelectorAll('.bottom-nav a').length===2",
+    "Kontur.state.mode==='simple' && document.querySelectorAll('#inbox-rows .thread-row').length===5 && document.querySelector('#inbox-rows .list-caption span').textContent==='5' && document.querySelectorAll('.bottom-nav a').length===2",
   );
-  await checkStatusColors('Светлый список и закреплённая заявка · метки и контраст', activeStatusExamples);
+  await checkStatusColors('Светлый список · палитра статусов приложения и контраст', activeStatusExamples);
   await shot('inbox');
   await input('#inbox-search', 'Лермонтова 20');
   await assert(
@@ -226,12 +234,17 @@ async function confirmFile() {
   await click('[data-filter="unread"]');
   await assert('Два диалога с непрочитанными сообщениями', "document.querySelectorAll('#inbox-rows a').length===2");
   await click('[data-filter="active"]');
-  await click('.pinned-job');
+  await click('.thread-row[href="#chat/10428"]');
   await assert(
     'Адрес открывает диалог с рабочим шагом',
     on('chat', 10428) + " && !!document.querySelector('.work-prompt') && !Kontur.request().unread",
   );
   await shot('thread');
+  const menuWithoutStepSetting =
+    "document.querySelector('#sheet').open && !/шаги формы/i.test(document.querySelector('#sheet').textContent)";
+  await action('chat-menu');
+  await assert('В меню чата со шагами доступны только действия по заявке и диалогу', menuWithoutStepSetting);
+  await inSheet('close-sheet');
   await action('attach-chat');
   await assert(
     'Скрепка открывает три источника в диалоге',
@@ -262,9 +275,10 @@ async function confirmFile() {
   await click('#step-form button');
   await click('#app .header-back a');
   await assert(
-    'Обе начатые заявки закреплены в активных диалогах и встречаются по одному разу',
-    `[10428,10429].every(id => document.querySelectorAll('#inbox-rows a[href="#chat/'+id+'"]').length===1 &&
-      document.querySelector('.pinned-job[href="#chat/'+id+'"] .chip').textContent==='В работе')`,
+    'Обе начатые заявки закреплены сверху обычными строками и встречаются по одному разу',
+    `[...document.querySelectorAll('#inbox-rows .thread-row')].slice(0, 2).every(row => row.querySelector('.chip').textContent==='В работе') &&
+      [10428,10429].every(id => document.querySelectorAll('#inbox-rows a[href="#chat/'+id+'"]').length===1 &&
+      document.querySelector('.thread-row[href="#chat/'+id+'"] .chip').textContent==='В работе')`,
   );
   await checkLayout('inbox', 390, 'Две заявки в работе');
   await click('#inbox-rows [href="#chat/10428"]');
@@ -305,6 +319,29 @@ async function confirmFile() {
   await assert(
     'Сохранённое показание отражено в шаге и в ленте',
     "Kontur.state.draft.reading==='18,7' && document.querySelector('#messages').textContent.includes('18,7 кВт·ч') && document.querySelector('.work-prompt').textContent.includes('Приложить фото')",
+  );
+  await click('#app .header-back a');
+  await click('#inbox-rows [href="#chat/10430"]');
+  await assert(
+    'Заявка без шагов открывается из списка с перепиской и строкой сообщения',
+    on('chat', 10430) +
+      " && !document.querySelector('.work-prompt') && !!document.querySelector('#messages .message') && !!document.querySelector('#message-text')",
+  );
+  await action('chat-menu');
+  await assert('В меню чата без шагов доступны только действия по заявке и диалогу', menuWithoutStepSetting);
+  await inSheet('close-sheet');
+  await click('#app .header-back a');
+  await click('#inbox-rows [href="#chat/10431"]');
+  await assert(
+    'Байкальская, 128, кв. 18 тоже открывается без шагов, со строкой сообщения и скрепкой',
+    on('chat', 10431) +
+      " && !document.querySelector('.work-prompt') && !!document.querySelector('#message-text') && !!document.querySelector('#message-form [data-action=attach-chat]')",
+  );
+  await click('#app .header-back a');
+  await click('#inbox-rows [href="#chat/10428"]');
+  await assert(
+    'У заявки с формой после возврата сохранились показания и следующий шаг',
+    "Kontur.state.draft.reading==='18,7' && document.querySelector('.work-prompt [data-action=chat-step]')?.textContent==='Приложить фото'",
   );
   await input('#message-text', 'Черновик о приборе');
   await action('attach-chat');
@@ -375,7 +412,7 @@ async function confirmFile() {
   );
   await assert(
     'После завершения первой заявки вторая остаётся в работе',
-    `document.querySelector('.pinned-job[href="#chat/10429"] .chip').textContent==='В работе'`,
+    `document.querySelector('.thread-row[href="#chat/10429"] .chip').textContent==='В работе'`,
   );
   await click('[data-filter="archive"]');
   await assert(
@@ -472,7 +509,7 @@ async function confirmFile() {
   await click('#app .header-back a');
   await assert(
     'После отправки первого отчёта вторая заявка всё ещё в работе',
-    `document.querySelector('.pinned-job[href="#chat/10429"] .chip').textContent==='В работе'`,
+    `document.querySelector('.thread-row[href="#chat/10429"] .chip').textContent==='В работе'`,
   );
   await evaluate("localStorage.removeItem('kontur-mobile-v2-drafts')");
   for (const width of [320, 360, 390, 430]) {
@@ -498,7 +535,13 @@ async function confirmFile() {
         await checkLayout(screen, width, style);
       }
     }
-    await goto('chat/10428', scope('simple'));
+    await goto('chat/10430', scope('simple'));
+    await assert(
+      'Прямая ссылка на чат без шагов · ' + width,
+      "!!document.querySelector('#message-form') && !document.querySelector('.work-prompt')",
+    );
+    await checkLayout('chat/10430', width, 'Без шагов формы');
+    if (width === 390) await shot('thread-no-steps');
     await action('attach-chat');
     await assert(
       'Панель вложений в пределах экрана ' + width,
@@ -548,11 +591,11 @@ async function confirmFile() {
   await confirmFile();
   await action('save-delay');
   await checkStatusColors('После недопуска метка обновляется у заявки с доработкой', [
-    ['.thread-context', 'warning', 'Недопуск'],
+    ['.thread-context', 'delayed', 'Недопуск'],
   ]);
   await click('#app .header-back a');
   await checkStatusColors('Новый статус виден при возврате в список', [
-    ['#app a[href="#chat/10432"]', 'warning', 'Недопуск'],
+    ['#app a[href="#chat/10432"]', 'delayed', 'Недопуск'],
   ]);
   await require('./chat-file-status.cjs')({action, assert, click, goto, input, scope, shot, size});
   await require('./field-media.cjs')({
@@ -660,6 +703,18 @@ async function confirmFile() {
     'Обзор на компьютере показывает оба экрана и переключатели',
     "document.querySelector('#reference-image').naturalWidth>0 && document.querySelector('#reference-image').getBoundingClientRect().width>0 && document.querySelector('#studio-modes').children.length===2",
   );
+  for (const [id, withSteps] of [
+    [10430, false],
+    [10428, true],
+  ]) {
+    const link = '#studio-routes a[href="#chat/' + id + '"]';
+    await click(link);
+    await assert(
+      'Каталог открывает пример заявки № ' + id,
+      on('chat', id) +
+        ` && !!document.querySelector('.work-prompt') === ${withSteps} && document.querySelectorAll('#studio-routes [aria-current=page]').length === 1 && document.querySelector('${link}').hasAttribute('aria-current')`,
+    );
+  }
   const passed = !errors.length && layouts.every((x) => !x.document && !x.content && !x.overflowing.length);
   const report = {passed, checks, layouts, errors};
   fs.writeFileSync(path.join(__dirname, 'report.json'), JSON.stringify(report, null, 2) + '\n');

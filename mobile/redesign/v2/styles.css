@@ -17,6 +17,17 @@
   --on-unread: #fff;
   --danger: #a72f40;
   --danger-soft: #fff0f2;
+  /* Filled request badges from src/theme/palette.ts. */
+  --status-info-bg: #b3e5fc;
+  --status-info-text: #01579b;
+  --status-warning-bg: #ffe0a3;
+  --status-warning-text: #533600;
+  --status-delayed-bg: #d4dfe7;
+  --status-delayed-text: #455a64;
+  --status-danger-bg: #ffcdc9;
+  --status-danger-text: #681710;
+  --status-success-bg: #b9e7ca;
+  --status-success-text: #123621;
   --studio: #e9edf4;
   --display: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
   --body: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -436,14 +447,6 @@ small {
   width: 13px;
   height: 13px;
 }
-.chip.info {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-.chip.neutral {
-  background: var(--bg);
-  color: var(--muted);
-}
 .chip.warning {
   background: var(--warning-soft);
   color: var(--warning);
@@ -455,6 +458,26 @@ small {
 .chip.danger {
   background: var(--danger-soft);
   color: var(--danger);
+}
+.request-status.info {
+  background: var(--status-info-bg);
+  color: var(--status-info-text);
+}
+.request-status.warning {
+  background: var(--status-warning-bg);
+  color: var(--status-warning-text);
+}
+.request-status.delayed {
+  background: var(--status-delayed-bg);
+  color: var(--status-delayed-text);
+}
+.request-status.danger {
+  background: var(--status-danger-bg);
+  color: var(--status-danger-text);
+}
+.request-status.success {
+  background: var(--status-success-bg);
+  color: var(--status-success-text);
 }
 .btn {
   min-height: 50px;
@@ -662,18 +685,6 @@ small {
   border-radius: 16px;
   background: var(--surface);
   padding: 16px;
-}
-.focus-card .focus-eyebrow {
-  color: var(--accent);
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-}
-.focus-card .focus-eyebrow .icon {
-  width: 16px;
-  height: 16px;
 }
 .focus-card h2 {
   font-size: 23px;
@@ -1757,6 +1768,16 @@ dialog .sheet-file .icon {
   --on-unread: #35131a;
   --danger: #ffa8b5;
   --danger-soft: #442632;
+  --status-info-bg: #155774;
+  --status-info-text: #b3e5fc;
+  --status-warning-bg: #72531d;
+  --status-warning-text: #ffe2a7;
+  --status-delayed-bg: #415665;
+  --status-delayed-text: #dee9f0;
+  --status-danger-bg: #8a3735;
+  --status-danger-text: #ffdad5;
+  --status-success-bg: #286844;
+  --status-success-text: #cef5dc;
   --studio: #0d1522;
 }
 [data-theme='dark'] .btn.primary,

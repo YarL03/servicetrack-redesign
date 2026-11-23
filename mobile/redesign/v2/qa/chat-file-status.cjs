@@ -69,6 +69,12 @@ module.exports = async function checkChatFileStatus({action, assert, click, goto
          ${sentFiles}[0].status === '${offline ? 'queued' : 'delivered'}' && !Kontur.state.attachments.length &&
          document.querySelector('#message-text').value === ''`,
       );
+      if (mode === 'simple') {
+        await assert(
+          context + 'после отправки вложения состав чата соответствует настройке заявки',
+          `Boolean(document.querySelector('.work-prompt')) === ${id === 10429}`,
+        );
+      }
       if (offline) {
         await click('#studio-network');
         await assert(

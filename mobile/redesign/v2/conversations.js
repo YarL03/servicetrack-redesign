@@ -18,6 +18,7 @@
     ],
     10430: [
       ['08:20', 'event', 'Заявка назначена'],
+      ['09:05', 'worker', 'По телефону и в домофон никто не отвечает. Как оформить визит?'],
       ['09:12', 'manager', 'Зафиксируйте недопуск и приложите фото уведомления.'],
     ],
     10432: [
@@ -91,10 +92,7 @@
     const streetGroup = ['street', 'street-house'].includes(s.chatGrouping);
     const heading = streetGroup ? `Дом ${r.house} · кв. ${r.apartment}` : address(r);
     const location = streetGroup ? '' : `${s.chatGrouping === 'city' ? '' : r.city + ' · '}кв. ${r.apartment} · `;
-    return `<a class="thread-row" href="#chat/${r.id}"><span class="request-symbol">${I(r.type === 'Проверка подключения' ? 'bolt' : 'meter')}</span><span class="row-text"><span class="row-heading"><strong>${E(heading)}</strong><time>${latest(r)?.time || ''}</time></span><span class="thread-meta">${chatStatus(r)}<span class="unit-line">${E(location)}№ ${r.id}</span></span><span class="row-preview">${E(preview(r))}</span></span>${r.unread ? `<b class="unread-dot" aria-label="Непрочитанных: ${r.unread}">${r.unread}</b>` : ''}</a>`;
-  }
-  function pinned(r) {
-    return `<a class="pinned-job" href="#chat/${r.id}"><span class="pinned-top">${chatStatus(r)}<small>№ ${r.id}</small></span><strong>${address(r)}</strong><span class="pinned-unit">квартира ${r.apartment} · ${r.type}</span><span class="pinned-bottom"><span>${I('chat')}${E(preview(r))}</span>${r.unread ? `<b aria-label="Непрочитанных: ${r.unread}">${r.unread}</b>` : I('chevron')}</span></a>`;
+    return `<a class="thread-row" href="#chat/${r.id}"><span class="request-symbol">${I(r.type === 'Проверка подключения' ? 'bolt' : 'meter')}</span><span class="row-text"><span class="row-heading"><strong>${E(heading)}</strong><time>${latest(r)?.time || ''}</time></span><span class="request-type">${E(r.type)}</span><span class="thread-meta">${chatStatus(r)}<span class="unit-line">${E(location)}№ ${r.id}</span></span><span class="row-preview">${E(preview(r))}</span></span>${r.unread ? `<b class="unread-dot" aria-label="Непрочитанных: ${r.unread}">${r.unread}</b>` : ''}</a>`;
   }
   function sorted(rows) {
     return rows
@@ -124,21 +122,12 @@
     );
     if (!rows.length)
       return `<div class="empty">${I('chat')}<h2>${s.inboxFilter === 'unread' && !terms.length ? 'Всё прочитано' : 'Заявок не найдено'}</h2><p>Посмотрите активные заявки или измените поиск.</p><button class="btn soft" data-action="reset-inbox">К активным заявкам</button></div>`;
-    const inProgress = [];
-    const rest = [];
-    const pinWork = s.inboxFilter === 'active' && !terms.length;
-    for (const r of rows) {
-      if (pinWork && r.status === 'IN_PROGRESS') inProgress.push(r);
-      else rest.push(r);
-    }
-    if (s.chatGrouping !== 'none') return K.chatGroups.rows([...inProgress, ...rest], threadRow);
+    if (s.inboxFilter === 'active' && !terms.length)
+      rows.sort((a, b) => Number(b.status === 'IN_PROGRESS') - Number(a.status === 'IN_PROGRESS'));
     const caption = s.inboxFilter === 'archive' ? 'Завершённые диалоги' : 'Диалоги по заявкам';
-    return (
-      inProgress.map(pinned).join('') +
-      (rest.length
-        ? `<div class="list-caption">${caption} <span>${rest.length}</span></div>` + rest.map(threadRow).join('')
-        : '')
-    );
+    const heading =
+      s.chatGrouping === 'none' ? `<div class="list-caption">${caption} <span>${rows.length}</span></div>` : '';
+    return heading + K.chatGroups.rows(rows, threadRow);
   };
   K.screens.inbox = () =>
     `<header class="inbox-head"><div class="inbox-tools"><span>${I('pin')}Иркутская область</span>${K.modeButton()}</div><div class="inbox-title"><h1>Мои заявки</h1>${K.notifications.bell()}</div><label class="inbox-search">${I('search')}<input id="inbox-search" aria-label="Поиск по адресу, номеру или абоненту" placeholder="Адрес, номер или абонент" value="${E(s.inboxQuery)}"></label><div class="inbox-tabs" role="group" aria-label="Подборка заявок">${Object.entries(
@@ -189,7 +178,7 @@
   }
   function workCard(r) {
     if (r.status === 'EXECUTED') return K.button('Посмотреть отчёт', 'view-result', 'secondary', 'file');
-    if (!r.mine || s.pendingIds?.includes(r.id)) return '';
+    if (!r.hasChatFormSteps || !r.mine || s.pendingIds?.includes(r.id)) return '';
     const started = r.status === 'IN_PROGRESS';
     const nextPhoto = started && K.workStep() === 'photo';
     const [title, hint, cta] = started

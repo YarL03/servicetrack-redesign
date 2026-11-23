@@ -24,8 +24,8 @@ module.exports = async function ({
     await size(theme === 'light' ? 390 : 320);
     await goto('inbox', opts + '&mode=simple');
     await assert(
-      theme + ' · красные счётчики у колокольчика, вкладки и обоих типов диалогов',
-      `['.notification-bell .badge-count','.inbox-tabs .unread-total','.pinned-bottom b','.unread-dot'].every(sel=>getComputedStyle(document.querySelector(sel)).backgroundColor==='${red}')`,
+      theme + ' · красные счётчики у колокольчика, вкладки и строк заявок в работе и с недопуском',
+      `['.notification-bell .badge-count','.inbox-tabs .unread-total','.thread-row[href="#chat/10428"] .unread-dot','.thread-row[href="#chat/10430"] .unread-dot'].every(sel=>getComputedStyle(document.querySelector(sel)).backgroundColor==='${red}')`,
     );
     await click('.thread-row[href="#chat/10430"]');
     await click('#app .header-back a');
