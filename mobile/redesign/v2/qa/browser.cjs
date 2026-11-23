@@ -223,6 +223,7 @@ async function confirmFile() {
   );
   await checkStatusColors('Светлый список · палитра статусов приложения и контраст', activeStatusExamples);
   await shot('inbox');
+  await require('./simple-no-forms.cjs')({action, assert, click, evaluate, goto, input, on, scope, shot, size});
   await input('#inbox-search', 'Лермонтова 20');
   await assert(
     'Поиск по улице и дому',
@@ -516,6 +517,7 @@ async function confirmFile() {
     await size(width);
     for (const [style, screens] of Object.entries({
       simple: ['inbox', 'chat/10428', 'chat/10429', 'profile', 'delay', 'notifications'],
+      'simple-no-forms': ['inbox', 'chat/10428'],
       expanded: [
         'queue',
         'chats',
@@ -701,7 +703,7 @@ async function confirmFile() {
   await shot('overview');
   await assert(
     'Обзор на компьютере показывает оба экрана и переключатели',
-    "document.querySelector('#reference-image').naturalWidth>0 && document.querySelector('#reference-image').getBoundingClientRect().width>0 && document.querySelector('#studio-modes').children.length===2",
+    "document.querySelector('#reference-image').naturalWidth>0 && document.querySelector('#reference-image').getBoundingClientRect().width>0 && document.querySelector('#studio-modes').children.length===3",
   );
   for (const [id, withSteps] of [
     [10430, false],

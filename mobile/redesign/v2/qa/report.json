@@ -10,6 +10,66 @@
       "ok": true
     },
     {
+      "name": "Прямая ссылка открывает переписку № 10428 без формы",
+      "ok": true
+    },
+    {
+      "name": "В левой панели выбран вариант без форм, справа показан соответствующий чат",
+      "ok": true
+    },
+    {
+      "name": "Связанный экран открывает тот же чат без шагов",
+      "ok": true
+    },
+    {
+      "name": "Из списка открывается чат без шагов № 10428",
+      "ok": true
+    },
+    {
+      "name": "Из списка открывается чат без шагов № 10429",
+      "ok": true
+    },
+    {
+      "name": "Отправка сообщения с файлом переводит заявку в работу и сохраняет чат без шагов",
+      "ok": true
+    },
+    {
+      "name": "Из списка открывается чат без шагов № 10430",
+      "ok": true
+    },
+    {
+      "name": "Из списка открывается чат без шагов № 10431",
+      "ok": true
+    },
+    {
+      "name": "Из списка открывается чат без шагов № 10432",
+      "ok": true
+    },
+    {
+      "name": "Из списка открывается чат без шагов № 10433",
+      "ok": true
+    },
+    {
+      "name": "Выбранный вариант без форм запоминается",
+      "ok": true
+    },
+    {
+      "name": "На телефоне выбран упрощённый режим приложения",
+      "ok": true
+    },
+    {
+      "name": "Из чата без форм открывается расширенная карточка той же заявки",
+      "ok": true
+    },
+    {
+      "name": "Возврат из карточки сохраняет черновик переписки",
+      "ok": true
+    },
+    {
+      "name": "Обычный упрощённый вариант возвращает рабочий шаг",
+      "ok": true
+    },
+    {
       "name": "Поиск по улице и дому",
       "ok": true
     },
@@ -1101,6 +1161,22 @@
     },
     {
       "width": 320,
+      "screen": "inbox",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
+      "screen": "chat/10428",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 320,
       "screen": "queue",
       "variant": "expanded",
       "document": false,
@@ -1245,6 +1321,22 @@
     },
     {
       "width": 360,
+      "screen": "inbox",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
+      "screen": "chat/10428",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 360,
       "screen": "queue",
       "variant": "expanded",
       "document": false,
@@ -1389,6 +1481,22 @@
     },
     {
       "width": 390,
+      "screen": "inbox",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
+      "screen": "chat/10428",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 390,
       "screen": "queue",
       "variant": "expanded",
       "document": false,
@@ -1527,6 +1635,22 @@
       "width": 430,
       "screen": "notifications",
       "variant": "simple",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "inbox",
+      "variant": "simple-no-forms",
+      "document": false,
+      "content": false,
+      "overflowing": []
+    },
+    {
+      "width": 430,
+      "screen": "chat/10428",
+      "variant": "simple-no-forms",
       "document": false,
       "content": false,
       "overflowing": []

@@ -14,11 +14,11 @@
   const groupingKey = 'service-track-mobile-v2-address-grouping';
   const chatGroupingKey = 'service-track-mobile-v2-chat-grouping';
   const modeKey = 'service-track-mobile-v2-mode';
-  s.mode = 'simple';
   try {
-    if (localStorage.getItem(modeKey) === 'expanded') s.mode = 'expanded';
+    const saved = localStorage.getItem(modeKey);
+    if (Object.hasOwn(K.studioModes, saved)) s.studioMode = saved;
   } catch {}
-  if (Object.hasOwn(K.modes, params.get('mode'))) s.mode = history.state?.mode || params.get('mode');
+  if (Object.hasOwn(K.studioModes, params.get('mode'))) s.studioMode = history.state?.mode || params.get('mode');
   let drafts = {};
   let readingEditor = '';
   s.attachmentDrafts = {};
@@ -94,13 +94,17 @@
   }
   function catalog() {
     const simple = s.mode === 'simple';
+    const noForms = s.studioMode === 'simple-no-forms';
     $('#studio-modes').innerHTML = K.modeChoices();
     const home = simple ? 'inbox' : s.listView;
     const checkpointId = simple ? 10428 : (K.requests.find((r) => r.status === 'IN_PROGRESS') || K.request()).id;
+    const workScenario = simple
+      ? ['chat', 'chat', 'Чат без шагов формы', noForms ? checkpointId : 10430]
+      : ['work', 'meter', 'Работа по заявке', checkpointId];
     const links = [
       [home, 'list', simple ? 'Список диалогов' : 'Очередь заявок'],
-      [simple ? 'chat' : 'work', 'meter', simple ? 'Чат с формой' : 'Работа по заявке', checkpointId],
-      ...(simple ? [['chat', 'chat', 'Чат без шагов формы', 10430]] : []),
+      ...(s.studioMode === 'simple' ? [['chat', 'meter', 'Чат с формой', checkpointId]] : []),
+      workScenario,
       [simple ? 'attach' : 'chats', simple ? 'clip' : 'chat', simple ? 'Выбор вложения' : 'Переписка', checkpointId],
       ['profile', 'user', 'Профиль монтёра'],
     ];
@@ -111,11 +115,12 @@
           : `<a href="${K.href(screen, id)}" ${s.screen === screen && (screen !== 'chat' || s.id === id) ? 'aria-current="page"' : ''}>${K.icon(icon)}${label}</a>`,
       )
       .join('');
-    $('#live-title').textContent = K.modes[s.mode];
+    $('#live-title').textContent = K.studioModes[s.studioMode];
     $('#studio-network').textContent = s.offline ? 'Восстановить связь' : 'Показать без сети';
     const list = [...mineLists, ...allLists, 'inbox', 'chats'].includes(s.screen);
     const target = list ? (simple ? 'chat' : 'chats') : home;
-    const img = simple ? (list ? 'thread' : 'inbox') : list ? 'chats' : 'queue';
+    const threadImage = noForms ? 'thread-simple-no-forms' : 'thread';
+    const img = simple ? (list ? threadImage : 'inbox') : list ? 'chats' : 'queue';
     const caption = simple
       ? list
         ? 'Открыть чат заявки'
@@ -149,7 +154,7 @@
     if (['locations', 'all-locations'].includes(s.screen)) renderedKey = s.screen + '/' + s.addressGrouping;
     else if (s.screen === 'inbox' || s.screen === 'chats')
       renderedKey = [s.screen, s.chatGrouping, s.screen === 'inbox' ? s.inboxFilter : ''].join('/');
-    else if (s.screen === 'chat') renderedKey = [s.screen, s.id, s.mode].join('/');
+    else if (s.screen === 'chat') renderedKey = [s.screen, s.id, s.studioMode].join('/');
     else renderedKey = s.screen + '/' + s.id;
     const newScroll = $('#app .scroll-content');
     if (newScroll)
@@ -202,7 +207,7 @@
         screen = 'chat';
     } else if (screen === 'inbox') screen = s.listView;
     if (screen !== requested) history.replaceState(history.state, '', K.href(screen, id));
-    if (params.has('mode')) history.replaceState({...history.state, mode: s.mode}, '');
+    if (params.has('mode')) history.replaceState({...history.state, mode: s.studioMode}, '');
     s.screen = screen;
     if (mineLists.includes(screen)) {
       s.listOrigin = s.listView = screen;
@@ -394,13 +399,10 @@
     $('#messages').scrollTop = $('#messages').scrollHeight;
   }
   function goToMode(mode) {
-    if (!Object.hasOwn(K.modes, mode)) return;
-    const same = s.mode === mode;
-    s.mode = mode;
-    if (params.has('mode')) {
-      // Explicit demo links choose the initial mode. A manual choice also survives reload.
-      history.replaceState({...history.state, mode}, '');
-    }
+    if (!Object.hasOwn(K.studioModes, mode)) return;
+    const same = s.studioMode === mode;
+    s.studioMode = mode;
+    if (params.has('mode')) history.replaceState({...history.state, mode}, '');
     try {
       localStorage.setItem(modeKey, mode);
     } catch {}
@@ -410,7 +412,7 @@
       return;
     }
     const working = ['chat', 'detail', 'work', 'stages', 'review', 'delay', 'complete'].includes(s.screen);
-    const target = working ? (mode === 'simple' ? 'chat' : 'detail') : home();
+    const target = working ? (s.mode === 'simple' ? 'chat' : 'detail') : home();
     go(target);
   }
   function chatStep() {
@@ -458,7 +460,10 @@
   }
   const actions = {
     'mode-menu': () => sheet('Режим приложения', '<div class="mode-options">' + K.modeChoices(true) + '</div>'),
-    'set-mode': (button) => goToMode(button.dataset.mode),
+    'set-mode': (button) => {
+      if ($('#sheet').contains(button) && button.dataset.mode === s.mode) return closeSheet();
+      goToMode(button.dataset.mode);
+    },
     'chat-group-menu': () => sheet('Группировка чатов', K.chatGroups.choices()),
     'set-chat-group': (button) => {
       const value = button.dataset.chatGrouping;

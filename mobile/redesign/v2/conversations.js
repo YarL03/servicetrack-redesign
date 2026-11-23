@@ -61,13 +61,21 @@
     }
   };
   K.modes = {simple: 'Упрощённый', expanded: 'Расширенный'};
-  K.modeChoices = (description = false) =>
-    Object.entries(K.modes)
-      .map(
-        ([key, title]) =>
-          `<button class="mode-choice" data-action="set-mode" data-mode="${key}" aria-pressed="${s.mode === key}">${I(key === 'simple' ? 'chat' : 'layers')}<span><strong>${title}</strong>${description ? '<small>' + (key === 'simple' ? 'Заявка открывается как чат' : 'Заявки и чаты в разных разделах') + '</small>' : ''}</span><i>${s.mode === key ? I('check') : ''}</i></button>`,
-      )
+  K.studioModes = {
+    simple: K.modes.simple,
+    'simple-no-forms': 'Упрощённый с заявками без форм',
+    expanded: K.modes.expanded,
+  };
+  K.modeChoices = (inApp = false) => {
+    const selected = inApp ? s.mode : s.studioMode;
+    return Object.entries(inApp ? K.modes : K.studioModes)
+      .map(([key, title]) => {
+        const expanded = key === 'expanded';
+        const description = expanded ? 'Заявки и чаты в разных разделах' : 'Заявка открывается как чат';
+        return `<button class="mode-choice" data-action="set-mode" data-mode="${key}" aria-pressed="${selected === key}">${I(expanded ? 'layers' : 'chat')}<span><strong>${title}</strong>${inApp ? '<small>' + description + '</small>' : ''}</span><i>${selected === key ? I('check') : ''}</i></button>`;
+      })
       .join('');
+  };
   K.modeButton = () => `<button class="mode-trigger" data-action="mode-menu">${I('layers')}Режим</button>`;
   const latest = (r) => s.messages[r.id]?.at(-1);
   const address = (r) => `${r.street}, ${r.house}`;
@@ -177,6 +185,7 @@
     return photos + K.mediaUI.panel('work-extra', 'chat');
   }
   function workCard(r) {
+    if (s.studioMode !== 'simple') return '';
     if (r.status === 'EXECUTED') return K.button('Посмотреть отчёт', 'view-result', 'secondary', 'file');
     if (!r.hasChatFormSteps || !r.mine || s.pendingIds?.includes(r.id)) return '';
     const started = r.status === 'IN_PROGRESS';
@@ -202,7 +211,7 @@
       ) +
       `<button class="thread-context" data-action="chat-context"><span class="thread-type">${I('list')}${r.type}</span>${chatStatus(r)}${I('chevron')}</button>` +
       K.network() +
-      `<div class="scroll-content dialogue" id="messages"><div class="message-day"><span>Сегодня, 19 ноября</span></div>${(s.messages[r.id] || []).map((m) => entry(m, r)).join('') || '<div class="timeline-event">Начните переписку по этой заявке</div>'}${simple ? workCard(r) : ''}</div><div class="composer"><div class="draft-attachments">${s.attachments.map((f) => K.fileCard(f, true)).join('')}</div><form id="message-form" class="compose-row">${K.iconButton('clip', 'Прикрепить к сообщению', 'attach-chat')}<label class="grow"><span class="sr-only">Сообщение менеджеру</span><textarea id="message-text" rows="1" placeholder="Сообщение…">${E(s.chatText[r.id] || '')}</textarea></label><button class="icon-button send-button" type="submit" aria-label="Отправить сообщение">${I('up')}</button></form></div>`
+      `<div class="scroll-content dialogue" id="messages"><div class="message-day"><span>Сегодня, 19 ноября</span></div>${(s.messages[r.id] || []).map((m) => entry(m, r)).join('') || '<div class="timeline-event">Начните переписку по этой заявке</div>'}${workCard(r)}</div><div class="composer"><div class="draft-attachments">${s.attachments.map((f) => K.fileCard(f, true)).join('')}</div><form id="message-form" class="compose-row">${K.iconButton('clip', 'Прикрепить к сообщению', 'attach-chat')}<label class="grow"><span class="sr-only">Сообщение менеджеру</span><textarea id="message-text" rows="1" placeholder="Сообщение…">${E(s.chatText[r.id] || '')}</textarea></label><button class="icon-button send-button" type="submit" aria-label="Отправить сообщение">${I('up')}</button></form></div>`
     );
   };
 })();

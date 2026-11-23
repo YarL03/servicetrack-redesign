@@ -131,6 +131,10 @@ Kontur.initialDraft = (id = 10428) => ({
   delayed: false,
 });
 Kontur.state = {
+  studioMode: 'simple',
+  get mode() {
+    return this.studioMode === 'expanded' ? 'expanded' : 'simple';
+  },
   screen: 'queue',
   id: 10428,
   listView: 'queue',
