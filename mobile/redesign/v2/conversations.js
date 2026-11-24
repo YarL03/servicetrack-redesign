@@ -60,19 +60,16 @@
       minute = Math.max(minute, m.order);
     }
   };
-  K.modes = {simple: 'Упрощённый', expanded: 'Расширенный'};
   K.studioModes = {
-    simple: K.modes.simple,
-    'simple-no-forms': 'Упрощённый с заявками без форм',
-    expanded: K.modes.expanded,
+    simple: {title: 'Упрощённый', description: 'Заявка открывается как чат'},
+    'simple-no-forms': {title: 'Упрощённый с заявками без форм', description: 'Только для демонстрации'},
+    expanded: {title: 'Расширенный', description: 'Заявки и чаты в разных разделах'},
   };
   K.modeChoices = (inApp = false) => {
-    const selected = inApp ? s.mode : s.studioMode;
-    return Object.entries(inApp ? K.modes : K.studioModes)
-      .map(([key, title]) => {
-        const expanded = key === 'expanded';
-        const description = expanded ? 'Заявки и чаты в разных разделах' : 'Заявка открывается как чат';
-        return `<button class="mode-choice" data-action="set-mode" data-mode="${key}" aria-pressed="${selected === key}">${I(expanded ? 'layers' : 'chat')}<span><strong>${title}</strong>${inApp ? '<small>' + description + '</small>' : ''}</span><i>${selected === key ? I('check') : ''}</i></button>`;
+    return Object.entries(K.studioModes)
+      .map(([key, {title, description}]) => {
+        const selected = s.studioMode === key;
+        return `<button class="mode-choice" data-action="set-mode" data-mode="${key}" aria-pressed="${selected}">${I(key === 'expanded' ? 'layers' : 'chat')}<span><strong>${title}</strong>${inApp ? '<small>' + description + '</small>' : ''}</span><i>${selected ? I('check') : ''}</i></button>`;
       })
       .join('');
   };

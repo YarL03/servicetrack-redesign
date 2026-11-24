@@ -261,7 +261,7 @@ Kontur.screens = {
     const K = Kontur;
     return (
       K.header('Профиль') +
-      `<div class="scroll-content"><div class="profile-hero"><span class="avatar">ИИ</span><h2>Иван Иванов</h2><p>Исполнитель · Иркутск</p></div><div class="panel"><button class="menu-row" data-action="mode-menu">${K.icon('layers')}<span>Режим приложения<small>${K.modes[K.state.mode]}</small></span>${K.icon('chevron')}</button>${[
+      `<div class="scroll-content"><div class="profile-hero"><span class="avatar">ИИ</span><h2>Иван Иванов</h2><p>Исполнитель · Иркутск</p></div><div class="panel"><button class="menu-row" data-action="mode-menu">${K.icon('layers')}<span>Режим приложения<small>${K.studioModes[K.state.studioMode].title}</small></span>${K.icon('chevron')}</button>${[
         ['history', 'История заявок', 'history'],
         ['cloud', 'Отправка данных', 'sync'],
       ]

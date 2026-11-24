@@ -115,7 +115,7 @@
           : `<a href="${K.href(screen, id)}" ${s.screen === screen && (screen !== 'chat' || s.id === id) ? 'aria-current="page"' : ''}>${K.icon(icon)}${label}</a>`,
       )
       .join('');
-    $('#live-title').textContent = K.studioModes[s.studioMode];
+    $('#live-title').textContent = K.studioModes[s.studioMode].title;
     $('#studio-network').textContent = s.offline ? 'Восстановить связь' : 'Показать без сети';
     const list = [...mineLists, ...allLists, 'inbox', 'chats'].includes(s.screen);
     const target = list ? (simple ? 'chat' : 'chats') : home;
@@ -407,10 +407,7 @@
       localStorage.setItem(modeKey, mode);
     } catch {}
     if ($('#sheet').open) closeSheet();
-    if (same) {
-      render();
-      return;
-    }
+    if (same) return;
     const working = ['chat', 'detail', 'work', 'stages', 'review', 'delay', 'complete'].includes(s.screen);
     const target = working ? (s.mode === 'simple' ? 'chat' : 'detail') : home();
     go(target);
@@ -460,10 +457,7 @@
   }
   const actions = {
     'mode-menu': () => sheet('Режим приложения', '<div class="mode-options">' + K.modeChoices(true) + '</div>'),
-    'set-mode': (button) => {
-      if ($('#sheet').contains(button) && button.dataset.mode === s.mode) return closeSheet();
-      goToMode(button.dataset.mode);
-    },
+    'set-mode': (button) => goToMode(button.dataset.mode),
     'chat-group-menu': () => sheet('Группировка чатов', K.chatGroups.choices()),
     'set-chat-group': (button) => {
       const value = button.dataset.chatGrouping;

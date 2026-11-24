@@ -468,7 +468,6 @@ async function confirmFile() {
   await shot('chats');
   await click('.bottom-nav [href="#profile"]');
   await action('mode-menu');
-  await shot('modes');
   await mode('simple');
   await assert(
     'Переключатель из профиля возвращает упрощённую навигацию',

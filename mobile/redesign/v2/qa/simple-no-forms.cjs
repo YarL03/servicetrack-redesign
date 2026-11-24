@@ -1,5 +1,10 @@
 module.exports = async function ({action, assert, click, evaluate, goto, input, on, scope, shot, size}) {
   const studio = (mode) => '#studio-modes [data-mode="' + mode + '"]';
+  const demo = '#sheet [data-mode=simple-no-forms]';
+  async function openChatModes() {
+    await action('chat-menu');
+    await click('#sheet [data-action=mode-menu]');
+  }
   const back = '#app .header-back a';
   const chatOnly =
     "!!document.querySelector('#message-text') && !!document.querySelector('#message-form [data-action=attach-chat]') && !document.querySelector('.work-prompt, [data-action=view-result]')";
@@ -40,15 +45,36 @@ module.exports = async function ({action, assert, click, evaluate, goto, input, 
     await click(back);
   }
   await goto('chat/10428');
+  await size(320);
   await assert('Выбранный вариант без форм запоминается', chatOnly);
-  await action('chat-menu');
-  await click('#sheet [data-action=mode-menu]');
+  await openChatModes();
   await assert(
-    'На телефоне выбран упрощённый режим приложения',
-    "document.querySelectorAll('#sheet [data-mode]').length === 2 && document.querySelector('#sheet [data-mode=simple]').getAttribute('aria-pressed') === 'true'",
+    'На телефоне демонстрационный вариант подписан и отмечен после выбора в каталоге',
+    `document.querySelectorAll('#sheet [data-mode]').length === 3 &&
+      document.querySelector('#sheet [aria-pressed=true]').matches('${demo}') &&
+      document.querySelector('${demo} strong').textContent === 'Упрощённый с заявками без форм' &&
+      document.querySelector('${demo} small').textContent === 'Только для демонстрации' &&
+      document.querySelector('#sheet').scrollWidth <= document.querySelector('#sheet').clientWidth`,
   );
   await click('#sheet [data-mode=simple]');
+  await assert(
+    'Выбор обычного режима в телефоне возвращает шаги этой заявки',
+    on('chat', 10428) + " && !!document.querySelector('.work-prompt')",
+  );
+  await size(390);
   await input('#message-text', 'Сверяю номер пломбы');
+  await openChatModes();
+  await shot('modes');
+  await click(demo);
+  await assert(
+    'Выбор демонстрации в телефоне открывает тот же чат без шагов и сохраняет черновик',
+    on('chat', 10428) +
+      ' && ' +
+      chatOnly +
+      ` && !document.querySelector('#sheet').open &&
+      document.querySelector('${studio('simple-no-forms')}').getAttribute('aria-pressed') === 'true' &&
+      document.querySelector('#message-text').value === 'Сверяю номер пломбы'`,
+  );
   await click(studio('expanded'));
   await assert('Из чата без форм открывается расширенная карточка той же заявки', on('detail', 10428));
   await click(studio('simple-no-forms'));
@@ -56,6 +82,20 @@ module.exports = async function ({action, assert, click, evaluate, goto, input, 
     'Возврат из карточки сохраняет черновик переписки',
     chatOnly + " && document.querySelector('#message-text').value === 'Сверяю номер пломбы'",
   );
+  await click(back);
+  await click('.bottom-nav [href="#profile"]');
+  await assert(
+    'Профиль указывает выбранный вариант без форм',
+    "document.querySelector('#app [data-action=mode-menu] small').textContent === 'Упрощённый с заявками без форм'",
+  );
+  await action('mode-menu');
+  await click(demo);
+  await assert(
+    'Повторный выбор закрывает окно и сохраняет экран профиля',
+    "Kontur.state.screen === 'profile' && !document.querySelector('#sheet').open",
+  );
+  await click('.bottom-nav [href="#inbox"]');
+  await click('#inbox-rows a[href="#chat/10428"]');
   await click(studio('simple'));
   await assert(
     'Обычный упрощённый вариант возвращает рабочий шаг',
