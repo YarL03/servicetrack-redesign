@@ -1,0 +1,266 @@
+{
+  "report": [],
+  "exceptions": [],
+  "requests": [
+    {
+      "path": "/api/healthcheck",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/auth/logged_in",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/companies",
+      "method": "GET",
+      "query": "?order=fullCompanyName&order=DESC&page=0&size=5"
+    },
+    {
+      "path": "/api/v2/companies",
+      "method": "GET",
+      "query": "?size=100"
+    },
+    {
+      "path": "/api/v2/dicts/service/types",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/notifications",
+      "method": "GET",
+      "query": "?uid=qa"
+    },
+    {
+      "path": "/api/v2/dicts/service/types/my",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/serviceRequests/findByIds",
+      "method": "OPTIONS",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/serviceRequests/findByIds",
+      "method": "POST",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/serviceRequests/10428/contentTree",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/delayReasons",
+      "method": "GET",
+      "query": "?srId=10428"
+    },
+    {
+      "path": "/api/v2/companies/findByIDs",
+      "method": "OPTIONS",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/dicts/service/types/ELECTRICITY_METER",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/companies/findByIDs",
+      "method": "POST",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/serviceRequests/10428/statuses",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/dicts/sr/rejections",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/accounts",
+      "method": "GET",
+      "query": "?fio=&roles=ROLE_WORKER&isActive=true&page=0&size=25"
+    },
+    {
+      "path": "/api/healthcheck",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/auth/logged_in",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/companies",
+      "method": "GET",
+      "query": "?order=fullCompanyName&order=DESC&page=0&size=5"
+    },
+    {
+      "path": "/api/v2/companies",
+      "method": "GET",
+      "query": "?size=100"
+    },
+    {
+      "path": "/api/v2/dicts/service/types",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/serviceRequests/findByIds",
+      "method": "POST",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/notifications",
+      "method": "GET",
+      "query": "?uid=qa"
+    },
+    {
+      "path": "/api/v2/serviceRequests/10428/contentTree",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/delayReasons",
+      "method": "GET",
+      "query": "?srId=10428"
+    },
+    {
+      "path": "/api/v2/companies/findByIDs",
+      "method": "POST",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/dicts/service/types/ELECTRICITY_METER",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/serviceRequests/10428/statuses",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/dicts/sr/rejections",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/accounts",
+      "method": "GET",
+      "query": "?fio=&roles=ROLE_WORKER&isActive=true&page=0&size=25"
+    },
+    {
+      "path": "/api/v2/serviceRequests/list",
+      "method": "GET",
+      "query": "?order=id&order=DESC&page=0&size=100&archive=false"
+    },
+    {
+      "path": "/api/v2/dicts/contract/locations",
+      "method": "GET",
+      "query": ""
+    },
+    {
+      "path": "/api/v2/filtersSets",
+      "method": "GET",
+      "query": "?name=&userId=1&filterType=SERVICE_REQUEST"
+    },
+    {
+      "path": "/api/v2/companies",
+      "method": "GET",
+      "query": "?companyId=qa-company&page=0&size=100"
+    },
+    {
+      "path": "/api/v2/serviceRequests/list",
+      "method": "GET",
+      "query": "?order=id&order=DESC&page=0&size=100&archive=false"
+    },
+    {
+      "path": "/api/v2/serviceRequests/list",
+      "method": "GET",
+      "query": "?order=plannedDate&order=ASC&page=0&size=100&archive=false"
+    },
+    {
+      "path": "/api/v2/accounts",
+      "method": "GET",
+      "query": "?fio=&roles=ROLE_WORKER&isActive=true&page=0&size=25"
+    }
+  ],
+  "interactions": [
+    {
+      "name": "Request content loaded",
+      "passed": true
+    },
+    {
+      "name": "Theme preserves comment DOM and value",
+      "passed": true
+    },
+    {
+      "name": "Resize preserves comment",
+      "passed": true
+    },
+    {
+      "name": "Context collapses on mobile",
+      "passed": true
+    },
+    {
+      "name": "Context opens without replacing input",
+      "passed": true
+    },
+    {
+      "name": "Tablet Drawer has visible navigation labels",
+      "passed": true
+    },
+    {
+      "name": "No request overflow at 320",
+      "passed": true
+    },
+    {
+      "name": "Logout confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Theme preserves open dialog",
+      "passed": true
+    },
+    {
+      "name": "Dialog fits 320",
+      "passed": true
+    },
+    {
+      "name": "Mobile request cards are links",
+      "passed": true
+    },
+    {
+      "name": "Mobile filters initially collapsed",
+      "passed": true
+    },
+    {
+      "name": "Filters open with existing DOM",
+      "passed": true
+    },
+    {
+      "name": "Mobile sort requests server",
+      "passed": true
+    },
+    {
+      "name": "Desktop grid restored",
+      "passed": true
+    },
+    {
+      "name": "Grid keyboard opens request",
+      "passed": true
+    },
+    {
+      "name": "Working data tab available",
+      "passed": true
+    }
+  ]
+}

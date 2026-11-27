@@ -1,0 +1,1211 @@
+{
+  "theme": "dark",
+  "modalChecks": 426,
+  "modalFailures": [],
+  "colorChecks": 6390,
+  "colorFailures": [],
+  "date": "2026-11-03",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/153.0.8010.12",
+    "revision": "@971a7443b0c9b0a9b2860529b33331b76077ec62",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+    "jsVersion": "15.3.76.4"
+  },
+  "mode": "full",
+  "checks": 5964,
+  "widths": [
+    320,
+    390,
+    599,
+    600,
+    768,
+    899,
+    900,
+    1024,
+    1199,
+    1200,
+    1440,
+    1535,
+    1536,
+    1920
+  ],
+  "screens": [
+    {
+      "id": "dashboard",
+      "title": "Обзор работ",
+      "group": "Обзор",
+      "kind": "page"
+    },
+    {
+      "id": "dashboard-period",
+      "title": "Период отчёта",
+      "group": "Обзор",
+      "kind": "dialog"
+    },
+    {
+      "id": "dashboard-status",
+      "title": "Статус заявок",
+      "group": "Обзор",
+      "kind": "page"
+    },
+    {
+      "id": "dashboard-map",
+      "title": "Заявки на карте",
+      "group": "Обзор",
+      "kind": "page"
+    },
+    {
+      "id": "dashboard-contracts",
+      "title": "Контракты на карте",
+      "group": "Обзор",
+      "kind": "page"
+    },
+    {
+      "id": "requests",
+      "title": "Заявки",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "requests-archive",
+      "title": "Архив заявок",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-filter",
+      "title": "Новый фильтр заявок",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-filter-save",
+      "title": "Сохранить набор фильтров",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-filter-edit",
+      "title": "Наборы фильтров",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-filter-delete",
+      "title": "Удалить набор фильтров?",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-create",
+      "title": "Новая заявка",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-assign",
+      "title": "Назначение исполнителей",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-assign-confirm",
+      "title": "Подтвердите назначение",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request",
+      "title": "Заявка № 10428",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-edit-customer",
+      "title": "Данные абонента",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-edit-address",
+      "title": "Адрес заявки",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-edit-workers",
+      "title": "Исполнители заявки",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-edit-start",
+      "title": "Дата ввода заявки",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-edit-planned",
+      "title": "Дата окончания заявки",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-edit-manager",
+      "title": "Менеджер заявки",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-object",
+      "title": "Информация об объекте",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-object-edit",
+      "title": "Рабочие данные",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-files",
+      "title": "Вложения заявки",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-file",
+      "title": "Фотография прибора",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-video",
+      "title": "Проверка работы прибора",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-file-edit",
+      "title": "Заменить вложение",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-file-comment",
+      "title": "Комментарий к вложению",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-file-delete",
+      "title": "Удалить вложение?",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-history",
+      "title": "История изменений",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "request-denials",
+      "title": "Недопуски",
+      "group": "Заявки",
+      "kind": "page"
+    },
+    {
+      "id": "denial-create",
+      "title": "Добавить недопуск",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "denial-edit",
+      "title": "Недопуск № 128",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-status",
+      "title": "Действия со статусом заявки",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-cancel",
+      "title": "Отменить заявку",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-revision",
+      "title": "Вернуть заявку на доработку?",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-finish",
+      "title": "Завершить заявку?",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-reopen",
+      "title": "Открыть завершённую заявку",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "request-save",
+      "title": "Сохранить рабочие данные?",
+      "group": "Заявки",
+      "kind": "dialog"
+    },
+    {
+      "id": "contracts",
+      "title": "Контракты",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contracts-archive",
+      "title": "Архив контрактов",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-create",
+      "title": "Новый контракт",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract",
+      "title": "Контракт ЭС-2026/048",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-edit",
+      "title": "Редактирование контракта",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-company",
+      "title": "Заказчик контракта",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-archive",
+      "title": "Переместить контракт в архив?",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-restore",
+      "title": "Восстановить контракт?",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-documents",
+      "title": "Документы контракта",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-document-add",
+      "title": "Добавить документ",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-document-edit",
+      "title": "Редактировать документ",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-document-delete",
+      "title": "Удалить документ?",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-import",
+      "title": "Импорт данных",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-import-add",
+      "title": "Импорт данных в контракт",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-import-result",
+      "title": "Результат импорта",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-requests",
+      "title": "Заявки контракта",
+      "group": "Контракты",
+      "kind": "page"
+    },
+    {
+      "id": "contract-filters",
+      "title": "Новый фильтр контрактов",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-filter-save",
+      "title": "Сохранить набор контрактов",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-filter-edit",
+      "title": "Наборы фильтров контрактов",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "contract-filter-delete",
+      "title": "Удалить набор контрактов?",
+      "group": "Контракты",
+      "kind": "dialog"
+    },
+    {
+      "id": "reports",
+      "title": "Отчёты",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-executed",
+      "title": "Отчёт по заявкам",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-filter",
+      "title": "Добавить фильтр отчёта",
+      "group": "Отчёты",
+      "kind": "dialog"
+    },
+    {
+      "id": "report-universal",
+      "title": "Универсальный отчёт",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-forma",
+      "title": "Форма выработки перечней",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-delay",
+      "title": "Реестр актов недопуска",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-counter",
+      "title": "Отчёт по мастер-счётчикам",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-dynamic",
+      "title": "Сводный отчёт",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "report-preview",
+      "title": "Предпросмотр отчёта",
+      "group": "Отчёты",
+      "kind": "page"
+    },
+    {
+      "id": "notifications",
+      "title": "Уведомления",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "notification",
+      "title": "Заявка выполнена",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "notification-delete-all",
+      "title": "Удалить все уведомления?",
+      "group": "Аккаунт",
+      "kind": "dialog"
+    },
+    {
+      "id": "users",
+      "title": "Пользователи",
+      "group": "Пользователи",
+      "kind": "page"
+    },
+    {
+      "id": "user-create",
+      "title": "Добавление пользователя",
+      "group": "Пользователи",
+      "kind": "page"
+    },
+    {
+      "id": "user-edit",
+      "title": "Александр Смирнов",
+      "group": "Пользователи",
+      "kind": "page"
+    },
+    {
+      "id": "user-delete",
+      "title": "Удалить пользователя?",
+      "group": "Пользователи",
+      "kind": "dialog"
+    },
+    {
+      "id": "user-block",
+      "title": "Заблокировать пользователя?",
+      "group": "Пользователи",
+      "kind": "dialog"
+    },
+    {
+      "id": "user-unblock",
+      "title": "Восстановить доступ?",
+      "group": "Пользователи",
+      "kind": "dialog"
+    },
+    {
+      "id": "password",
+      "title": "Изменение пароля",
+      "group": "Аккаунт",
+      "kind": "dialog"
+    },
+    {
+      "id": "user-address",
+      "title": "Домашний адрес",
+      "group": "Пользователи",
+      "kind": "dialog"
+    },
+    {
+      "id": "companies",
+      "title": "Заказчики",
+      "group": "Компании",
+      "kind": "page"
+    },
+    {
+      "id": "company",
+      "title": "АО «Городские сети»",
+      "group": "Компании",
+      "kind": "page"
+    },
+    {
+      "id": "company-create",
+      "title": "Добавление заказчика",
+      "group": "Компании",
+      "kind": "page"
+    },
+    {
+      "id": "company-delete",
+      "title": "Удалить компанию?",
+      "group": "Компании",
+      "kind": "dialog"
+    },
+    {
+      "id": "company-bulk-delete",
+      "title": "Удалить выбранные компании?",
+      "group": "Компании",
+      "kind": "dialog"
+    },
+    {
+      "id": "contact-create",
+      "title": "Добавление контактного лица",
+      "group": "Компании",
+      "kind": "dialog"
+    },
+    {
+      "id": "contact-edit",
+      "title": "Елена Морозова",
+      "group": "Компании",
+      "kind": "dialog"
+    },
+    {
+      "id": "contact-delete",
+      "title": "Удалить контактное лицо?",
+      "group": "Компании",
+      "kind": "dialog"
+    },
+    {
+      "id": "dictionaries",
+      "title": "Справочники",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "work-types",
+      "title": "Виды работ",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "work-type",
+      "title": "Замена прибора учёта",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "work-type-create",
+      "title": "Новый вид работ",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "work-subtype",
+      "title": "Подтип работ",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "work-builder",
+      "title": "Конструктор рабочих форм",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "work-field",
+      "title": "Настройка поля",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "locations",
+      "title": "Места установки",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "cancel-reasons",
+      "title": "Причины отмены",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "location-edit",
+      "title": "Этажный щит",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "location-create",
+      "title": "Новое место установки",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "cancel-reason-edit",
+      "title": "Нет доступа к объекту",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "cancel-reason-create",
+      "title": "Новая причина отмены",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "dictionary-edit",
+      "title": "Редактирование справочника",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "dictionary-delete",
+      "title": "Удалить запись справочника?",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "device-models",
+      "title": "Модели устройств",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "device-model-create",
+      "title": "Новая модель устройства",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "device-model-edit",
+      "title": "Меркурий 230 ART",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "devices",
+      "title": "Устройства",
+      "group": "Справочники",
+      "kind": "page"
+    },
+    {
+      "id": "device-edit",
+      "title": "Устройство №10284756",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "device-lock",
+      "title": "Завершить редактирование?",
+      "group": "Справочники",
+      "kind": "dialog"
+    },
+    {
+      "id": "settings",
+      "title": "Настройки",
+      "group": "Настройки",
+      "kind": "page"
+    },
+    {
+      "id": "import-devices",
+      "title": "Импорт устройств",
+      "group": "Настройки",
+      "kind": "page"
+    },
+    {
+      "id": "import-result",
+      "title": "Результаты импорта",
+      "group": "Настройки",
+      "kind": "page"
+    },
+    {
+      "id": "import-template-error",
+      "title": "Шаблон импорта не найден",
+      "group": "Настройки",
+      "kind": "page"
+    },
+    {
+      "id": "profile",
+      "title": "Профиль компании",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "tariffs",
+      "title": "Тарифные планы",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "tariff-connect",
+      "title": "Подключение тарифа",
+      "group": "Аккаунт",
+      "kind": "dialog"
+    },
+    {
+      "id": "tariff-success",
+      "title": "Тариф подключён",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "tariff-invoice",
+      "title": "Счёт на подключение тарифа",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "balance",
+      "title": "Баланс и оплата",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "payment-create",
+      "title": "Создание счёта",
+      "group": "Аккаунт",
+      "kind": "dialog"
+    },
+    {
+      "id": "payment-history",
+      "title": "История платежей",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "payment-invoice",
+      "title": "Счёт №118",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "payment-documents",
+      "title": "Платёжные документы",
+      "group": "Аккаунт",
+      "kind": "page"
+    },
+    {
+      "id": "login",
+      "title": "Вход в Сервис Трек",
+      "group": "Система",
+      "kind": "auth"
+    },
+    {
+      "id": "login-redirect",
+      "title": "Переход к авторизации",
+      "group": "Система",
+      "kind": "auth"
+    },
+    {
+      "id": "registration",
+      "title": "Демонстрационный доступ",
+      "group": "Система",
+      "kind": "auth"
+    },
+    {
+      "id": "captcha",
+      "title": "Подтвердите регистрацию",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "registration-success",
+      "title": "Доступ запрошен",
+      "group": "Система",
+      "kind": "auth"
+    },
+    {
+      "id": "registration-exists",
+      "title": "Компания уже зарегистрирована",
+      "group": "Система",
+      "kind": "auth"
+    },
+    {
+      "id": "mobile-app",
+      "title": "Мобильное приложение",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-loading",
+      "title": "Загрузка заявок",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-empty",
+      "title": "Заявки не найдены",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-error",
+      "title": "Не удалось загрузить данные",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-offline",
+      "title": "Нет соединения",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-forbidden",
+      "title": "Доступ ограничен",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-not-found",
+      "title": "Страница не найдена",
+      "group": "Система",
+      "kind": "page"
+    },
+    {
+      "id": "state-tariff",
+      "title": "Тариф закрыт",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "state-storage",
+      "title": "Место в хранилище закончилось",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "state-tariff-loading",
+      "title": "Проверяем тариф",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "state-tariff-error",
+      "title": "Не удалось проверить тариф",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "state-unsaved",
+      "title": "Есть несохранённые изменения",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "state-delete",
+      "title": "Удалить запись?",
+      "group": "Система",
+      "kind": "dialog"
+    },
+    {
+      "id": "logout",
+      "title": "Выйти из аккаунта?",
+      "group": "Система",
+      "kind": "dialog"
+    }
+  ],
+  "failures": [],
+  "interactions": [
+    {
+      "variant": "v1",
+      "check": "explicit theme query applies on load",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "mobile drawer",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "navigation closes drawer",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "modal opens and focuses",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "Escape closes dialog",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "skip link focuses main content",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "builder adds stage",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "builder adds field group",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "required fields reject empty form",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "theme toggle preserves form and DOM",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "theme toggle exposes pressed state",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "theme change preserves open modal and draft",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "theme change preserves hash and updates query",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "theme selection is stored locally",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "theme preference survives page reload without query",
+      "pass": true
+    },
+    {
+      "variant": "v1",
+      "check": "explicit query overrides saved preference",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "explicit theme query applies on load",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "mobile drawer",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "navigation closes drawer",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "modal opens and focuses",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "Escape closes dialog",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "skip link focuses main content",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "builder adds stage",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "builder adds field group",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "required fields reject empty form",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "theme toggle preserves form and DOM",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "theme toggle exposes pressed state",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "theme change preserves open modal and draft",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "theme change preserves hash and updates query",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "theme selection is stored locally",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "theme preference survives page reload without query",
+      "pass": true
+    },
+    {
+      "variant": "v2",
+      "check": "explicit query overrides saved preference",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "explicit theme query applies on load",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "mobile drawer",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "navigation closes drawer",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "modal opens and focuses",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "Escape closes dialog",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "skip link focuses main content",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "builder adds stage",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "builder adds field group",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "required fields reject empty form",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "theme toggle preserves form and DOM",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "theme toggle exposes pressed state",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "theme change preserves open modal and draft",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "theme change preserves hash and updates query",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "theme selection is stored locally",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "theme preference survives page reload without query",
+      "pass": true
+    },
+    {
+      "variant": "v3",
+      "check": "explicit query overrides saved preference",
+      "pass": true
+    },
+    {
+      "check": "gallery selects variant, screen, width and theme",
+      "pass": true
+    },
+    {
+      "check": "gallery search",
+      "pass": true
+    },
+    {
+      "check": "gallery theme toggle preserves iframe",
+      "pass": true
+    },
+    {
+      "check": "gallery theme propagates to preview and full-size URL",
+      "pass": true
+    }
+  ],
+  "screenshots": [
+    "v1/previews/dark/dashboard-390.png",
+    "v1/previews/dark/requests-390.png",
+    "v1/previews/dark/request-object-390.png",
+    "v1/previews/dark/work-builder-390.png",
+    "v1/previews/dark/dashboard-768.png",
+    "v1/previews/dark/requests-768.png",
+    "v1/previews/dark/request-object-768.png",
+    "v1/previews/dark/work-builder-768.png",
+    "v1/previews/dark/dashboard-1024.png",
+    "v1/previews/dark/requests-1024.png",
+    "v1/previews/dark/request-object-1024.png",
+    "v1/previews/dark/work-builder-1024.png",
+    "v1/previews/dark/dashboard-1440.png",
+    "v1/previews/dark/requests-1440.png",
+    "v1/previews/dark/request-object-1440.png",
+    "v1/previews/dark/work-builder-1440.png",
+    "v1/previews/dark/dashboard-1920.png",
+    "v1/previews/dark/requests-1920.png",
+    "v1/previews/dark/request-object-1920.png",
+    "v1/previews/dark/work-builder-1920.png",
+    "v2/previews/dark/dashboard-390.png",
+    "v2/previews/dark/requests-390.png",
+    "v2/previews/dark/request-object-390.png",
+    "v2/previews/dark/work-builder-390.png",
+    "v2/previews/dark/dashboard-768.png",
+    "v2/previews/dark/requests-768.png",
+    "v2/previews/dark/request-object-768.png",
+    "v2/previews/dark/work-builder-768.png",
+    "v2/previews/dark/dashboard-1024.png",
+    "v2/previews/dark/requests-1024.png",
+    "v2/previews/dark/request-object-1024.png",
+    "v2/previews/dark/work-builder-1024.png",
+    "v2/previews/dark/dashboard-1440.png",
+    "v2/previews/dark/requests-1440.png",
+    "v2/previews/dark/request-object-1440.png",
+    "v2/previews/dark/work-builder-1440.png",
+    "v2/previews/dark/dashboard-1920.png",
+    "v2/previews/dark/requests-1920.png",
+    "v2/previews/dark/request-object-1920.png",
+    "v2/previews/dark/work-builder-1920.png",
+    "v3/previews/dark/dashboard-390.png",
+    "v3/previews/dark/requests-390.png",
+    "v3/previews/dark/request-object-390.png",
+    "v3/previews/dark/work-builder-390.png",
+    "v3/previews/dark/dashboard-768.png",
+    "v3/previews/dark/requests-768.png",
+    "v3/previews/dark/request-object-768.png",
+    "v3/previews/dark/work-builder-768.png",
+    "v3/previews/dark/dashboard-1024.png",
+    "v3/previews/dark/requests-1024.png",
+    "v3/previews/dark/request-object-1024.png",
+    "v3/previews/dark/work-builder-1024.png",
+    "v3/previews/dark/dashboard-1440.png",
+    "v3/previews/dark/requests-1440.png",
+    "v3/previews/dark/request-object-1440.png",
+    "v3/previews/dark/work-builder-1440.png",
+    "v3/previews/dark/dashboard-1920.png",
+    "v3/previews/dark/requests-1920.png",
+    "v3/previews/dark/request-object-1920.png",
+    "v3/previews/dark/work-builder-1920.png",
+    "previews/catalog-dark.png"
+  ],
+  "exceptions": [],
+  "passed": true
+}

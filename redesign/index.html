@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Каталог экранов · Контур · Сервис Трек</title>
+  <link rel="icon" type="image/svg+xml" href="shared/logo.svg">
+  <script src="shared/theme.js"></script>
+  <link rel="stylesheet" href="shared/gallery.css">
+  <link rel="stylesheet" href="shared/gallery-dark.css">
+  <script defer src="shared/core.js"></script>
+  <script defer src="shared/work-screens.js"></script>
+  <script defer src="shared/admin-screens.js"></script>
+  <script defer src="shared/system-screens.js"></script>
+  <script defer src="shared/gallery.js"></script>
+</head>
+<body>
+  <header class="gallery-header">
+    <a class="gallery-brand" href="index.html"><img class="brand-mark" src="shared/logo.svg" width="34" height="34" alt="">Сервис Трек</a>
+    <span class="brand-project">Контур</span>
+    <a class="guide-link" href="README.md">О макетах</a>
+  </header>
+  <main class="studio">
+    <aside class="screen-browser">
+      <header class="browser-heading">
+        <h1>Каталог экранов</h1>
+        <button id="browse-toggle" type="button" aria-expanded="false" aria-controls="browse-panel">Выбрать экран</button>
+      </header>
+      <div id="browse-panel">
+        <label class="screen-search">
+          <span>Поиск по каталогу</span>
+          <input id="screen-search" placeholder="Название или раздел" type="search">
+        </label>
+        <p id="screen-count" role="status"></p>
+        <nav id="screen-list" aria-label="Каталог экранов"></nav>
+      </div>
+    </aside>
+    <section class="preview-area" aria-labelledby="preview-title">
+      <div class="preview-heading">
+        <div><p id="preview-group">Обзор</p><h2 id="preview-title">Обзор работ</h2></div>
+        <a id="open-screen" href="v1/index.html#dashboard" target="_blank" rel="noopener">Открыть макет <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="preview-toolbar">
+        <div class="device-control">
+          <span id="width-label">Ширина, px</span>
+          <div class="device-buttons" role="group" aria-labelledby="width-label">
+            <button data-width="390">390</button><button data-width="768">768</button><button data-width="1024">1024</button><button data-width="1440">1440</button><button data-width="1920">1920</button>
+          </div>
+        </div>
+        <button type="button" class="gallery-theme-toggle" data-theme-toggle aria-label="Тёмная тема" aria-pressed="false"></button>
+      </div>
+      <div class="canvas">
+        <div class="preview-caption"><span>Предпросмотр</span><span id="preview-scale"></span></div>
+        <div id="preview-stage"><div id="frame-holder"><iframe id="preview-frame" title="Интерактивный макет Сервис Трек"></iframe></div></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
